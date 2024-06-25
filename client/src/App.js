@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePages from './Pages/HomePage';  // Correct path and filename
-import RegisterPage from './pages/RegisterPage';  // Correct path and filename
+import HomePage from './Pages/HomePage';  // Correct path and filename
+import RegisterPage from './Pages/RegisterPage';  // Correct path and filename
 import LoginPage from './Pages/LoginPage';  // Correct path and filename
 
 function App() {
@@ -9,9 +9,9 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="/" element={<HomePages />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPge />} /> 
+          <Route path="/login" element={<LoginPage />} /> 
         </Routes>
       </Router>
     </div>
