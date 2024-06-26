@@ -30,14 +30,16 @@ const RegisterPage = () => {
           name='confirmpassword'
           required
           />
-          <input type="file" 
+          <input 
+           id='image'
+           type="file" 
            name='profileImage' accept='image/*'
            style={{display:"none"}}
            required
            />
-           <label>
-            <img src="" alt="" />
-
+           <label htmlFor='image'>
+            <img src="/assets/addImage.png" alt="add profile pic" />
+            <p>Upload Your Photo</p>
            </label>
            
          </form>
