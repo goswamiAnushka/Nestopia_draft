@@ -1,4 +1,6 @@
 import React from 'react'
+import  { useState } from 'react';
+
 import "../styles/Register.scss"
 
 const RegisterPage = () => {
@@ -9,7 +11,16 @@ const RegisterPage = () => {
     confirmPassword:"",
     profileImage: null
   });
-   console.log(formData)
+   const handleChange= (e) => {
+     const {name,value,files}=e.target
+     setFormData({
+      ...formData,
+      [name]:value,
+      [name]:name==='profileImage' ? files[0] : value
+
+
+     })
+   }
    return (
     <div className='register'>
       <div className='register_content'>
@@ -18,38 +29,43 @@ const RegisterPage = () => {
           placeholder='First Name'
           name='firstName'
           value={formData.firstName}
+          onChange={handleChange}
           required
           />
           <input type="text" 
           placeholder='Last Name'
           name='lastName'
           value={formData.lastName}
+          onChange={handleChange}
           required
           />
           <input type="email" 
           placeholder='Email'
           name='email'
           value={formData.email}
+          onChange={handleChange}
           required
           />
           <input type="password" 
           placeholder='Password'
           name='password'
           value={formData.password}
+          onChange={handleChange}
           required
           />
           <input type="password" 
           placeholder='Confirm Password'
           name='confirmPassword'
           value={formData.confirmPassword}
+          onChange={handleChange}
           required
           />
           <input 
            id='image'
            type="file" 
            name='profileImage' accept='image/*'
-        
            style={{display:"none"}}
+           onChange={handleChange}
            required
            />
            <label htmlFor='image'>
