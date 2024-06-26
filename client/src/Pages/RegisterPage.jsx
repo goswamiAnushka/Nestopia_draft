@@ -2,39 +2,53 @@ import React from 'react'
 import "../styles/Register.scss"
 
 const RegisterPage = () => {
-  return (
+  const [formData,setFormData]= useState({firstName:"",
+    lastName:"",
+    email:"",
+    password:"",
+    confirmPassword:"",
+    profileImage: null
+  });
+   console.log(formData)
+   return (
     <div className='register'>
       <div className='register_content'>
          <form className="register_content_form">
           <input type="text" 
           placeholder='First Name'
-          name='firstname'
+          name='firstName'
+          value={formData.firstName}
           required
           />
           <input type="text" 
           placeholder='Last Name'
-          name='lastname'
+          name='lastName'
+          value={formData.lastName}
           required
           />
           <input type="email" 
           placeholder='Email'
           name='email'
+          value={formData.email}
           required
           />
           <input type="password" 
           placeholder='Password'
           name='password'
+          value={formData.password}
           required
           />
           <input type="password" 
           placeholder='Confirm Password'
-          name='confirmpassword'
+          name='confirmPassword'
+          value={formData.confirmPassword}
           required
           />
           <input 
            id='image'
            type="file" 
            name='profileImage' accept='image/*'
+        
            style={{display:"none"}}
            required
            />
