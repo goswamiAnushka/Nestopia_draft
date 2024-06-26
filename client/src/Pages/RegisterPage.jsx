@@ -41,7 +41,7 @@ const RegisterPage = () => {
             <img src="/assets/addImage.png" alt="add profile pic" />
             <p>Upload Your Photo</p>
            </label>
-           
+           <button type='submit'>REGISTER</button>
          </form>
          <a href='/login'>Already Have an account?Log in Here</a>
       </div>
