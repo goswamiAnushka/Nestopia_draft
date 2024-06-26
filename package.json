@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@mui/icons-material": "^5.15.20",
-    "@mui/material": "^5.15.20",
-    "react-router-dom": "^6.24.0",
-    "sass": "^1.77.6"
-  }
-}
