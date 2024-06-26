@@ -1,4 +1,5 @@
 import React from 'react'
+import "../styles/Register.scss"
 
 const RegisterPage = () => {
   return (
