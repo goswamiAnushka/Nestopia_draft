@@ -5,7 +5,7 @@ const RegisterPage = () => {
   return (
     <div className='register'>
       <div className='register_content'>
-         <form action="">
+         <form className="register_content_form">
           <input type="text" 
           placeholder='First Name'
           name='firstname'
@@ -44,7 +44,7 @@ const RegisterPage = () => {
            </label>
            <button type='submit'>REGISTER</button>
          </form>
-         <a href='/login'>Already Have an account?Log in Here</a>
+         <a href='/login'>Already Have an account? Log in Here</a>
       </div>
     
     </div>
