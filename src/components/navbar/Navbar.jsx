@@ -2,7 +2,7 @@ import "./navbar.scss"
 function Navbar() {
     return (
         <nav>
-          <div className="left">left</div>
+          <div className="left">
           <a href="/">
           <img src="/logo.png" alt="" />
           <span>Nestopia</span>
@@ -11,7 +11,12 @@ function Navbar() {
           <a href="/">About</a>
           <a href="/">Contact</a>
           <a href="/">Agents</a>
-          <div className="right">Right</div>
+          </div>
+          <div className="right">
+          <a href="/">Sign-in</a>
+          <a href="/">Sign-up</a>
+
+          </div>
         
         </nav>
     )
