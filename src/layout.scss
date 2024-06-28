@@ -1,3 +1,4 @@
+@import "./responsive.scss";
 .layout{
    background-color: pink; 
    height:100vh;
@@ -6,4 +7,8 @@
    margin-right:auto;
    padding-left: 20px;
    padding-right: 20px;
+
+   @include sm{
+    background-color: red;
+   }
 }
