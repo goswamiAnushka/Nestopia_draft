@@ -1,3 +1,4 @@
+import Navbar from "./components/Navbar"
 import "./layout.scss"
 function App() {
   return (
@@ -7,4 +8,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
