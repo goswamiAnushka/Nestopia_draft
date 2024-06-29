@@ -8,7 +8,7 @@
 
     .imgContainer {
         flex: 2;
-        background-color: #bdee69;
+        background-color: #fbe4e8;
         position: relative;
         display: flex;
         align-items: center;
@@ -19,8 +19,6 @@
             height: 100%;
             position: absolute;
             right:0;
-            opacity: 0.8; // Slightly transparent
-            z-index: 1; // Background image at lower z-index
         }
 
     }
