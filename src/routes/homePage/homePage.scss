@@ -7,6 +7,15 @@
     }
 
     .imgContainer{
-        flex:3;
-    }
+        flex:2;
+        background-color:#bdee69;
+        position:relative;
+        display: flex;
+
+    img{
+    width: 115%;
+    position: absolute;
+    right: 0;
+}
+}
 }
