@@ -1,11 +1,11 @@
-import './homePage.scss'; // Make sure the file path matches the actual file name and location
+import './homePage.scss'; // Ensure the file path is correct
 
 function HomePage() {
     return (
         <div className="homePage">
             <div className="textContainer">text</div>
             <div className="imgContainer">
-                <img src="/bg.png" alt="" />
+                <img src="/bg.png" alt="" className="bg" />
             </div>
         </div>
     );
