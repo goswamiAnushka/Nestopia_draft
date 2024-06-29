@@ -1,10 +1,10 @@
-import React from 'react'
 import './homePage.scss'
-
-function homePage(){
-  return (
-    <div className='homePage'>homePage</div>
-  )
+ function HomePage(){
+    return(
+        <div className="homePage">
+            <div className="textContainer">text</div>
+             <div className="imgContainer">img</div>
+            </div>
+    )
 }
-
-export default homePage
+export default HomePage
