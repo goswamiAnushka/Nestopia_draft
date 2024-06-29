@@ -12,13 +12,13 @@ nav{
         
         .logo{
             font-weight: bold;
-            font-size: 20px;
+            font-size:20px;
             display: flex;
             gap: 10px;
             align-items: center;
 
             img{
-                width:28px;
+                width:50px;
             }
         }
     }
@@ -28,8 +28,15 @@ nav{
         display:flex;
         align-items: center;
         justify-content: flex-end;
-        background-color: rgb(243, 172, 243);
-
+        background-color: rgb(208, 230, 234);
+        height:100%;
         
+        a{
+            padding:12px 24px;
+            margin:20px;
+        }
+        .register{
+            background-color: #fece51;
+        }
     }
 }
