@@ -3,6 +3,14 @@ nav{
     justify-content:space-between;
     align-items:center;
     height: 100px;
+    
+    a{
+        transition: all 0.4s ease;
+    
+
+    &:hover{
+        scale:1.05s;
+    }
 
     .left{
         flex: 3;
