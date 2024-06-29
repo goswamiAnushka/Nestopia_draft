@@ -3,7 +3,7 @@ function Navbar() {
     return (
         <nav>
           <div className="left">
-          <a href="/">
+          <a href="/" className="logo">
           <img src="/logo.png" alt="" />
           <span>Nestopia</span>
           </a>
