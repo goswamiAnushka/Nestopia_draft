@@ -1,10 +1,12 @@
 import './homePage.scss'
- function HomePage(){
+
+function homePage(){
     return(
         <div className="homePage">
             <div className="textContainer">text</div>
-             <div className="imgContainer">img</div>
-            </div>
+            <div className="imgContainer">img</div>
+            
+        </div>
     )
 }
-export default HomePage
+export default homePage

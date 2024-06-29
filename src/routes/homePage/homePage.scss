@@ -1,0 +1,12 @@
+.homePage{
+    display: flex;
+    height:100%;
+
+    .textContainer{
+        flex:3;
+    }
+
+    .imgContainer{
+        flex:3;
+    }
+}
