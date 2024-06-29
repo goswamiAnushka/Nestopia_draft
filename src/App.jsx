@@ -1,6 +1,10 @@
 import Navbar from "./components/navbar/Navbar"
-import Navbar from "./components/homePage/homePge"
 import "./layout.scss"
+import HomePage from './routes/homePage/homePage' // Adjust the path based on your project structure
+
+
+
+
 function App() {
   return (
     <div className="layout" >
@@ -8,7 +12,7 @@ function App() {
       <Navbar/>
       </div>
       <div className="content">
-      <homePage/>
+      <HomePage/>
     </div>
     </div>
   )

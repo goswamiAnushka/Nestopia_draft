@@ -1,12 +1,12 @@
-import './homePage.scss'
+import './homePage.scss'; // Make sure the file path matches the actual file name and location
 
-function homePage(){
-    return(
+function HomePage() {
+    return (
         <div className="homePage">
             <div className="textContainer">text</div>
             <div className="imgContainer">img</div>
-            
         </div>
-    )
+    );
 }
-export default homePage
+
+export default HomePage;
