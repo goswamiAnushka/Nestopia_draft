@@ -51,11 +51,11 @@ nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color:white;
+    background-color: #fcf5f3;
     height: 100%;
 
     @include md {
-      background-color: white;
+      background-color: transparent;
     }
 
     a {
@@ -129,8 +129,8 @@ nav {
       position: absolute;
       top: 0;
       right: -50%;
-      background-color:#f1f864; 
-      color: rgb(8, 8, 8);
+      background-color: black;
+      color: white;
       height: 100vh;
       width: 50%;
       transition: all 1s ease;
