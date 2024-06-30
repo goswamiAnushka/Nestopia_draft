@@ -15,15 +15,15 @@
       gap: 50px;
       height: 100%;
 
-      @include lg {
+      @include lg{
         padding-right: 50px;
       }
 
-      @include md {
+      @include md{
         padding: 0;
       }
 
-      @include sm {
+      @include sm{
         justify-content: flex-start;
       }
 
@@ -38,28 +38,22 @@
       .boxes {
         display: flex;
         justify-content: space-between;
-        gap: 20px; // Added gap for better spacing between boxes
 
-        @include md {
-          flex-direction: column; // Stack boxes vertically on small screens
-          align-items: center;
+        @include sm {
+          display: none;
         }
 
-        .box {
-          text-align: center; // Center text within each box
+        h1 {
+          font-size: 36px;
 
-          h1 {
-            font-size: 36px;
-
-            @include lg {
-              font-size: 32px;
-            }
+          @include lg {
+            font-size: 32px;
           }
+        }
 
-          h2 {
-            font-size: 20px;
-            font-weight: 300;
-          }
+        h2 {
+          font-size: 20px;
+          font-weight: 300;
         }
       }
     }
@@ -67,7 +61,7 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #ffffff;
+    background-color: #fcf5f3;
     position: relative;
     display: flex;
     align-items: center;
@@ -76,15 +70,13 @@
       display: none;
     }
 
-    .bg {
-      width: 112%;
-      height: 100%;
+    img {
+      width: 115%;
       position: absolute;
       right: 0;
 
       @include lg {
-        width: 112%;
-        height: 100%;
+        width: 105%;
       }
     }
   }

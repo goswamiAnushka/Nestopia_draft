@@ -28,18 +28,18 @@ function App() {
           path:"/:id",
           element:<SinglePage/>
         },
-        /*{
+        {
           path:"/profile",
           element:<ProfilePage/>
-        }*/
+        },
         {
           path:"/login",
           element:<Login/>
         },
-        /*{
+        {
           path:"/register",
           element:<Register/>
-        }*/
+        }
       ]
     }
   ]);
