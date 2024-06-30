@@ -40,7 +40,7 @@
         justify-content: space-between;
         gap: 20px; // Added gap for better spacing between boxes
 
-        @include sm {
+        @include md {
           flex-direction: column; // Stack boxes vertically on small screens
           align-items: center;
         }
@@ -67,7 +67,7 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #fcf5f3;
+    background-color: #ffffff;
     position: relative;
     display: flex;
     align-items: center;
@@ -77,13 +77,13 @@
     }
 
     .bg {
-      width: 120%;
+      width: 112%;
       height: 100%;
       position: absolute;
       right: 0;
 
       @include lg {
-        width: 115%;
+        width: 112%;
         height: 100%;
       }
     }
