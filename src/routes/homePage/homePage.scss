@@ -75,10 +75,11 @@
       position: absolute;
       right: 0;
       left:0;
-
+    
       @include lg {
         width:130%;
         height:100%;
+        right:0;
       }
     }
   }
