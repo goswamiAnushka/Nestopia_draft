@@ -15,15 +15,15 @@
       gap: 50px;
       height: 100%;
 
-      @include lg{
+      @include lg {
         padding-right: 50px;
       }
 
-      @include md{
+      @include md {
         padding: 0;
       }
 
-      @include sm{
+      @include sm {
         justify-content: flex-start;
       }
 
@@ -70,16 +70,15 @@
       display: none;
     }
 
-    .bg {
-      width: 125%;
+    img {
+      width: 115%; // Ensure the image covers the width of the container
+      height: 105%; // Ensure the image covers the height of the container
+      object-fit:flex; // Ensure the image covers the container without stretching
       position: absolute;
       right: 0;
-      left:0;
-    
+
       @include lg {
-        width:130%;
-        height:100%;
-        right:0;
+        width: 100%; // Adjust the width for large screens
       }
     }
   }
