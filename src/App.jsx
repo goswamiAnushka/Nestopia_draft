@@ -6,9 +6,9 @@ import {
 import ListPage from "./routes/listPage/listPage";
 import Layout from "./routes/layout/layout";
 import SinglePage from "./routes/singlePage/singlePage";
-//import ProfilePage from "./routes/profilePage/profilePage";
+import ProfilePage from "./routes/profilePage/profilePage";
 import Login from "./routes/login/login";
-//import Register from "./routes/register/register";
+import Register from "./routes/register/register";
 
 function App() {
   const router = createBrowserRouter([
