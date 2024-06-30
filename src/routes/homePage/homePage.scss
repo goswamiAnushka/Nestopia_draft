@@ -70,13 +70,15 @@
       display: none;
     }
 
-    img {
-      width: 115%;
+    .bg {
+      width: 125%;
       position: absolute;
       right: 0;
+      left:0;
 
       @include lg {
-        width: 105%;
+        width:130%;
+        height:100%;
       }
     }
   }
