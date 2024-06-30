@@ -25,7 +25,7 @@ function Navbar() {
               src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
               alt=""
             />
-            <span>John Doe</span>
+            <span>Anushka</span>
             <Link to="/profile" className="profile">
               <div className="notification">3</div>
               <span>Profile</span>

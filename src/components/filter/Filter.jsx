@@ -4,7 +4,7 @@ function Filter() {
   return (
     <div className="filter">
       <h1>
-        Search results for <b>London</b>
+        Search results for <b>India</b>
       </h1>
       <div className="top">
         <div className="item">
