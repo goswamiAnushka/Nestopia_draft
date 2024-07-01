@@ -1,0 +1,73 @@
+@import "../../responsive.scss";
+
+.agents {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 50px;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .agentList {
+      display: flex;
+      gap: 20px;
+
+      .agent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        img {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-bottom: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+          font-size: 1.5rem;
+          margin-bottom: 5px;
+        }
+
+        p {
+          font-size: 1rem;
+          color: #777;
+        }
+      }
+    }
+
+    @include md {
+      padding: 10px;
+
+      .agentList {
+        flex-direction: column;
+      }
+    }
+  }
+}
