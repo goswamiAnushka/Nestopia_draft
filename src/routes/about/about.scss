@@ -3,7 +3,7 @@
 .about-page {
   .hero-section {
     position: relative;
-    height: 60vh;
+    height: 40vh;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -27,11 +27,27 @@
       .title {
         font-size: 3rem;
         margin-bottom: 10px;
+
+        @include md {
+          font-size: 2.5rem;
+        }
+
+        @include sm {
+          font-size: 2rem;
+        }
       }
 
       .subtitle {
         font-size: 1.5rem;
         margin-bottom: 20px;
+
+        @include md {
+          font-size: 1.2rem;
+        }
+
+        @include sm {
+          font-size: 1rem;
+        }
       }
     }
 
@@ -52,17 +68,29 @@
     .text-container {
       max-width: 800px;
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 30px;
 
       h2 {
         font-size: 2rem;
         margin-bottom: 20px;
+
+        @include md {
+          font-size: 1.75rem;
+        }
+
+        @include sm {
+          font-size: 1.5rem;
+        }
       }
 
       p {
         font-size: 1rem;
         line-height: 1.6;
         margin-bottom: 20px;
+
+        @include sm {
+          font-size: 0.9rem;
+        }
       }
     }
 
@@ -71,6 +99,11 @@
       justify-content: space-around;
       width: 100%;
       max-width: 800px;
+      margin-bottom: 30px;
+
+      @include md {
+        flex-wrap: wrap;
+      }
 
       .stat {
         background: #ffffff;
@@ -78,15 +111,30 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
+        margin-bottom: 20px;
+        flex: 1;
+        min-width: 200px;
 
         h3 {
           font-size: 2rem;
           margin-bottom: 10px;
+
+          @include md {
+            font-size: 1.75rem;
+          }
+
+          @include sm {
+            font-size: 1.5rem;
+          }
         }
 
         p {
           font-size: 1rem;
           color: #555;
+
+          @include sm {
+            font-size: 0.9rem;
+          }
         }
       }
     }
@@ -102,19 +150,122 @@
       padding: 15px 30px;
       font-size: 1rem;
       color: #fff;
-      background-color: #007bff;
+      background-color: #dc3545; /* Red color for contrast */
       border: none;
       border-radius: 5px;
       cursor: pointer;
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: #0056b3;
+        background-color: #c82333; /* Darker red on hover */
+      }
+
+      @include sm {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @include sm {
+    .about-content {
+      padding: 30px 10px;
+
+      .text-container {
+        margin-bottom: 20px;
+
+        h2 {
+          font-size: 1.5rem;
+          margin-bottom: 15px;
+        }
+
+        p {
+          font-size: 0.9rem;
+          margin-bottom: 15px;
+        }
+      }
+
+      .stats-container {
+        .stat {
+          min-width: 150px;
+
+          h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+          }
+
+          p {
+            font-size: 0.8rem;
+          }
+        }
+      }
+
+      .call-to-action {
+        padding: 15px;
+
+        .btn {
+          padding: 10px 20px;
+          font-size: 0.9rem;
+        }
       }
     }
   }
 
   @include md {
+    .hero-section {
+      height: 50vh;
+
+      .overlay {
+        .title {
+          font-size: 2.5rem;
+        }
+
+        .subtitle {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .about-content {
+      padding: 40px 20px;
+
+      .text-container {
+        margin-bottom: 25px;
+
+        h2 {
+          font-size: 1.75rem;
+          margin-bottom: 15px;
+        }
+
+        p {
+          font-size: 0.95rem;
+          margin-bottom: 15px;
+        }
+      }
+
+      .stats-container {
+        .stat {
+          h3 {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+          }
+
+          p {
+            font-size: 0.95rem;
+          }
+        }
+      }
+
+      .call-to-action {
+        .btn {
+          padding: 12px 24px;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  @include lg {
     .hero-section {
       height: 40vh;
 
@@ -131,6 +282,8 @@
 
     .about-content {
       .text-container {
+        max-width: 600px;
+
         h2 {
           font-size: 1.5rem;
         }
@@ -141,9 +294,6 @@
       }
 
       .stats-container {
-        flex-direction: column;
-        gap: 20px;
-
         .stat {
           h3 {
             font-size: 1.5rem;
@@ -154,12 +304,11 @@
           }
         }
       }
-    }
 
-    .call-to-action {
-      .btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
+      .call-to-action {
+        .btn {
+          font-size: 0.9rem;
+        }
       }
     }
   }
