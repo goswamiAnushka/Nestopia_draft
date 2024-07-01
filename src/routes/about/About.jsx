@@ -15,13 +15,9 @@ function About() {
     const propertiesCountUp = new CountUp(propertiesRef.current, 1000, { duration: 2 });
     const clientsCountUp = new CountUp(clientsRef.current, 500, { duration: 2 });
 
-    if (yearsCountUp && propertiesCountUp && clientsCountUp) {
-      yearsCountUp.start();
-      propertiesCountUp.start();
-      clientsCountUp.start();
-    } else {
-      console.error("Error initializing CountUp");
-    }
+    if (!yearsCountUp.error) yearsCountUp.start();
+    if (!propertiesCountUp.error) propertiesCountUp.start();
+    if (!clientsCountUp.error) clientsCountUp.start();
   }, []);
 
   return (
