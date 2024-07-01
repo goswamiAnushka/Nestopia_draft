@@ -1,52 +1,67 @@
-import HomePage from "./routes/homePage/homePage";
+import React from 'react';
 import {
   createBrowserRouter,
   RouterProvider,
-} from "react-router-dom";
-import ListPage from "./routes/listPage/listPage";
-import Layout from "./routes/layout/layout";
-import SinglePage from "./routes/singlePage/singlePage";
-import ProfilePage from "./routes/profilePage/profilePage";
-import Login from "./routes/login/login";
-import Register from "./routes/register/register";
+} from 'react-router-dom';
+import Layout from './routes/layout/layout';
+import HomePage from './routes/homePage/homePage';
+import ListPage from './routes/listPage/listPage';
+import SinglePage from './routes/singlePage/singlePage';
+import ProfilePage from './routes/profilePage/profilePage';
+import Login from './routes/login/login';
+import Register from './routes/register/register';
+import About from './routes/about/about';
+import Contact from './routes/contact/contact';
+import Agents from './routes/agents/agents';
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Layout />,
-      children:[
+      children: [
         {
-          path:"/",
-          element:<HomePage/>
+          path: '/',
+          element: <HomePage />
         },
         {
-          path:"/list",
-          element:<ListPage/>
+          path: '/list',
+          element: <ListPage />
         },
         {
-          path:"/:id",
-          element:<SinglePage/>
+          path: '/:id',
+          element: <SinglePage />
         },
         {
-          path:"/profile",
-          element:<ProfilePage/>
+          path: '/profile',
+          element: <ProfilePage />
         },
         {
-          path:"/login",
-          element:<Login/>
+          path: '/login',
+          element: <Login />
         },
         {
-          path:"/register",
-          element:<Register/>
+          path: '/register',
+          element: <Register />
+        },
+        {
+          path: '/about',
+          element: <About />
+        },
+        {
+          path: '/contact',
+          element: <Contact />
+        },
+        {
+          path: '/agents',
+          element: <Agents />
         }
       ]
     }
   ]);
 
   return (
-
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   );
 }
 
