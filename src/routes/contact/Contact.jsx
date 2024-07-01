@@ -1,24 +1,43 @@
 import React from 'react';
+import { FiUser, FiMail } from 'react-icons/fi'; // Import icons from react-icons
 import './contact.scss';
 
-function Contact() {
+const Contact = () => {
   return (
-    <div className="contact">
-      <div className="textContainer">
-        <h1>Contact Us</h1>
-        <p>If you have any questions or need assistance, feel free to reach out to us. Our team is here to help you with all your real estate needs.</p>
-        <form className="contactForm">
-          <input type="text" placeholder="Your Name" />
-          <input type="email" placeholder="Your Email" />
-          <textarea placeholder="Your Message"></textarea>
-          <button type="submit">Send Message</button>
-        </form>
-      </div>
-      <div className="imgContainer">
-        <img src="/contact-image.jpg" alt="Contact Us" />
-      </div>
+    <div className="container">
+      <form>
+        <h1 className="title">Talk to Us</h1>
+
+        {/* Name */}
+        <div className="form-group">
+          <label htmlFor="formName">
+            <FiUser className="icon" />
+          </label>
+          <input type="text" id="formName" className="form-control form-control-lg thick" placeholder="Name" />
+        </div>
+
+        {/* E-mail */}
+        <div className="form-group">
+          <label htmlFor="formEmail">
+            <FiMail className="icon" />
+          </label>
+          <input type="email" id="formEmail" className="form-control form-control-lg thick" placeholder="E-mail" />
+        </div>
+
+        {/* Message */}
+        <div className="form-group message">
+          <textarea id="formMessage" className="form-control form-control-lg" rows="7" placeholder="Message"></textarea>
+        </div>
+
+        {/* Submit btn */}
+        <div className="text-center">
+          <button type="submit" className="btn btn-primary">
+            Send message
+          </button>
+        </div>
+      </form>
     </div>
   );
-}
+};
 
 export default Contact;

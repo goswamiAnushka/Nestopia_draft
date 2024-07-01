@@ -1,80 +1,108 @@
-@import "../../responsive.scss";
+@import '../../responsive.scss'; // Import your responsive mixins
 
-.contact {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.container {
   height: 100vh;
-  padding: 50px;
-  background: linear-gradient(to right, #e9ecef, #dee2e6);
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
 
-  .textContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    background: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+form {
+  min-width: 10rem;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-    }
+  .title {
+    font-family: 'Pacifico', cursive;
+    color: #212529;
+    font-size: 2.5rem;
+    text-align: center;
+  }
 
-    p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+  .form-group {
+    position: relative;
+    margin-bottom: 2.8rem;
 
-    .contactForm {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
+    label {
+      display: block;
 
-      input, textarea {
-        padding: 15px;
-        font-size: 1rem;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+      .icon {
+        color: #57565c;
+        height: 1.3rem;
+        position: absolute;
+        left: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
       }
+    }
 
-      button {
-        padding: 15px;
-        font-size: 1rem;
-        background-color: #007bff;
-        color: white;
+    .form-control {
+      background-color: #f2f6f8;
+      border-radius: 2rem;
+      border: none;
+      box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.11);
+      padding: 0.5rem 3.5rem;
+      font-family: 'Quicksand', sans-serif;
+      color: #212529;
+      font-size: 1.1rem;
+      width: 100%;
+
+      &:focus {
+        background-color: #f2f6f8;
         border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-          background-color: #0056b3;
-        }
+        box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.11);
       }
     }
   }
 
-  .imgContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .message .form-control {
+    padding: 0.3rem 1.5rem;
+  }
 
-    img {
-      width: 80%;
-      height: auto;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  ::placeholder {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: #838788;
+    position: relative;
+    left: 0;
+  }
+
+  .btn.btn-primary {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    height: 2rem;
+    line-height: 1.5rem;
+    padding: 0 3rem;
+    border: 0;
+    border-radius: 2rem;
+    background-image: linear-gradient(131deg, #ffd340, #ff923c, #ff923c, #ff923c);
+    background-size: 300% 100%;
+    transition: all 0.3s ease-in-out;
+
+    &:hover:enabled {
+      box-shadow: 0 0.5em 0.5em -0.4em #ff923cba;
+      background-size: 100% 100%;
+      transform: translateY(-0.15em);
+    }
+  }
+
+  @include sm {
+    form {
+      min-width: 12rem;
     }
   }
 
   @include md {
-    grid-template-columns: 1fr;
-    padding: 20px;
+    form {
+      min-width: 20rem;
+    }
+  }
 
-    .imgContainer {
-      display: none;
+  @include lg {
+    form {
+      min-width: 25rem;
     }
   }
 }
