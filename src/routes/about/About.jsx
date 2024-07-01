@@ -29,11 +29,16 @@ function About() {
   return (
     <div className="about-page">
       <div className="hero-section">
-        <div className="overlay">
-          <h1 className="title">About Us</h1>
-          <p className="subtitle">Your trusted partner in real estate</p>
-        </div>
-        <img src="/bg2.png" alt="About Us" className="hero-image" />
+        <Carousel showThumbs={false} autoPlay interval={5000} infiniteLoop useKeyboardArrows transitionTime={1000}>
+          <div>
+            <img src="/bg2.png" alt="About Us" className="hero-image" />
+            <div className="overlay">
+              <h1 className="title">About Us</h1>
+              <p className="subtitle">Your trusted partner in real estate</p>
+            </div>
+          </div>
+          {/* Add more slides as needed */}
+        </Carousel>
       </div>
       <div className="about-content">
         <div className="text-container">
