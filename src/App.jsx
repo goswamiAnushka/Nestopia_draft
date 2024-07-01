@@ -10,9 +10,9 @@ import SinglePage from './routes/singlePage/singlePage';
 import ProfilePage from './routes/profilePage/profilePage';
 import Login from './routes/login/login';
 import Register from './routes/register/register';
-import About from './routes/about/about';
-import Contact from './routes/contact/contact';
-import Agents from './routes/agents/agents';
+import About from './routes/about/About';
+import Contact from './routes/contact/Contact';
+import Agents from './routes/agents/Agents';
 
 function App() {
   const router = createBrowserRouter([
