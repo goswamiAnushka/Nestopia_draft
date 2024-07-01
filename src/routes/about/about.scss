@@ -33,7 +33,7 @@
       .title {
         font-size: 2rem;
         font-weight: 700;
-        margin-bottom:20px;
+        margin-bottom: 20px;
 
         @include sm {
           font-size: 1rem;
@@ -60,10 +60,11 @@
   }
 
   .about-content {
-    padding:20px 10px;
+    padding: 20px 10px;
     display: flex;
     flex-direction: row;
-    //justify-content: space-between;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-top: 0px;
 
     @include sm {
@@ -73,18 +74,19 @@
 
     .text-container {
       flex: 1;
-    
+      max-width: 600px;
 
       @include sm {
         padding-right: 0;
         text-align: center;
+        max-width: 100%;
+        margin-bottom: 20px;
       }
 
       h2 {
         font-size: 2rem;
         color: #012444;
         margin-bottom: 1.5rem;
-
 
         @include sm {
           font-size: 1.2rem;
@@ -103,26 +105,32 @@
     }
 
     .stats-container {
-      flex:0.5;
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      margin-left: 0; // Adjusted margin for smaller screens
 
       @include sm {
-        width: 100%;
+        margin-top: 10px;
+        flex-direction: row;
+        justify-content: center;
       }
 
       .stat {
         background: #f4f4f4;
         border-radius: 3px;
-        padding: 1.2rem;
-        margin: 0.5rem 0;
+        padding: 0.8rem;
+        margin: 0.5rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s;
+        text-align: center;
+        min-width: 150px;
 
         @include sm {
-          width: 60%;
+          width: calc(50% - 10px);
+          max-width: 250px;
         }
 
         &:hover {
@@ -130,21 +138,21 @@
         }
 
         h3 {
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           color: #004d99;
           margin-bottom: 0.5rem;
 
           @include sm {
-            font-size: 1.25rem;
+            font-size: 1rem;
           }
         }
 
         p {
-          font-size: 1rem;
+          font-size: 0.9rem;
           color: #777;
 
           @include sm {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
           }
         }
       }
@@ -153,10 +161,10 @@
 
   .call-to-action {
     text-align: center;
-    margin: 2rem 0;
+    margin-top: 2rem;
 
     @include sm {
-      margin: 1rem 0;
+      margin-top: 1rem;
     }
 
     .contact-icons {
@@ -203,3 +211,5 @@
     }
   }
 }
+
+

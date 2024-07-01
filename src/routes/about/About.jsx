@@ -65,6 +65,25 @@ function About() {
           <h2>Our Story</h2>
           <p>With over 16 years of excellence, we have been committed to helping you find the perfect home. Our award-winning services and extensive property listings make us a trusted name in real estate.</p>
           <p>We believe in providing exceptional customer service, and our team of experts is dedicated to making your home buying or selling experience as smooth as possible.</p>
+          <div className="call-to-action">
+            <div className="contact-icons">
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faLinkedin} className="icon" />
+              </a>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faGithub} className="icon" />
+              </a>
+              <a href="mailto:info@example.com">
+                <FontAwesomeIcon icon={faEnvelope} className="icon" />
+              </a>
+              <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faInstagram} className="icon" />
+              </a>
+              <a href="tel:+1234567890">
+                <FontAwesomeIcon icon={faPhone} className="icon" />
+              </a>
+            </div>
+          </div>
         </div>
         <div className="stats-container">
           <div className="stat">
@@ -79,25 +98,6 @@ function About() {
             <h3 ref={clientsRef}>500+</h3>
             <p>Happy Clients</p>
           </div>
-        </div>
-      </div>
-      <div className="call-to-action">
-        <div className="contact-icons">
-          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faLinkedin} className="icon" />
-          </a>
-          <a href="https://github.com/" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faGithub} className="icon" />
-          </a>
-          <a href="mailto:info@example.com">
-            <FontAwesomeIcon icon={faEnvelope} className="icon" />
-          </a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faInstagram} className="icon" />
-          </a>
-          <a href="tel:+1234567890">
-            <FontAwesomeIcon icon={faPhone} className="icon" />
-          </a>
         </div>
       </div>
     </div>

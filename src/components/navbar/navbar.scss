@@ -122,6 +122,7 @@ nav {
 
       @include sm {
         display: inline;
+        z-index: 1000; /* Ensure navbar is above other elements */
       }
     }
 
@@ -147,8 +148,13 @@ nav {
       @include sm {
         a {
           display: initial;
+
+        }
+        @include sm {
+          z-index: 1000; /* Ensure navbar is above other elements */
         }
       }
     }
   }
 }
+
