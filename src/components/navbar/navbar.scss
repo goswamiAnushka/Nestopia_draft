@@ -130,28 +130,26 @@ nav {
     .menu {
       position: absolute;
       top: 0;
-      right: -50%;
+      right: -100%; /* Adjust initial position to fully hide the menu */
       background-color: black;
       color: white;
       height: 100vh;
-      width: 50%;
-      transition: all 1s ease;
+      width: 60%; /* Keep the width as 60% */
+      transition: all 0.5s ease; /* Slightly faster transition */
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 24px;
+      font-size: 22px;
+      overflow: hidden; /* Ensure no overflow is visible */
 
       &.active {
-        right: 0;
+        right: 0; /* Slide the menu into view */
       }
 
       @include sm {
         a {
           display: initial;
-        }
-        @include sm {
-          z-index: 1000; /* Ensure navbar is above other elements */
         }
       }
     }

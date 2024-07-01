@@ -1,9 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./navbar.scss";
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setOpen((prev) => !prev);
+  };
+
+  const handleClickOutside = (event) => {
+    const menu = document.querySelector('.menu');
+    const menuIcon = document.querySelector('.menuIcon');
+    if (menu && menuIcon && !menu.contains(event.target) && !menuIcon.contains(event.target)) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const user = true;
   return (
@@ -39,12 +58,8 @@ function Navbar() {
             </a>
           </>
         )}
-        <div className="menuIcon">
-          <img
-            src="/menu.png"
-            alt=""
-            onClick={() => setOpen((prev) => !prev)}
-          />
+        <div className="menuIcon" onClick={handleMenuToggle}>
+          <img src="/menu.png" alt="" />
         </div>
         <div className={open ? "menu active" : "menu"}>
           <a href="/">Home</a>
