@@ -79,7 +79,6 @@ function About() {
             <FontAwesomeIcon icon={faPhone} className="icon" />
           </a>
         </div>
-        <button className="btn">Contact Us</button>
       </div>
     </div>
   );
