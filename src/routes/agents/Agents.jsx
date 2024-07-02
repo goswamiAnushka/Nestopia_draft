@@ -12,26 +12,26 @@ function Agents() {
         <div className="agentList">
           <div className="agent">
             <img src="/agent1.jpg" alt="Agent 1" />
-            <h2>John Doe</h2>
+            <h2>Anushka Goswami</h2>
             <p>Senior Agent</p>
             <div className="contact">
               <a href="tel:+1234567890" className="contact-link">
                 <FontAwesomeIcon icon={faPhone} />
               </a>
-              <a href="mailto:john.doe@example.com" className="contact-link">
+              <a href="mailto:anu@example.com" className="contact-link">
                 <FontAwesomeIcon icon={faEnvelope} />
               </a>
             </div>
           </div>
           <div className="agent">
             <img src="/agent2.jpg" alt="Agent 2" />
-            <h2>Jane Smith</h2>
+            <h2>Soumya Chakraborty</h2>
             <p>Agent</p>
             <div className="contact">
               <a href="tel:+1234567890" className="contact-link">
                 <FontAwesomeIcon icon={faPhone} />
               </a>
-              <a href="mailto:jane.smith@example.com" className="contact-link">
+              <a href="mailto:chakra@example.com" className="contact-link">
                 <FontAwesomeIcon icon={faEnvelope} />
               </a>
             </div>
