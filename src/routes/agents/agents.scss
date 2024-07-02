@@ -1,9 +1,10 @@
 @import "../../responsive.scss";
+@import "~@fortawesome/fontawesome-svg-core/styles.css"; // Import Font Awesome styles
 
 .agents {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh; /* Ensure content stretches to at least full viewport height */
   padding: 50px;
   background: linear-gradient(to right, #f8f9fa, #e9ecef);
 
@@ -19,12 +20,20 @@
     h1 {
       font-size: 3rem;
       margin-bottom: 20px;
+
+      @include md {
+        font-size: 2rem;
+      }
     }
 
     p {
       font-size: 1.2rem;
       line-height: 1.6;
       margin-bottom: 20px;
+
+      @include md {
+        font-size: 1rem;
+      }
     }
 
     .agentList {
@@ -43,6 +52,7 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin-bottom: 20px;
+        position: relative;
 
         img {
           width: 150px;
@@ -56,11 +66,61 @@
         h2 {
           font-size: 1.5rem;
           margin-bottom: 5px;
+
+          @include md {
+            font-size: 1.2rem;
+          }
         }
 
         p {
           font-size: 1rem;
           color: #777;
+
+          @include md {
+            font-size: 0.9rem;
+          }
+        }
+
+        .contact {
+          margin-top: 10px;
+          display: flex;
+          justify-content: center;
+
+          .contact-link {
+            font-size: 1.5rem;
+            color: #004d99;
+            margin: 0 10px;
+            transition: color 0.3s;
+
+            &:hover {
+              color: #00284d;
+            }
+          }
+        }
+
+        .arrow {
+          position: absolute;
+          bottom: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 40px;
+          height: 40px;
+          background-color: #004d99;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #00284d;
+          }
+
+          svg {
+            color: white;
+            font-size: 1.2rem;
+          }
         }
       }
     }
