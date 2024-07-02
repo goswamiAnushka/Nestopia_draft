@@ -11,7 +11,7 @@ function Agents() {
         <p>Meet our team of professional and experienced real estate agents dedicated to helping you find the perfect home.</p>
         <div className="agentList">
           <div className="agent">
-            <img src="/agent1.jpg" alt="Agent 1" />
+            <img src="public/ANU PIC.jpeg" alt="Agent 1" />
             <h2>Anushka Goswami</h2>
             <p>Senior Agent</p>
             <div className="contact">
@@ -24,7 +24,7 @@ function Agents() {
             </div>
           </div>
           <div className="agent">
-            <img src="/agent2.jpg" alt="Agent 2" />
+            <img src="/soumya.jpeg" alt="Agent 2" />
             <h2>Soumya Chakraborty</h2>
             <p>Agent</p>
             <div className="contact">
