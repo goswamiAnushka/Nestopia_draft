@@ -25,6 +25,8 @@
 
       @include sm {
         justify-content: flex-start;
+        padding-right: 0; // Remove right padding for small screens
+        gap: 20px; // Adjust gap for small screens
       }
 
       .title {
@@ -33,6 +35,14 @@
         @include lg {
           font-size: 48px;
         }
+
+        @include md {
+          font-size: 40px; // Adjust font-size for medium screens
+        }
+
+        @include sm {
+          font-size: 28px; // Adjust font-size for small screens
+        }
       }
 
       .boxes {
@@ -40,7 +50,8 @@
         justify-content: space-between;
 
         @include sm {
-          display: none;
+          flex-direction: column; // Stack boxes vertically on small screens
+          gap: 10px; // Add gap between stacked boxes
         }
 
         h1 {
@@ -49,11 +60,27 @@
           @include lg {
             font-size: 32px;
           }
+
+          @include md {
+            font-size: 28px; // Adjust font-size for medium screens
+          }
+
+          @include sm {
+            font-size: 24px; // Adjust font-size for small screens
+          }
         }
 
         h2 {
           font-size: 20px;
           font-weight: 300;
+
+          @include md {
+            font-size: 18px; // Adjust font-size for medium screens
+          }
+
+          @include sm {
+            font-size: 16px; // Adjust font-size for small screens
+          }
         }
       }
     }
@@ -70,15 +97,23 @@
       display: none;
     }
 
+    @include sm {
+      display: none; // Hide image container on small screens
+    }
+
     img {
-      width: 115%; // Ensure the image covers the width of the container
-      height: 105%; // Ensure the image covers the height of the container
-      object-fit:flex; // Ensure the image covers the container without stretching
+      width: 100%; // Adjust width to cover the container
+      height: auto; // Maintain aspect ratio
+      object-fit: cover; // Cover the container without stretching
       position: absolute;
       right: 0;
 
       @include lg {
-        width: 100%; // Adjust the width for large screens
+        width: 90%; // Adjust width for large screens
+      }
+
+      @include md {
+        width: 80%; // Adjust width for medium screens
       }
     }
   }
