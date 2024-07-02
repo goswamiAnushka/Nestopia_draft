@@ -4,15 +4,17 @@
 .agents {
   display: flex;
   flex-direction: column;
-  padding: 50px;
-  margin-top: 75px;
+  padding: 30px;
+  margin-top: 20px;
 
   @include sm {
-    margin-top: 25px;
+    margin-top:0.03px;
+    padding:25px;
   }
 
   @include md {
-    margin-top: 30px;
+    margin-top:0.05px;
+    padding:1px;
   }
 
   .textContainer {

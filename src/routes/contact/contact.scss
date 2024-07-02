@@ -24,7 +24,7 @@ body {
   width: 100%;
   max-width: 600px;
   margin:5px;
-  margin-top: 100px;
+  margin-top: 12px;
   margin-left: 50px; // Add top margin to account for fixed navbar
   padding: 30px;
   background: $secondary-color;
@@ -34,7 +34,7 @@ body {
   @include sm {
     margin:1px; // Adjust margins for small screens
     padding: 20px;
-    margin-top: 100px;
+
   }
 }
 
