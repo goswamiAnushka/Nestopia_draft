@@ -13,8 +13,8 @@
   }
 
   @include md {
-    margin-top:0.05px;
-    padding:1px;
+    margin-top:0.005px;
+    padding:0.5px;
   }
 
   .textContainer {
@@ -24,14 +24,18 @@
     background: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
 
     @include sm {
-      flex-direction: column-reverse; /* Paragraph below "Our Agents" for small screens */
+      flex-direction: column-reverse;
+      border-radius: 15px;
+      padding: 0.25px; 
+      font-size: 0.1px;/* Paragraph below "Our Agents" for small screens */
     }
 
     @include md {
-      flex-direction: column-reverse; /* Paragraph below "Our Agents" for medium screens */
+      flex-direction: column-reverse;
+      border-radius: 3px; /* Paragraph below "Our Agents" for medium screens */
     }
 
     h1 {
@@ -39,7 +43,7 @@
       margin-bottom: 20px;
 
       @include md {
-        font-size: 2rem;
+        font-size: 1.5rem;
       }
     }
 
