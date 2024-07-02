@@ -55,15 +55,24 @@
     .agentList {
       display: flex;
       flex-wrap: wrap;
+      gap:40px;
+
+      @include sm{
+        gap:1px;
+      }
+      @include md{
+        gap:2px;
+      }
 
       .agent {
         width: 100%; /* Full width on smaller screens */
         max-width: calc(50% - 20px); /* Two agents per row on larger screens */
         background: #f8f9fa;
-        padding: 20px;
+        padding: 21px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         position: relative;
+       
 
         @include md {
           max-width: 100%; /* Full width on medium screens */
