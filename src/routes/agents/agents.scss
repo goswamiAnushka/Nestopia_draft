@@ -4,10 +4,16 @@
 .agents {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   padding: 50px;
-  background: linear-gradient(to right, #f8f9fa, #e9ecef);
-  margin-top: 80px;
+  margin-top: 75px;
+
+  @include sm {
+    margin-top: 25px;
+  }
+
+  @include md {
+    margin-top: 30px;
+  }
 
   .textContainer {
     display: flex;
@@ -16,7 +22,15 @@
     background: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px;
+
+    @include sm {
+      flex-direction: column-reverse; /* Paragraph below "Our Agents" for small screens */
+    }
+
+    @include md {
+      flex-direction: column-reverse; /* Paragraph below "Our Agents" for medium screens */
+    }
 
     h1 {
       font-size: 3rem;
@@ -33,45 +47,43 @@
       margin-bottom: 20px;
 
       @include md {
-        font-size: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.1;
       }
     }
 
     .agentList {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
 
       .agent {
-        width: calc(50% - 20px); /* Two agents per row on large screens */
-        max-width: 300px;
+        width: 100%; /* Full width on smaller screens */
+        max-width: calc(50% - 20px); /* Two agents per row on larger screens */
         background: #f8f9fa;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
         position: relative;
 
         @include md {
-          width: calc(100% - 20px); /* One agent per row on medium screens */
+          max-width: 100%; /* Full width on medium screens */
         }
 
         img {
-          width: 100px;
-          height: 100px;
+          width: 90px;
+          height: 90px;
           border-radius: 50%;
           object-fit: cover;
-          margin-bottom: 10px;
+          margin-bottom: 5px;
           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           margin-bottom: 5px;
 
           @include md {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
           }
         }
 
@@ -80,17 +92,17 @@
           color: #777;
 
           @include md {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
           }
         }
 
         .contact {
-          margin-top: 10px;
+          margin-top: 5px;
           display: flex;
           justify-content: center;
 
           .contact-link {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #004d99;
             margin: 0 10px;
             transition: color 0.3s;
