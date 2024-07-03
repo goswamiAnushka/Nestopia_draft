@@ -3,9 +3,22 @@
 .homePage {
   display: flex;
   height: 100%;
+  flex-direction: column;
+
+  @include sm {
+    height: auto;
+  }
+
+  @include lg {
+    flex-direction: row; // Adjust flex-direction for larger screens
+  }
 
   .textContainer {
     flex: 3;
+
+    @include lg {
+      order: 1; // Ensure text container is first for larger screens
+    }
 
     .wrapper {
       padding-right: 100px;
@@ -25,23 +38,23 @@
 
       @include sm {
         justify-content: flex-start;
-        padding-right: 0; // Remove right padding for small screens
-        gap: 20px; // Adjust gap for small screens
+        padding-right: 0;
+        gap: 0.5px;
       }
 
       .title {
         font-size: 64px;
 
         @include lg {
-          font-size: 48px;
+          font-size: 40px;
         }
 
         @include md {
-          font-size: 40px; // Adjust font-size for medium screens
+          font-size: 30px;
         }
 
         @include sm {
-          font-size: 28px; // Adjust font-size for small screens
+          font-size: 25px;
         }
       }
 
@@ -50,23 +63,18 @@
         justify-content: space-between;
 
         @include sm {
-          flex-direction: column; // Stack boxes vertically on small screens
-          gap: 10px; // Add gap between stacked boxes
+          display: none;
         }
 
         h1 {
           font-size: 36px;
 
-          @include lg {
-            font-size: 32px;
-          }
-
           @include md {
-            font-size: 28px; // Adjust font-size for medium screens
+            font-size: 28px;
           }
 
           @include sm {
-            font-size: 24px; // Adjust font-size for small screens
+            font-size: 10px;
           }
         }
 
@@ -75,11 +83,44 @@
           font-weight: 300;
 
           @include md {
-            font-size: 18px; // Adjust font-size for medium screens
+            font-size: 18px;
           }
 
           @include sm {
-            font-size: 16px; // Adjust font-size for small screens
+            font-size: 10px;
+          }
+        }
+      }
+
+      .searchBar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+
+        @include sm {
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        input {
+          flex: 1;
+          padding: 7px;
+          font-size: 16px;
+
+          @include sm {
+            width: 100%;
+          }
+        }
+
+        button {
+          display: inline;
+          padding: 12px 18px;
+          font-size: 20px;
+
+          @include sm {
+            width: 100%;
+            font-size: 12px;
           }
         }
       }
@@ -87,33 +128,30 @@
   }
 
   .imgContainer {
-    flex: 2;
+    flex: 1.95;
     background-color: #fcf5f3;
     position: relative;
     display: flex;
     align-items: center;
 
+    @include lg {
+      order: 2; // Ensure image container is second for larger screens
+      justify-content: flex-end; // Align image to the right for larger screens
+    }
+
     @include md {
       display: none;
     }
 
-    @include sm {
-      display: none; // Hide image container on small screens
-    }
-
     img {
-      width: 100%; // Adjust width to cover the container
-      height: auto; // Maintain aspect ratio
-      object-fit: cover; // Cover the container without stretching
+      width: 115%;
+      height: 105%;
+      object-fit: flex;
       position: absolute;
       right: 0;
 
       @include lg {
-        width: 90%; // Adjust width for large screens
-      }
-
-      @include md {
-        width: 80%; // Adjust width for medium screens
+        width: 100%;
       }
     }
   }
