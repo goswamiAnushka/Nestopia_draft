@@ -1,7 +1,9 @@
 @import "../../responsive.scss";
 
 nav {
-  height: 100px;
+  height: 70px;
+  width: 85%; /* Adjusted width to 80% */
+  margin: 0 auto; /* Center the navbar horizontally */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,7 +55,6 @@ nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    background-color: #fcf5f3;
     height: 100%;
 
     @include md {
