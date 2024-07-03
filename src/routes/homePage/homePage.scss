@@ -133,7 +133,7 @@
             font-size: 12px;
           }
 
-          @include lg{
+          @include lg {
             width: auto; // Ensure buttons are inline with the search bar for larger and medium screens
           }
         }
@@ -144,14 +144,15 @@
   .imgContainer {
     flex: 1.95;
     background-color: #fcf5f3;
-    position: relative;
+    position:relative;
     display: flex;
     align-items: center;
 
     @include lg {
       order: 2; // Ensure image container is second for larger screens
       justify-content: flex-end; // Align image to the right for larger screens
-      padding-right: 0; // Remove right padding to eliminate gap
+      padding-right:0; 
+      margin-top: 10px;// Remove right padding to eliminate gap
     }
 
     @include md {
@@ -159,9 +160,8 @@
     }
 
     img {
-      width: 100vw; // Ensure the image covers the full viewport width
-      height: 100vh; // Ensure the image covers the full viewport height
-      object-fit: cover; // Ensure the image covers the container
+      width: 110%;
+      height:110%;
       position: absolute;
       right: 0;
     }
