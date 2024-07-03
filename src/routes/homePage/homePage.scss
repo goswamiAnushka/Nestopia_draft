@@ -98,9 +98,19 @@
         align-items: center;
         margin-top: 20px;
 
+        @include lg {
+          flex-direction: row; // Ensure search bar and buttons are in a row for larger screens
+          gap: 20px; // Add space between elements
+        }
+
+        @include md {
+          flex-direction: row; // Ensure search bar and buttons are in a row for medium screens
+          gap: 20px; // Add space between elements
+        }
+
         @include sm {
-          flex-direction: column;
-          gap: 4px;
+          flex-direction: column; // Stack search bar and buttons vertically on small screens
+          gap: 4px; // Add gap between stacked elements
         }
 
         input {
@@ -109,7 +119,7 @@
           font-size: 16px;
 
           @include sm {
-            width: 100%;
+            width: 100%; // Make input full width on small screens
           }
         }
 
@@ -121,6 +131,10 @@
           @include sm {
             width: 100%;
             font-size: 12px;
+          }
+
+          @include lg {
+            width: auto; // Ensure buttons are inline with the search bar for larger and medium screens
           }
         }
       }
@@ -137,6 +151,7 @@
     @include lg {
       order: 2; // Ensure image container is second for larger screens
       justify-content: flex-end; // Align image to the right for larger screens
+      padding-right: 0; // Remove right padding to eliminate gap
     }
 
     @include md {
@@ -144,15 +159,11 @@
     }
 
     img {
-      width: 115%;
-      height: 105%;
-      object-fit: flex;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Ensure the image covers the container
       position: absolute;
       right: 0;
-
-      @include lg {
-        width: 100%;
-      }
     }
   }
 }
