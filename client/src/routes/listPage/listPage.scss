@@ -1,0 +1,62 @@
+@import "../../responsive.scss";
+
+.listPage {
+  display: flex;
+  height: 100%;
+
+  .listContainer {
+    flex: 3;
+    height: 100%;
+
+    .wrapper{
+      height: 100%;
+      padding-right: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      overflow-y: scroll;
+      padding-bottom: 50px;
+    }
+  }
+  .mapContainer {
+    flex: 2;
+    height: 100%;
+    background-color: #fcf5f3;
+    transition: all 0.3s ease;
+
+    @include md {
+      display: none;
+    }
+
+    &.visible {
+      display: block;
+
+      @include sm {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+      }
+    }
+  }
+
+  .toggleMapButton {
+    display: none;
+
+    @include md {
+      display: block;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+  }
+}

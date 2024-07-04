@@ -1,0 +1,171 @@
+@import "../../responsive.scss";
+@import "@fortawesome/fontawesome-svg-core/styles.css";
+
+.agents {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  margin-top: 20px;
+
+  @include sm {
+    margin-top:0.03px;
+    padding:25px;
+  }
+
+  @include md {
+    margin-top:0.005px;
+    padding:0.5px;
+  }
+
+  .textContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+
+    @include sm {
+      flex-direction: column-reverse;
+      border-radius: 15px;
+      padding: 0.25px; 
+      font-size: 0.1px;/* Paragraph below "Our Agents" for small screens */
+    }
+
+    @include md {
+      flex-direction: column-reverse;
+      border-radius: 3px; /* Paragraph below "Our Agents" for medium screens */
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+
+      @include md {
+        font-size: 1.5rem;
+      }
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+
+      @include md {
+        font-size: 0.9rem;
+        line-height: 1.1;
+      }
+    }
+
+    .agentList {
+      display: flex;
+      flex-wrap: wrap;
+      gap:40px;
+
+      @include sm{
+        gap:1px;
+      }
+      @include md{
+        gap:2px;
+      }
+
+      .agent {
+        width: 100%; /* Full width on smaller screens */
+        max-width: calc(50% - 20px); /* Two agents per row on larger screens */
+        background: #f8f9fa;
+        padding: 21px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+       
+
+        @include md {
+          max-width: 100%; /* Full width on medium screens */
+        }
+
+        img {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          object-fit: cover;
+          margin-bottom: 5px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+          font-size: 1.2rem;
+          margin-bottom: 5px;
+
+          @include md {
+            font-size: 1.1rem;
+          }
+        }
+
+        p {
+          font-size: 1rem;
+          color: #777;
+
+          @include md {
+            font-size: 0.8rem;
+          }
+        }
+
+        .contact {
+          margin-top: 5px;
+          display: flex;
+          justify-content: center;
+
+          .contact-link {
+            font-size: 1rem;
+            color: #004d99;
+            margin: 0 10px;
+            transition: color 0.3s;
+
+            &:hover {
+              color: #00284d;
+            }
+          }
+        }
+
+        .arrow {
+          position: absolute;
+          bottom: -20px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 40px;
+          height: 40px;
+          background-color: #004d99;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: #00284d;
+          }
+
+          svg {
+            color: white;
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+
+    @include md {
+      .agentList {
+        flex-direction: column;
+        align-items: center;
+
+        .agent {
+          width: calc(100% - 20px); /* Full width on medium screens */
+          max-width: 100%;
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+}
