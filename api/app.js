@@ -1,9 +1,10 @@
+// app.js
 import express from "express";
 import postRoute from "./routes/post.route.js";
-import userRoute from "./routes/user.route.js";
 
-const app= express();
+const app = express();
+app.use("/api/posts", postRoute);
 
-app.listen(8800,()=>{
-    console.log("server is running!");
+app.listen(8800, () => {
+    console.log("Server is running on http://localhost:8800");
 });
