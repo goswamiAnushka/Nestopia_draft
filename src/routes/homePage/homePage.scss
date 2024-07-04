@@ -3,14 +3,16 @@
 .homePage {
   display: flex;
   height: 100%;
-  flex-direction: column;
+  flex-direction: row;
 
   @include sm {
     height: auto;
+    margin-top: 30px;
   }
 
   @include lg {
     flex-direction: row; // Adjust flex-direction for larger screens
+    //height: 100vh; // Ensure the height is 100% of the viewport height
   }
 
   .textContainer {
@@ -25,11 +27,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 50px;
+      gap: 40px;
       height: 100%;
 
       @include lg {
-        padding-right: 50px;
+        padding-right: 40px;
       }
 
       @include md {
@@ -143,15 +145,14 @@
 
   .imgContainer {
     flex: 1.95;
-    position:relative;
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: flex-end; // Align image to the right for larger screens
 
     @include lg {
       order: 2; // Ensure image container is second for larger screens
-      justify-content: flex-end; // Align image to the right for larger screens
-      padding-right:0; 
-      margin-top: 10px;// Remove right padding to eliminate gap
+      margin-top: 0; // Remove any margin that might push the image down
     }
 
     @include md {
@@ -159,10 +160,9 @@
     }
 
     img {
-      width: 110%;
-      height:110%;
-      position: absolute;
-      right: 0;
+      width: 120%;
+      height: 110%;
+      position: relative; // Ensure the image stays within the container
     }
   }
 }

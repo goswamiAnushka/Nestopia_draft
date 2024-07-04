@@ -11,6 +11,7 @@
       cursor: pointer;
       background-color: white;
       text-transform: capitalize;
+      flex-direction: column;
 
       &.active {
         background-color: black;
@@ -34,10 +35,15 @@
     justify-content: space-between;
     height: 64px;
     gap: 5px;
+    margin-left: 10px;
 
     @include sm {
       flex-direction: column;
       border: none;
+    }
+    @include md{
+      margin-left: 2px;
+
     }
 
     input {

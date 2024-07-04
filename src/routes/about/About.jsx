@@ -91,11 +91,11 @@ function About() {
             <p>Years of Experience</p>
           </div>
           <div className="stat">
-            <h3 ref={propertiesRef}>1000+</h3>
+            <h3 ref={propertiesRef}>1000+/</h3>
             <p>Properties Sold</p>
           </div>
           <div className="stat">
-            <h3 ref={clientsRef}>500+</h3>
+            <h3 ref={clientsRef}>500+/</h3>
             <p>Happy Clients</p>
           </div>
         </div>

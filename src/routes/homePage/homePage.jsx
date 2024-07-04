@@ -34,7 +34,7 @@ function HomePage() {
               <h2>Prestigious Awards</h2>
             </div>
             <div className="box">
-              <h1 id="propertiesCount">2000+</h1>
+              <h1 id="propertiesCount">2000+/</h1>
               <h2>Properties Available</h2>
             </div>
           </div>
