@@ -1,11 +1,10 @@
-import bcrypt from 'bcryptjs';
-import  prisma  from '../lib/prisma.js';
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import prisma from "../lib/prisma.js";
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
-  
   try {
     // HASH THE PASSWORD
 
@@ -81,5 +80,5 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  // Handle logout logic, such as clearing session data
+  res.clearCookie("token").status(200).json({ message: "Logout Successful" });
 };
