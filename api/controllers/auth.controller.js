@@ -1,7 +1,9 @@
 export const register=(req,res)=>{
-    //db
-    console.log("register endpoint")
-}
+    const {username,email,password}=req.body;
+//hash pw
+//create new user and save to db
+
+}  
 export const login=(req,res)=>{
     //db
 }
