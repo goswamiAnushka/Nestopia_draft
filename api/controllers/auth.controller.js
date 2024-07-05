@@ -6,20 +6,17 @@ export const register = async (req, res) => {
   try {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
+    
+    // Log the hashed password to the console
+    console.log('Hashed Password:', hashedPassword);
 
-    // Create new user and save to db
-    // Assuming you have a User model and using Mongoose for MongoDB
-    const newUser = new User({
-      username,
-      email,
-      password: hashedPassword
+    // Respond with the hashed password
+    res.status(201).json({ 
+      message: 'Password hashed successfully!',
+      hashedPassword
     });
-
-    await newUser.save();
-
-    res.status(201).json({ message: 'User registered successfully!' });
   } catch (error) {
-    console.error('Error registering user:', error);
+    console.error('Error hashing password:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
