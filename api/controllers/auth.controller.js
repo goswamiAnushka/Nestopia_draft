@@ -1,31 +1,34 @@
 import bcrypt from 'bcryptjs';
+import  prisma  from '../lib/prisma.js';
+
 
 export const register = async (req, res) => {
   const { username, email, password } = req.body;
 
+  
   try {
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
-    
-    // Log the hashed password to the console
-    console.log('Hashed Password:', hashedPassword);
+    // HASH THE PASSWORD
 
-    // Respond with the hashed password
-    res.status(201).json({ 
-      message: 'Password hashed successfully!',
-      hashedPassword
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    console.log(hashedPassword);
+
+    // CREATE A NEW USER AND SAVE TO DB
+    const newUser = await prisma.user.create({
+      data: {
+        username,
+        email,
+        password: hashedPassword,
+      },
     });
-  } catch (error) {
-    console.error('Error hashing password:', error);
-    res.status(500).json({ message: 'Server error' });
+
+    console.log(newUser);
+
+    res.status(201).json({ message: "User created successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Failed to create user!" });
   }
-  const newUser=await prisma.iser.create({
-    data: {
-      username,
-      email,
-      password: hashedPassword,
-  }
-})
 };
 
 export const login = (req, res) => {
