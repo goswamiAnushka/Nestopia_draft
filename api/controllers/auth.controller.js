@@ -19,6 +19,13 @@ export const register = async (req, res) => {
     console.error('Error hashing password:', error);
     res.status(500).json({ message: 'Server error' });
   }
+  const newUser=await prisma.iser.create({
+    data: {
+      username,
+      email,
+      password: hashedPassword,
+  }
+})
 };
 
 export const login = (req, res) => {
