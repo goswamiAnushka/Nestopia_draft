@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { CountUp } from "countup.js";
 import SearchBar from "../../components/searchBar/SearchBar";
 import "./homePage.scss";
+import { AuthContext } from "../../context/AuthContext";
 
 function HomePage() {
+  const{currentUser}=useContext(AuthContext)
   useEffect(() => {
     const countUpOptions = { duration: 2 };
     const yearsCountUp = new CountUp("yearsCount", 16, countUpOptions);
