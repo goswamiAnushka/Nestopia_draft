@@ -1,21 +1,11 @@
-import jwt from "jsonwebtoken";
+import express from "express";
+import { shouldBeAdmin, shouldBeLoggedIn } from "../controllers/test.controller.js";
+import { verifyToken } from "../middleware/verifyToken.js";
 
-export const shouldBeLoggedIn = async (req, res) => {
-  console.log(req.userId)
-  res.status(200).json({ message: "You are Authenticated" });
-};
+const router = express.Router();
 
-export const shouldBeAdmin = async (req, res) => {
-  const token = req.cookies.token;
+router.get("/should-be-logged-in", verifyToken, shouldBeLoggedIn);
 
-  if (!token) return res.status(401).json({ message: "Not Authenticated!" });
+router.get("/should-be-admin", shouldBeAdmin);
 
-  jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, payload) => {
-    if (err) return res.status(403).json({ message: "Token is not Valid!" });
-    if (!payload.isAdmin) {
-      return res.status(403).json({ message: "Not authorized!" });
-    }
-  });
-
-  res.status(200).json({ message: "You are Authenticated" });
-};
+export default router;
