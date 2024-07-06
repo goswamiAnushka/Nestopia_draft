@@ -52,15 +52,15 @@
           align-items: center;
           gap: 20px;
         }
+
         button{
-          width:50px;
-          color: black;
-          font-size: 15px;
-          border:none;
-          padding:12px;
-          cursor:pointer ;
+          width: 100px;
+          background-color: teal;
+          border: none;
+          color: white;
+          padding: 10px 20px;
+          cursor: pointer;
           border-radius: 5px;
-          background-color: rgb(247, 181, 59);
         }
 
         img{
