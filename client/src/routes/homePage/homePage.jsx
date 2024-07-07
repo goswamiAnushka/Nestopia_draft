@@ -28,11 +28,11 @@ function HomePage() {
           <SearchBar />
           <div className="boxes">
             <div className="box">
-              <h1 id="yearsCount">16+</h1>
+              <h1 id="yearsCount">5+</h1>
               <h2>Years of Excellence</h2>
             </div>
             <div className="box">
-              <h1 id="awardsCount">200</h1>
+              <h1 id="awardsCount">50</h1>
               <h2>Prestigious Awards</h2>
             </div>
             <div className="box">
