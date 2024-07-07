@@ -9,8 +9,8 @@ import Register from "./routes/register/register";
 import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdatePage";
 import NewPostPage from "./routes/newPostPage/newPostPage";
 import About from "./routes/about/About";
-import Contact from "./routes/contact/contact";
-import Agents from "./routes/agents/agents";
+import Contact from "./routes/contact/Contact";
+import Agents from "./routes/agents/Agents";
 import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loaders";
 
 function App() {

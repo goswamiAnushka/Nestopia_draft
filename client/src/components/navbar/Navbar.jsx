@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./navbar.scss";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { useNotificationStore } from "../../lib/notificationStore";
+import { useNotificationStore } from "../../lib/NotificationStore";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ function Navbar() {
       <div className="left">
         <a href="/" className="logo">
           <img src="/logo.png" alt="" />
-          <span>LamaEstate</span>
+          <span>Nestopia</span>
         </a>
         <a href="/">Home</a>
         <a href="/">About</a>
