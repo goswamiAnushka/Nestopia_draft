@@ -16,7 +16,8 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "prisma": "^5.16.1"
