@@ -1,5 +1,6 @@
 import prisma from "../lib/prisma.js";
 import jwt from "jsonwebtoken";
+import { Type } from "../prisma/schema.js"; // Importing enum Type from your schema
 
 export const getPosts = async (req, res) => {
   const query = req.query;
@@ -18,9 +19,7 @@ export const getPosts = async (req, res) => {
       },
     });
 
-    // setTimeout(() => {
     res.status(200).json(posts);
-    // }, 3000);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get posts" });
@@ -76,8 +75,11 @@ export const addPost = async (req, res) => {
       data: {
         ...body.postData,
         userId: tokenUserId,
+        type: Type.buy, // Adjust based on your logic, using Type.buy or Type.rent
         postDetail: {
-          create: body.postDetail,
+          create: {
+            ...body.postDetail,
+          },
         },
       },
     });
