@@ -1,7 +1,6 @@
 import prisma from "../lib/prisma.js";
 import jwt from "jsonwebtoken";
 
-// Function to get posts with optional query parameters
 export const getPosts = async (req, res) => {
   const query = req.query;
 
@@ -11,25 +10,25 @@ export const getPosts = async (req, res) => {
         city: query.city || undefined,
         type: query.type || undefined,
         property: query.property || undefined,
-        bedroom: query.bedroom ? parseInt(query.bedroom) : undefined,
+        bedroom: parseInt(query.bedroom) || undefined,
         price: {
-          gte: query.minPrice ? parseInt(query.minPrice) : undefined,
-          lte: query.maxPrice ? parseInt(query.maxPrice) : undefined,
+          gte: parseInt(query.minPrice) || undefined,
+          lte: parseInt(query.maxPrice) || undefined,
         },
       },
     });
 
+    // setTimeout(() => {
     res.status(200).json(posts);
+    // }, 3000);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get posts" });
   }
 };
 
-// Function to get a single post by its ID
 export const getPost = async (req, res) => {
   const id = req.params.id;
-
   try {
     const post = await prisma.post.findUnique({
       where: { id },
@@ -57,35 +56,28 @@ export const getPost = async (req, res) => {
               },
             },
           });
-          return res.status(200).json({ ...post, isSaved: saved ? true : false });
+          res.status(200).json({ ...post, isSaved: saved ? true : false });
         }
-        return res.status(200).json({ ...post, isSaved: false });
       });
-    } else {
-      res.status(200).json({ ...post, isSaved: false });
     }
+    res.status(200).json({ ...post, isSaved: false });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to get post" });
   }
 };
 
-// Function to add a new post
 export const addPost = async (req, res) => {
-  const { postData, postDetail } = req.body;
+  const body = req.body;
   const tokenUserId = req.userId;
-
-  if (!postData || !postData.title) {
-    return res.status(400).json({ message: "Post data and title are required" });
-  }
 
   try {
     const newPost = await prisma.post.create({
       data: {
-        ...postData,
+        ...body.postData,
         userId: tokenUserId,
         postDetail: {
-          create: postDetail,
+          create: body.postDetail,
         },
       },
     });
@@ -96,37 +88,15 @@ export const addPost = async (req, res) => {
   }
 };
 
-// Function to update a post by its ID
 export const updatePost = async (req, res) => {
-  const id = req.params.id;
-  const { postData, postDetail } = req.body;
-  const tokenUserId = req.userId;
-
   try {
-    const post = await prisma.post.findUnique({
-      where: { id },
-    });
-
-    if (post.userId !== tokenUserId) {
-      return res.status(403).json({ message: "Not Authorized!" });
-    }
-
-    const updatedPost = await prisma.post.update({
-      where: { id },
-      data: {
-        ...postData,
-        postDetail: {
-          update: postDetail,
-        },
-      },
-    });
-
-    res.status(200).json(updatedPost);
+    res.status(200).json();
   } catch (err) {
     console.log(err);
-    res.status(500).json({ message: "Failed to update post" });
+    res.status(500).json({ message: "Failed to update posts" });
   }
 };
+
 export const deletePost = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -134,27 +104,12 @@ export const deletePost = async (req, res) => {
   try {
     const post = await prisma.post.findUnique({
       where: { id },
-      include: {
-        postDetail: true,
-      },
     });
-
-    if (!post) {
-      return res.status(404).json({ message: "Post not found" });
-    }
 
     if (post.userId !== tokenUserId) {
       return res.status(403).json({ message: "Not Authorized!" });
     }
 
-    // Delete related PostDetail document
-    if (post.postDetail) {
-      await prisma.postDetail.delete({
-        where: { id: post.postDetail.id },
-      });
-    }
-
-    // Now delete the Post document
     await prisma.post.delete({
       where: { id },
     });
