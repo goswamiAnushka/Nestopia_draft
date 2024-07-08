@@ -6,12 +6,8 @@ import Pin from "../pin/Pin";
 function Map({ items }) {
   return (
     <MapContainer
-      center={
-        items.length === 1
-          ? [items[0].latitude, items[0].longitude]
-          : [52.4797, -1.90269]
-      }
-      zoom={7}
+      center={[20.5937, 78.9629]} // Centered around India
+      zoom={5} // Zoom level adjusted to focus on India
       scrollWheelZoom={false}
       className="map"
     >
