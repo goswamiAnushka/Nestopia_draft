@@ -127,8 +127,6 @@ export const updatePost = async (req, res) => {
     res.status(500).json({ message: "Failed to update post" });
   }
 };
-
-// Function to delete a post by its ID
 export const deletePost = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -136,12 +134,27 @@ export const deletePost = async (req, res) => {
   try {
     const post = await prisma.post.findUnique({
       where: { id },
+      include: {
+        postDetail: true,
+      },
     });
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
 
     if (post.userId !== tokenUserId) {
       return res.status(403).json({ message: "Not Authorized!" });
     }
 
+    // Delete related PostDetail document
+    if (post.postDetail) {
+      await prisma.postDetail.delete({
+        where: { id: post.postDetail.id },
+      });
+    }
+
+    // Now delete the Post document
     await prisma.post.delete({
       where: { id },
     });
