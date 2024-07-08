@@ -1,5 +1,3 @@
-// chat.controller.js
-
 import prisma from "../lib/prisma.js";
 
 export const getChats = async (req, res) => {
@@ -12,16 +10,23 @@ export const getChats = async (req, res) => {
           hasSome: [tokenUserId],
         },
       },
-      include: {
-        receiver: {
-          select: {
-            id: true,
-            username: true,
-            avatar: true,
-          },
-        },
-      },
     });
+
+    for (const chat of chats) {
+      const receiverId = chat.userIDs.find((id) => id !== tokenUserId);
+
+      const receiver = await prisma.user.findUnique({
+        where: {
+          id: receiverId,
+        },
+        select: {
+          id: true,
+          username: true,
+          avatar: true,
+        },
+      });
+      chat.receiver = receiver;
+    }
 
     res.status(200).json(chats);
   } catch (err) {
@@ -47,13 +52,8 @@ export const getChat = async (req, res) => {
             createdAt: "asc",
           },
         },
-        receiver: true,
       },
     });
-
-    if (!chat) {
-      return res.status(404).json({ message: "Chat not found!" });
-    }
 
     await prisma.chat.update({
       where: {
@@ -61,11 +61,10 @@ export const getChat = async (req, res) => {
       },
       data: {
         seenBy: {
-          push: tokenUserId,
+          push: [tokenUserId],
         },
       },
     });
-
     res.status(200).json(chat);
   } catch (err) {
     console.log(err);
@@ -75,26 +74,12 @@ export const getChat = async (req, res) => {
 
 export const addChat = async (req, res) => {
   const tokenUserId = req.userId;
-  const { receiverId } = req.body;
-
   try {
     const newChat = await prisma.chat.create({
       data: {
-        userIDs: {
-          set: [tokenUserId, receiverId],
-        },
-      },
-      include: {
-        receiver: {
-          select: {
-            id: true,
-            username: true,
-            avatar: true,
-          },
-        },
+        userIDs: [tokenUserId, req.body.receiverId],
       },
     });
-
     res.status(200).json(newChat);
   } catch (err) {
     console.log(err);
@@ -104,12 +89,12 @@ export const addChat = async (req, res) => {
 
 export const readChat = async (req, res) => {
   const tokenUserId = req.userId;
-  const { id } = req.params;
 
+  
   try {
     const chat = await prisma.chat.update({
       where: {
-        id,
+        id: req.params.id,
         userIDs: {
           hasSome: [tokenUserId],
         },
@@ -120,7 +105,6 @@ export const readChat = async (req, res) => {
         },
       },
     });
-
     res.status(200).json(chat);
   } catch (err) {
     console.log(err);

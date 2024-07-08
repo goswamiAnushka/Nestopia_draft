@@ -9,8 +9,8 @@ const io = new Server({
 let onlineUser = [];
 
 const addUser = (userId, socketId) => {
-  const userExits = onlineUser.find((user) => user.userId === userId);
-  if (!userExits) {
+  const userExists = onlineUser.find((user) => user.userId === userId);
+  if (!userExists) {
     onlineUser.push({ userId, socketId });
   }
 };
@@ -30,7 +30,13 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", ({ receiverId, data }) => {
     const receiver = getUser(receiverId);
-    io.to(receiver.socketId).emit("getMessage", data);
+    if (receiver && receiver.socketId) {
+      io.to(receiver.socketId).emit("getMessage", data);
+    } else {
+      console.error(`Receiver with ID ${receiverId} is offline or not found.`);
+      // Optionally handle the case where the receiver is offline
+      // Maybe queue the message to send later or notify the sender
+    }
   });
 
   socket.on("disconnect", () => {
