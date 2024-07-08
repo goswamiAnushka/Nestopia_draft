@@ -1,6 +1,6 @@
 import prisma from "../lib/prisma.js";
 import jwt from "jsonwebtoken";
-import { Type } from "../prisma/schema.js"; // Importing enum Type from your schema
+
 
 export const getPosts = async (req, res) => {
   const query = req.query;
