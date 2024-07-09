@@ -1,11 +1,9 @@
-// message.controller.js
-
 import prisma from "../lib/prisma.js";
 
 export const addMessage = async (req, res) => {
   const tokenUserId = req.userId;
-  const { chatId } = req.params;
-  const { text } = req.body;
+  const chatId = req.params.chatId;
+  const text = req.body.text;
 
   try {
     const chat = await prisma.chat.findUnique({
@@ -17,9 +15,7 @@ export const addMessage = async (req, res) => {
       },
     });
 
-    if (!chat) {
-      return res.status(404).json({ message: "Chat not found!" });
-    }
+    if (!chat) return res.status(404).json({ message: "Chat not found!" });
 
     const message = await prisma.message.create({
       data: {
@@ -34,9 +30,7 @@ export const addMessage = async (req, res) => {
         id: chatId,
       },
       data: {
-        seenBy: {
-          push: tokenUserId,
-        },
+        seenBy: [tokenUserId],
         lastMessage: text,
       },
     });

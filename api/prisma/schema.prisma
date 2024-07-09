@@ -22,7 +22,7 @@ model Post {
   property   Property
   createdAt  DateTime    @default(now())
   user       User        @relation(fields: [userId], references: [id])
-  userId     String      @map("userId") @db.ObjectId
+  userId     String      @db.ObjectId
   postDetail PostDetail?
   savedPosts SavedPost[]
 }
@@ -57,9 +57,8 @@ model SavedPost {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   user      User     @relation(fields: [userId], references: [id])
   post      Post     @relation(fields: [postId], references: [id])
-  userId    String   @map("userId") @db.ObjectId
-  postId    String   @map("postId") @db.ObjectId
-  createdAt DateTime @default(now())
+  userId    String   @db.ObjectId
+  postId    String   @db.ObjectId
 
   @@unique([userId, postId])
 }
@@ -74,15 +73,15 @@ model User {
   posts      Post[]
   savedPosts SavedPost[]
   chats      Chat[]      @relation(fields: [chatIDs], references: [id])
-  chatIDs    String[]    @map("chatIDs") @db.ObjectId
+  chatIDs    String[]    @db.ObjectId
 }
 
 model Chat {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   users     User[]    @relation(fields: [userIDs], references: [id])
-  userIDs   String[]  @map("userIDs") @db.ObjectId
+  userIDs   String[]  @db.ObjectId
   createdAt DateTime  @default(now())
-  seenBy    String[]  @map("seenBy") @db.ObjectId
+  seenBy    String[]  @db.ObjectId
   messages  Message[]
   lastMessage String?
 }
@@ -92,6 +91,6 @@ model Message {
   text      String
   userId    String
   chat      Chat     @relation(fields: [chatId], references: [id])
-  chatId    String   @map("chatId") @db.ObjectId
+  chatId    String   @db.ObjectId
   createdAt DateTime @default(now())
 }
