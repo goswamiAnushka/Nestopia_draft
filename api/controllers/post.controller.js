@@ -27,7 +27,7 @@ export const getPosts = async (req, res) => {
 
 export const getPost = async (req, res) => {
   const id = req.params.id;
-  
+
   try {
     const post = await prisma.post.findUnique({
       where: { id },
@@ -131,6 +131,7 @@ export const updatePost = async (req, res) => {
   }
 };
 
+// controllers/post.controller.js
 export const deletePost = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -148,6 +149,12 @@ export const deletePost = async (req, res) => {
       return res.status(403).json({ message: "Not Authorized!" });
     }
 
+    // Delete related saved posts
+    await prisma.savedPost.deleteMany({
+      where: { postId: id },
+    });
+
+    // Delete the post
     await prisma.post.delete({
       where: { id },
     });
