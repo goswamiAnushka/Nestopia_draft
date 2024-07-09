@@ -6,19 +6,22 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"node app.js"
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.16.1",
+    "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",
+    "node-sass": "^9.0.0",
+    "openai": "^4.52.4",
     "socket.io": "^4.7.5",
     "zustand": "^4.5.4"
   },
