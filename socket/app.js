@@ -6,21 +6,21 @@ const io = new Server({
   },
 });
 
-let onlineUser = [];
+let onlineUsers = [];
 
 const addUser = (userId, socketId) => {
-  const userExists = onlineUser.find((user) => user.userId === userId);
+  const userExists = onlineUsers.some((user) => user.userId === userId);
   if (!userExists) {
-    onlineUser.push({ userId, socketId });
+    onlineUsers.push({ userId, socketId });
   }
 };
 
 const removeUser = (socketId) => {
-  onlineUser = onlineUser.filter((user) => user.socketId !== socketId);
+  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
 };
 
 const getUser = (userId) => {
-  return onlineUser.find((user) => user.userId === userId);
+  return onlineUsers.find((user) => user.userId === userId);
 };
 
 io.on("connection", (socket) => {
@@ -33,9 +33,8 @@ io.on("connection", (socket) => {
     if (receiver && receiver.socketId) {
       io.to(receiver.socketId).emit("getMessage", data);
     } else {
-      console.error(`Receiver with ID ${receiverId} is offline or not found.`);
-      // Optionally handle the case where the receiver is offline
-      // Maybe queue the message to send later or notify the sender
+      console.log(`User with userId ${receiverId} is not online.`);
+      // Optionally emit an error message or handle it as per your application logic
     }
   });
 
@@ -44,4 +43,4 @@ io.on("connection", (socket) => {
   });
 });
 
-io.listen("4000");
+io.listen(4000);
