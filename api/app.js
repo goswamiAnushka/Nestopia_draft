@@ -9,6 +9,7 @@ import chatRoute from "./routes/chat.route.js";
 import messageRoute from "./routes/message.route.js";
 
 const app = express();
+const PORT = process.env.PORT || 8800; // Use process.env.PORT or default to 8800
 
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
@@ -21,6 +22,6 @@ app.use("/api/test", testRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
 
-app.listen(8800, () => {
-  console.log("Server is running!");
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}!`);
 });
