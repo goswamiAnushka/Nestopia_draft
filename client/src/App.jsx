@@ -12,7 +12,6 @@ import NewPostPage from './routes/newPostPage/newPostPage';
 import About from './routes/about/About';
 import Contact from './routes/contact/Contact';
 import Agents from './routes/agents/Agents';
-
 import { Layout, RequireAuth } from './routes/layout/layout';
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders';
 
