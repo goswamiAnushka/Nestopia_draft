@@ -1,62 +1,79 @@
-import HomePage from "./routes/homePage/homePage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ListPage from "./routes/listPage/listPage";
-import { Layout, RequireAuth } from "./routes/layout/layout";
-import SinglePage from "./routes/singlePage/singlePage";
-import ProfilePage from "./routes/profilePage/profilePage";
-import Login from "./routes/login/login";
-import Register from "./routes/register/register";
-import ProfileUpdatePage from "./routes/profileUpdatePage/profileUpdatePage";
-import NewPostPage from "./routes/newPostPage/newPostPage";
-import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loaders";
-import {disableReactDevTools} from '@fvilers/disable-react-devtools';
-if(process.env.NODE_ENV==='production') disableReactDevTools()
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+import HomePage from './routes/homePage/homePage';
+import ListPage from './routes/listPage/listPage';
+import SinglePage from './routes/singlePage/singlePage';
+import ProfilePage from './routes/profilePage/profilePage';
+import Login from './routes/login/login';
+import Register from './routes/register/register';
+import ProfileUpdatePage from './routes/profileUpdatePage/profileUpdatePage';
+import NewPostPage from './routes/newPostPage/newPostPage';
+import About from './routes/about/About';
+import Contact from './routes/contact/Contact';
+import Agents from './routes/agents/Agents';
+import { Layout, RequireAuth } from './routes/layout/layout';
+import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders';
+
+if (process.env.NODE_ENV === 'production') disableReactDevTools();
+
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: '/',
           element: <HomePage />,
         },
         {
-          path: "/list",
+          path: '/list',
           element: <ListPage />,
           loader: listPageLoader,
         },
         {
-          path: "/:id",
+          path: '/:id',
           element: <SinglePage />,
           loader: singlePageLoader,
         },
-
         {
-          path: "/login",
+          path: '/login',
           element: <Login />,
         },
         {
-          path: "/register",
+          path: '/register',
           element: <Register />,
+        },
+        {
+          path: '/about',
+          element: <About />,
+        },
+        {
+          path: '/contact',
+          element: <Contact />,
+        },
+        {
+          path: '/agents',
+          element: <Agents />,
         },
       ],
     },
     {
-      path: "/",
+      path: '/',
       element: <RequireAuth />,
       children: [
         {
-          path: "/profile",
+          path: '/profile',
           element: <ProfilePage />,
-          loader: profilePageLoader
+          loader: profilePageLoader,
         },
         {
-          path: "/profile/update",
+          path: '/profile/update',
           element: <ProfileUpdatePage />,
         },
         {
-          path: "/add",
+          path: '/add',
           element: <NewPostPage />,
         },
       ],
