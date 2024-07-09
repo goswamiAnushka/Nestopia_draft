@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 8800; // Use process.env.PORT or default to 8800
 
 app.use(cors({
-  origin:[""] ,
+  origin:["https://nestopia-draft-api.vercel.app"] ,
   methods:["POST","GET"],
   credentials: true}
 ));
