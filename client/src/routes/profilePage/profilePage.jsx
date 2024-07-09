@@ -8,9 +8,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 function ProfilePage() {
   const data = useLoaderData();
-
   const { updateUser, currentUser } = useContext(AuthContext);
-
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -22,6 +20,25 @@ function ProfilePage() {
       console.log(err);
     }
   };
+
+  const handleDeletePost = async (postId) => {
+    try {
+      await apiRequest.delete(`/posts/${postId}`);
+      // Refresh the data or update the state to reflect the changes
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUnsavePost = async (postId) => {
+    try {
+      await apiRequest.delete(`/savedPosts/${postId}`);
+      // Refresh the data or update the state to reflect the changes
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="profilePage">
       <div className="details">
@@ -56,7 +73,12 @@ function ProfilePage() {
               resolve={data.postResponse}
               errorElement={<p>Error loading posts!</p>}
             >
-              {(postResponse) => <List posts={postResponse.data.userPosts} />}
+              {(postResponse) => (
+                <List 
+                  posts={postResponse.data.userPosts} 
+                  onDeletePost={handleDeletePost} 
+                />
+              )}
             </Await>
           </Suspense>
           <div className="title">
@@ -67,7 +89,12 @@ function ProfilePage() {
               resolve={data.postResponse}
               errorElement={<p>Error loading posts!</p>}
             >
-              {(postResponse) => <List posts={postResponse.data.savedPosts} />}
+              {(postResponse) => (
+                <List 
+                  posts={postResponse.data.savedPosts} 
+                  onDeletePost={handleUnsavePost} 
+                />
+              )}
             </Await>
           </Suspense>
         </div>
