@@ -164,7 +164,7 @@ function NewPostPage() {
         <UploadWidget
           uwConfig={{
             multiple: true,
-            cloudName: "Anushka",
+            cloudName: "anushka2520",
             uploadPreset: "Nestopia",
             folder: "posts",
           }}
