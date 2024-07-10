@@ -5,18 +5,17 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf dist node_modules/.cache",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "start": "node index.js",
-    "build": "prisma generate && prisma migrate deploy"
-
+    "start": "node index.js"
   
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.16.1",
+    "@prisma/client": "^5.16.2",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
