@@ -1,31 +1,46 @@
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-const cors = require('cors');
+import { Server } from "socket.io";
 
-const app = express();
-const server = http.createServer(app);
-const io = socketIo(server, {
+const io = new Server({
   cors: {
-    origin: 'https://668e27567494d4801c5432bd--joyful-monstera-323e05.netlify.app',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true,
+    origin: "http://localhost:5174",
   },
 });
 
-// Enable CORS for your client origin
-app.use(cors({
-  origin: 'https://668e27567494d4801c5432bd--joyful-monstera-323e05.netlify.app',
-  credentials: true,
-}));
+let onlineUsers = [];
 
-// Your other server code...
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  // Your socket event handlers...
+const addUser = (userId, socketId) => {
+  const userExists = onlineUsers.some((user) => user.userId === userId);
+  if (!userExists) {
+    onlineUsers.push({ userId, socketId });
+  }
+};
+
+const removeUser = (socketId) => {
+  onlineUsers = onlineUsers.filter((user) => user.socketId !== socketId);
+};
+
+const getUser = (userId) => {
+  return onlineUsers.find((user) => user.userId === userId);
+};
+
+io.on("connection", (socket) => {
+  socket.on("newUser", (userId) => {
+    addUser(userId, socket.id);
+  });
+
+  socket.on("sendMessage", ({ receiverId, data }) => {
+    const receiver = getUser(receiverId);
+    if (receiver && receiver.socketId) {
+      io.to(receiver.socketId).emit("getMessage", data);
+    } else {
+      console.log(`User with userId ${receiverId} is not online.`);
+      // Optionally emit an error message or handle it as per your application logic
+    }
+  });
+
+  socket.on("disconnect", () => {
+    removeUser(socket.id);
+  });
 });
 
-server.listen(4000, () => {
-  console.log('Listening on port 4000');
-});
+io.listen(4000);
