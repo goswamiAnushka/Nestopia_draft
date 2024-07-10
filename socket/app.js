@@ -2,7 +2,7 @@ import { Server } from "socket.io";
 
 const io = new Server({
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://668e23117494d47b26543530--zingy-toffee-28f590.netlify.app/",
   },
 });
 
