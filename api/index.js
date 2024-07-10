@@ -14,15 +14,24 @@ import messageRoute from './routes/message.route.js';
 const app = express();
 const port = process.env.PORT || 8800;
 
-const server = createServer(app); // Create an HTTP server
-const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  },
-});
+// Log the client URL for debugging
+console.log('Client URL:', process.env.CLIENT_URL);
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+const allowedOrigins = [process.env.CLIENT_URL, 'http://localhost:5173'];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      console.log('Blocked by CORS:', origin); // Log blocked origins
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -38,7 +47,13 @@ app.get('/api/health', (req, res) => {
   res.status(200).send('Server is healthy!');
 });
 
-
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins,
+    credentials: true,
+  },
+});
 
 // Socket.IO setup
 io.on('connection', (socket) => {
