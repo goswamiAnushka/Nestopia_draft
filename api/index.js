@@ -3,8 +3,6 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
 
 import authRoute from './routes/auth.route.js';
 import postRoute from './routes/post.route.js';
@@ -12,9 +10,6 @@ import testRoute from './routes/test.route.js';
 import userRoute from './routes/user.route.js';
 import chatRoute from './routes/chat.route.js';
 import messageRoute from './routes/message.route.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 8800;
@@ -43,11 +38,7 @@ app.get('/api/health', (req, res) => {
   res.status(200).send('Server is healthy!');
 });
 
-// Serve static files from React app
-app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
-});
+
 
 // Socket.IO setup
 io.on('connection', (socket) => {
