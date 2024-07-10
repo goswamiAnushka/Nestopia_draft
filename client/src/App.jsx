@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+//import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 import HomePage from './routes/homePage/homePage';
 import ListPage from './routes/listPage/listPage';
 import SinglePage from './routes/singlePage/singlePage';
@@ -15,7 +15,7 @@ import Agents from './routes/agents/Agents';
 import { Layout, RequireAuth } from './routes/layout/layout';
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders';
 
-if (process.env.NODE_ENV === 'production') disableReactDevTools();
+//if (process.env.NODE_ENV === 'production') disableReactDevTools();
 
 function App() {
   const router = createBrowserRouter([
