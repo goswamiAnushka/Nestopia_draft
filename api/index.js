@@ -1,14 +1,20 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
-import { createServer } from "http";
-import { Server } from "socket.io";
-import authRoute from "./routes/auth.route.js";
-import postRoute from "./routes/post.route.js";
-import testRoute from "./routes/test.route.js";
-import userRoute from "./routes/user.route.js";
-import chatRoute from "./routes/chat.route.js";
-import messageRoute from "./routes/message.route.js";
+import express from 'express';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+
+import authRoute from './routes/auth.route.js';
+import postRoute from './routes/post.route.js';
+import testRoute from './routes/test.route.js';
+import userRoute from './routes/user.route.js';
+import chatRoute from './routes/chat.route.js';
+import messageRoute from './routes/message.route.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const port = process.env.PORT || 8800;
@@ -25,32 +31,38 @@ app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/auth", authRoute);
-app.use("/api/users", userRoute);
-app.use("/api/posts", postRoute);
-app.use("/api/test", testRoute);
-app.use("/api/chats", chatRoute);
-app.use("/api/messages", messageRoute);
+app.use('/api/auth', authRoute);
+app.use('/api/users', userRoute);
+app.use('/api/posts', postRoute);
+app.use('/api/test', testRoute);
+app.use('/api/chats', chatRoute);
+app.use('/api/messages', messageRoute);
 
 // Health check route
-app.get("/api/health", (req, res) => {
-  res.status(200).send("Server is healthy!");
+app.get('/api/health', (req, res) => {
+  res.status(200).send('Server is healthy!');
+});
+
+// Serve static files from React app
+app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
 });
 
 // Socket.IO setup
-io.on("connection", (socket) => {
-  console.log("A user connected");
+io.on('connection', (socket) => {
+  console.log('A user connected');
 
-  socket.on("sendMessage", (data) => {
-    io.to(data.receiverId).emit("getMessage", data);
+  socket.on('sendMessage', (data) => {
+    io.to(data.receiverId).emit('getMessage', data);
   });
 
-  socket.on("joinChat", (userId) => {
+  socket.on('joinChat', (userId) => {
     socket.join(userId);
   });
 
-  socket.on("disconnect", () => {
-    console.log("A user disconnected");
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
   });
 });
 

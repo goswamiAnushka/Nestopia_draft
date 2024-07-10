@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  "type":"module",
   "scripts": {
     "clean": "rm -rf dist node_modules/.cache",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "node-sass": "^9.0.0",
     "openai": "^4.52.4",
+    "path": "^0.12.7",
     "socket.io": "^4.7.5",
     "zustand": "^4.5.4"
   },
