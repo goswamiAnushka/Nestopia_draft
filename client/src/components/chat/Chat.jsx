@@ -16,6 +16,12 @@ function Chat({ chats }) {
   const decrease = useNotificationStore((state) => state.decrease);
 
   useEffect(() => {
+    if (socket && currentUser) {
+      socket.emit("joinChat", currentUser.id);
+    }
+  }, [socket, currentUser]);
+
+  useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chat]);
 
