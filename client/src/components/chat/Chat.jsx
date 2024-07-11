@@ -12,6 +12,8 @@ function Chat({ chats }) {
   const { socket } = useContext(SocketContext);
 
   const messageEndRef = useRef();
+  const [inputValue, setInputValue] = useState("");
+  const [media, setMedia] = useState(null);
 
   const decrease = useNotificationStore((state) => state.decrease);
 
@@ -40,14 +42,20 @@ function Chat({ chats }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const text = formData.get("text");
+    if (!inputValue.trim() && !media) return;
 
-    if (!text) return;
     try {
-      const res = await apiRequest.post("/messages/" + chat.id, { text });
+      const messageData = new FormData();
+      messageData.append("text", inputValue);
+      if (media) {
+        const resizedImage = await resizeImage(media); // Function to resize image
+        messageData.append("media", resizedImage);
+      }
+
+      const res = await apiRequest.post("/messages/" + chat.id, messageData);
       setChat((prev) => ({ ...prev, messages: [...prev.messages, res.data] }));
-      e.target.reset();
+      setInputValue("");
+      setMedia(null);
       socket.emit("sendMessage", {
         receiverId: chat.receiver.id,
         data: res.data,
@@ -78,6 +86,51 @@ function Chat({ chats }) {
       socket.off("getMessage");
     };
   }, [socket, chat]);
+
+  const handleMediaChange = (e) => {
+    setMedia(e.target.files[0]);
+  };
+
+  // Function to resize image using canvas
+  const resizeImage = async (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const MAX_WIDTH = 800; // Adjust this as needed
+          const MAX_HEIGHT = 600; // Adjust this as needed
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height) {
+            if (width > MAX_WIDTH) {
+              height *= MAX_WIDTH / width;
+              width = MAX_WIDTH;
+            }
+          } else {
+            if (height > MAX_HEIGHT) {
+              width *= MAX_HEIGHT / height;
+              height = MAX_HEIGHT;
+            }
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+
+          canvas.toBlob((blob) => {
+            resolve(new File([blob], file.name, { type: file.type }));
+          }, file.type);
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  };
 
   return (
     <div className="chat">
@@ -127,14 +180,27 @@ function Chat({ chats }) {
                 key={message.id}
               >
                 <p>{message.text}</p>
+                {message.media && (
+                  <img
+                    src={message.media}
+                    alt="media"
+                    className="media"
+                  />
+                )}
                 <span>{format(message.createdAt)}</span>
               </div>
             ))}
             <div ref={messageEndRef}></div>
           </div>
           <form onSubmit={handleSubmit} className="bottom">
-            <textarea name="text"></textarea>
-            <button>Send</button>
+            <textarea
+              name="text"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Type your message..."
+            ></textarea>
+            <input type="file" onChange={handleMediaChange} />
+            <button type="submit">Send</button>
           </form>
         </div>
       )}
