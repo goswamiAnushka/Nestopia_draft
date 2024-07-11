@@ -8,7 +8,7 @@ function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const {updateUser} = useContext(AuthContext)
+  const { updateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -27,15 +27,20 @@ function Login() {
         password,
       });
 
-      updateUser(res.data)
+      updateUser(res.data);
 
       navigate("/");
     } catch (err) {
-      setError(err.response.data.message);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="login">
       <div className="formContainer">
@@ -61,7 +66,7 @@ function Login() {
         </form>
       </div>
       <div className="imgContainer">
-        <img src="api/client/public/bg.png" alt="" />
+        <img src="/bg.png" alt="" />
       </div>
     </div>
   );
