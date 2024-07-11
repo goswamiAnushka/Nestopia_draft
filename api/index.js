@@ -1,33 +1,59 @@
 import express from "express";
-import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
 import cors from "cors";
-import authRoutes from "./routes/auth.route.js";
-import userRoutes from "./routes/user.route.js";
-
-dotenv.config();
+import cookieParser from "cookie-parser";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import authRoute from "./routes/auth.route.js";
+import postRoute from "./routes/post.route.js";
+import testRoute from "./routes/test.route.js";
+import userRoute from "./routes/user.route.js";
+import chatRoute from "./routes/chat.route.js";
+import messageRoute from "./routes/message.route.js";
 
 const app = express();
+const port = process.env.PORT || 8800;
 
-// Middleware
-app.use(cors({
-  origin: process.env.CLIENT_URL, // Allow only your client URL
-  credentials: true, // Allow credentials (cookies)
-}));
-app.use(cookieParser());
-app.use(express.json());
-
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/users", userRoutes);
-
-// Error handling middleware (optional, but good practice)
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: "Internal Server Error" });
+const server = createServer(app); // Create an HTTP server
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  },
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(express.json());
+app.use(cookieParser());
+
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/posts", postRoute);
+app.use("/api/test", testRoute);
+app.use("/api/chats", chatRoute);
+app.use("/api/messages", messageRoute);
+
+// Health check route
+app.get("/api/health", (req, res) => {
+  res.status(200).send("Server is healthy!");
+});
+
+// Socket.IO setup
+io.on("connection", (socket) => {
+  console.log("A user connected");
+
+  socket.on("sendMessage", (data) => {
+    io.to(data.receiverId).emit("getMessage", data);
+  });
+
+  socket.on("joinChat", (userId) => {
+    socket.join(userId);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("A user disconnected");
+  });
+});
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}!`);
 });
