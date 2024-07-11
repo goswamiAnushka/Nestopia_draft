@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiRequest = axios.create({
-  baseURL: "https://nestopia-api-backend.onrender.com", // Adjust as per your server setup
+  baseURL: "http://localhost:8800/api", // Adjust as per your server setup
   withCredentials: true,
 });
 
