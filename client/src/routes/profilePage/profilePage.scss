@@ -2,36 +2,16 @@
 
 .profilePage {
   display: flex;
+  flex-direction: row;
   height: 100vh;
   padding: 20px;
-  gap: 20px;
-  background: #f0f2f5;
+  background: #f7f8fa;
   box-sizing: border-box;
+  gap: 20px;
 
   @include md {
     flex-direction: column;
     padding: 10px;
-    height: auto;
-    overflow-y: auto;
-    scroll-behavior: smooth;
-
-    &::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #f0f2f5;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
   }
 
   .details, .chatContainer {
@@ -49,7 +29,7 @@
   }
 
   .details {
-    flex: 2;
+    flex: 3;
 
     .wrapper {
       display: flex;
@@ -62,13 +42,14 @@
         justify-content: space-between;
 
         h1 {
-          font-weight: 500;
+          font-weight: 400;
           color: #333;
+          font-size: 1.5rem;
         }
 
         button {
           padding: 10px 20px;
-          background-color: #4caf50;
+          background-color: #007bff;
           border: none;
           border-radius: 6px;
           color: #fff;
@@ -77,7 +58,7 @@
           transition: background-color 0.3s ease;
 
           &:hover {
-            background-color: #388e3c;
+            background-color: #0056b3;
           }
         }
       }
@@ -85,7 +66,7 @@
       .info {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         font-size: 1rem;
         color: #555;
 
@@ -100,17 +81,17 @@
         }
 
         button {
-          background-color: #f44336;
+          background-color: #dc3545;
           color: #fff;
           padding: 8px 16px;
           border: none;
-          border-radius: 6px;
+          border-radius: 5px;
           cursor: pointer;
           font-weight: bold;
           transition: background-color 0.3s ease;
 
           &:hover {
-            background-color: #d32f2f;
+            background-color: #c82333;
           }
         }
 
@@ -119,21 +100,39 @@
           height: 50px;
           border-radius: 50%;
           object-fit: cover;
-          border: 2px solid #4caf50;
+          border: 2px solid #007bff;
         }
       }
     }
   }
 
   .chatContainer {
-    flex: 1;
+    flex: 3;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 
     .wrapper {
-      padding: 0 20px;
-      height: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .chatHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h2 {
+        font-weight: 400;
+        color: #333;
+        font-size: 1.5rem;
+      }
+    }
+
+    .chatBody {
+      flex: 1;
+      overflow-y: auto;
     }
   }
 }
