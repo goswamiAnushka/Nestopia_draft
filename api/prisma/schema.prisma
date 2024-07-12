@@ -74,7 +74,9 @@ model User {
   savedPosts SavedPost[]
   chats      Chat[]      @relation(fields: [chatIDs], references: [id])
   chatIDs    String[]    @db.ObjectId
+  reactions  Reaction[]  // New field to establish relation to reactions
 }
+
 
 model Chat {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
@@ -87,12 +89,22 @@ model Chat {
 }
 
 model Message {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
   text      String
   userId    String
-  chat      Chat     @relation(fields: [chatId], references: [id])
-  chatId    String   @db.ObjectId
-  createdAt DateTime @default(now())
-  media    String?   
+  chat      Chat        @relation(fields: [chatId], references: [id])
+  chatId    String      @db.ObjectId
+  createdAt DateTime    @default(now())
+  media     String?
+  reactions Reaction[]  // New field to establish relation to reactions
+}
 
+model Reaction {
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  type       String     // Reaction type, e.g., 'like', 'love', 'thumbs-up'
+  messageId  String     @db.ObjectId
+  userId     String     @db.ObjectId
+  createdAt  DateTime   @default(now())
+  message    Message    @relation(fields: [messageId], references: [id])
+  user       User       @relation(fields: [userId], references: [id])
 }
