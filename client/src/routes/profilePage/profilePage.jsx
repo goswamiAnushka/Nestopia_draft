@@ -21,24 +21,6 @@ function ProfilePage() {
     }
   };
 
-  const handleDeletePost = async (postId) => {
-    try {
-      await apiRequest.delete(`/posts/${postId}`);
-      // Refresh the data or update the state to reflect the changes
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleUnsavePost = async (postId) => {
-    try {
-      await apiRequest.delete(`/savedPosts/${postId}`);
-      // Refresh the data or update the state to reflect the changes
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   return (
     <div className="profilePage">
       <div className="details">
@@ -73,12 +55,7 @@ function ProfilePage() {
               resolve={data.postResponse}
               errorElement={<p>Error loading posts!</p>}
             >
-              {(postResponse) => (
-                <List 
-                  posts={postResponse.data.userPosts} 
-                  onDeletePost={handleDeletePost} 
-                />
-              )}
+              {(postResponse) => <List posts={postResponse.data.userPosts} />}
             </Await>
           </Suspense>
           <div className="title">
@@ -89,12 +66,7 @@ function ProfilePage() {
               resolve={data.postResponse}
               errorElement={<p>Error loading posts!</p>}
             >
-              {(postResponse) => (
-                <List 
-                  posts={postResponse.data.savedPosts} 
-                  onDeletePost={handleUnsavePost} 
-                />
-              )}
+              {(postResponse) => <List posts={postResponse.data.savedPosts} />}
             </Await>
           </Suspense>
         </div>
@@ -106,7 +78,7 @@ function ProfilePage() {
               resolve={data.chatResponse}
               errorElement={<p>Error loading chats!</p>}
             >
-              {(chatResponse) => <Chat chats={chatResponse.data}/>}
+              {(chatResponse) => <Chat chats={chatResponse.data} />}
             </Await>
           </Suspense>
         </div>

@@ -14,6 +14,7 @@ function Chat({ chats }) {
   const messageEndRef = useRef();
   const [inputValue, setInputValue] = useState("");
   const [media, setMedia] = useState(null);
+  const [chatOpen, setChatOpen] = useState(false);
 
   const decrease = useNotificationStore((state) => state.decrease);
 
@@ -34,6 +35,7 @@ function Chat({ chats }) {
         decrease();
       }
       setChat({ ...res.data, receiver });
+      setChatOpen(true);
     } catch (err) {
       console.log(err);
     }
@@ -48,7 +50,7 @@ function Chat({ chats }) {
       const messageData = new FormData();
       messageData.append("text", inputValue);
       if (media) {
-        const resizedImage = await resizeImage(media); // Function to resize image
+        const resizedImage = await resizeImage(media);
         messageData.append("media", resizedImage);
       }
 
@@ -91,7 +93,6 @@ function Chat({ chats }) {
     setMedia(e.target.files[0]);
   };
 
-  // Function to resize image using canvas
   const resizeImage = async (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -99,8 +100,8 @@ function Chat({ chats }) {
         const img = new Image();
         img.onload = () => {
           const canvas = document.createElement("canvas");
-          const MAX_WIDTH = 800; // Adjust this as needed
-          const MAX_HEIGHT = 600; // Adjust this as needed
+          const MAX_WIDTH = 800;
+          const MAX_HEIGHT = 600;
           let width = img.width;
           let height = img.height;
 
@@ -154,38 +155,28 @@ function Chat({ chats }) {
           </div>
         ))}
       </div>
-      {chat && (
+      {chatOpen && (
         <div className="chatBox">
           <div className="top">
             <div className="user">
               <img src={chat.receiver?.avatar || "noavatar.jpg"} alt="" />
               {chat.receiver?.username}
             </div>
-            <span className="close" onClick={() => setChat(null)}>
+            <span className="close" onClick={() => setChatOpen(false)}>
               X
             </span>
           </div>
           <div className="center">
             {chat.messages.map((message) => (
               <div
-                className="chatMessage"
-                style={{
-                  alignSelf:
-                    message.userId === currentUser.id
-                      ? "flex-end"
-                      : "flex-start",
-                  textAlign:
-                    message.userId === currentUser.id ? "right" : "left",
-                }}
+                className={`chatMessage ${
+                  message.userId === currentUser.id ? "own" : ""
+                }`}
                 key={message.id}
               >
                 <p>{message.text}</p>
                 {message.media && (
-                  <img
-                    src={message.media}
-                    alt="media"
-                    className="media"
-                  />
+                  <img src={message.media} alt="media" className="media" />
                 )}
                 <span>{format(message.createdAt)}</span>
               </div>
@@ -204,6 +195,9 @@ function Chat({ chats }) {
           </form>
         </div>
       )}
+      <div className="chatToggle">
+        <button onClick={() => setChatOpen(!chatOpen)}>Open Chat</button>
+      </div>
     </div>
   );
 }
