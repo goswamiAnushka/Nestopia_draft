@@ -5,6 +5,7 @@ import apiRequest from "../../lib/apiRequest";
 import { format } from "timeago.js";
 import { SocketContext } from "../../context/SocketContext";
 import { useNotificationStore } from "../../lib/notificationStore";
+import { FaUpload } from "react-icons/fa"; // Importing the upload icon
 
 function Chat({ chats }) {
   const [chat, setChat] = useState(null);
@@ -190,7 +191,16 @@ function Chat({ chats }) {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Type your message..."
             ></textarea>
-            <input type="file" onChange={handleMediaChange} />
+            <label htmlFor="media-upload" className="media-upload-label">
+              <FaUpload />
+            </label>
+            <input
+              type="file"
+              id="media-upload"
+              className="media-upload-input"
+              onChange={handleMediaChange}
+              style={{ display: "none" }}
+            />
             <button type="submit">Send</button>
           </form>
         </div>
