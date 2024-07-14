@@ -3,6 +3,7 @@ import { CountUp } from "countup.js";
 import SearchBar from "../../components/searchBar/SearchBar";
 import "./homePage.scss";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const{currentUser}=useContext(AuthContext)
