@@ -1,61 +1,106 @@
 .login {
-  height: 100%;
+  height: 100vh;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0; /* Changed to a neutral background color */
+  color: #333;
+  font-family: 'Roboto', sans-serif;
 
   .formContainer {
-    flex: 3;
-    height: 100%;
+    flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 60px; /* Increased padding for a larger form */
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    max-width: 500px; /* Added max-width for responsiveness */
+    margin-bottom: 50px;
 
     form {
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 20px;
 
-      input{
-        padding: 20px;
-        border: 1px solid gray;
-        border-radius: 5px;
+      h1 {
+        font-size: 2.5rem; /* Increased font size */
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
       }
 
-      button{
-        padding: 20px;
-        border-radius: 5px;
+      input {
+        padding: 16px; /* Increased padding for larger input fields */
         border: none;
-        background-color: teal;
-        color: white;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        font-size: 1rem;
+        outline: none;
+        transition: background 0.3s ease;
+
+        &:focus {
+          background: rgba(255, 255, 255, 1);
+        }
+      }
+
+      button {
+        padding: 19px; /* Increased padding for a larger button */
+        border-radius: 25px;
+        border: none;
+        background-color: #ffeb3b;
+        color: #333;
         font-weight: bold;
         cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
 
-        &:disabled{
-          background-color: #BED9D8;
+        &:hover {
+          background-color: #f79833;
+        }
+
+        &:disabled {
+          background-color: #bed9d8;
           cursor: not-allowed;
         }
       }
 
-      span{
-        color: rgba(255, 0, 0, 0.591);
+      .error {
+        color: #ff0000;
+        font-size: 1rem;
+        text-align: center;
       }
 
-      a{
-        font-size: 14px;
-        color: gray;
-        border-bottom: 1px solid gray;
-        width: max-content;
+      a {
+        font-size: 1rem;
+        color: #333;
+        text-align: center;
+        text-decoration: underline;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #ffeb3b;
+        }
       }
     }
   }
 
   .imgContainer {
     flex: 2;
-    background-color: #fcf5f3;
     display: flex;
     align-items: center;
     justify-content: center;
+
     img {
       width: 100%;
+      height: auto;
+      max-width: 600px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
   }
 }

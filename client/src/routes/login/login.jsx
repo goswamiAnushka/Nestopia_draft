@@ -3,6 +3,7 @@ import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
 import { AuthContext } from "../../context/AuthContext";
+import Typewriter from "typewriter-effect";
 
 function Login() {
   const [error, setError] = useState("");
@@ -45,7 +46,15 @@ function Login() {
     <div className="login">
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
-          <h1>Welcome back</h1>
+          <h1>
+            <Typewriter
+              options={{
+                strings: ["Welcome back"],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </h1>
           <input
             name="username"
             required
@@ -61,12 +70,12 @@ function Login() {
             placeholder="Password"
           />
           <button disabled={isLoading}>Login</button>
-          {error && <span>{error}</span>}
+          {error && <span className="error">{error}</span>}
           <Link to="/register">{"Don't"} you have an account?</Link>
         </form>
       </div>
       <div className="imgContainer">
-        <img src="/bg.png" alt="" />
+        <img src="/bg5.png" alt="Background" />
       </div>
     </div>
   );
