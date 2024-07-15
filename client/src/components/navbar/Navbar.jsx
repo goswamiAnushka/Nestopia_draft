@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useNotificationStore } from "../../lib/notificationStore";
 
-
 function Navbar() {
   const [open, setOpen] = useState(false);
 
@@ -13,13 +12,13 @@ function Navbar() {
   const fetch = useNotificationStore((state) => state.fetch);
   const number = useNotificationStore((state) => state.number);
 
-  if(currentUser) fetch();
+  if (currentUser) fetch();
 
   return (
     <nav>
       <div className="left">
         <a href="/" className="logo">
-          <img src="/logo.png" alt="" />
+          <img src="/logo.png" alt="Nestopia Logo" />
           <span>Nestopia</span>
         </a>
         <a href="/">Home</a>
@@ -30,7 +29,7 @@ function Navbar() {
       <div className="right">
         {currentUser ? (
           <div className="user">
-            <img src={currentUser.avatar || "/noavatar.jpg"} alt="" />
+            <img src={currentUser.avatar || "/noavatar.jpg"} alt="User Avatar" />
             <span>{currentUser.username}</span>
             <Link to="/profile" className="profile">
               {number > 0 && <div className="notification">{number}</div>}
@@ -48,17 +47,17 @@ function Navbar() {
         <div className="menuIcon">
           <img
             src="/menu.png"
-            alt=""
+            alt="Menu Icon"
             onClick={() => setOpen((prev) => !prev)}
           />
         </div>
         <div className={open ? "menu active" : "menu"}>
           <a href="/">Home</a>
-          <a href="/">About</a>
-          <a href="/">Contact</a>
-          <a href="/">Agents</a>
-          <a href="/">Sign in</a>
-          <a href="/">Sign up</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/agents">Agents</a>
+          <a href="/login">Sign in</a>
+          <a href="/register">Sign up</a>
         </div>
       </div>
     </nav>

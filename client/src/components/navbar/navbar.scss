@@ -2,14 +2,19 @@
 
 nav {
   height: 70px;
-  width: 85%; /* Adjusted width to 80% */
-  margin: 0 auto; /* Center the navbar horizontally */
+  width: 85%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
+  border-radius: 10px;
+
+  padding: 0 20px;
 
   a {
+    color: rgb(29, 28, 28);
+    text-decoration: none;
     transition: all 0.4s ease;
 
     @include sm {
@@ -17,7 +22,8 @@ nav {
     }
 
     &:hover {
-      scale: 1.05;
+      transform: scale(1.1);
+      color: #eb5b2f;
     }
   }
 
@@ -25,14 +31,14 @@ nav {
     flex: 3;
     display: flex;
     align-items: center;
-    gap: 50px;
+    gap: 30px;
 
     .logo {
       font-weight: bold;
-      font-size: 23px;
+      font-size: 24px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 10px;
 
       img {
         width: 40px;
@@ -63,7 +69,12 @@ nav {
 
     a {
       padding: 12px 24px;
-      margin: 20px;
+      margin: 0 10px;
+      border-radius: 25px;
+      background-color: rgba(255, 255, 255, 0.2);
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
     }
 
     .user {
@@ -77,6 +88,7 @@ nav {
         border-radius: 50%;
         object-fit: cover;
         margin-right: 20px;
+        border: 2px solid #ff893b;
       }
 
       span {
@@ -87,17 +99,19 @@ nav {
 
       .profile {
         padding: 12px 24px;
-        background-color: #fece51;
+        background-color: #e86422;
         cursor: pointer;
         border: none;
         position: relative;
+        border-radius: 25px;
+        color: black;
 
         .notification {
           position: absolute;
           top: -8px;
           right: -8px;
-          background-color: red;
-          color: white;
+          background-color: rgb(187, 11, 11);
+          color: rgb(12, 11, 11);
           border-radius: 50%;
           width: 26px;
           height: 26px;
@@ -109,7 +123,10 @@ nav {
     }
 
     .register {
-      background-color: #fece51;
+      background-color: #ff793b;
+      &:hover {
+        background-color: #e74311;
+      }
     }
 
     .menuIcon {
@@ -124,33 +141,41 @@ nav {
 
       @include sm {
         display: inline;
-        z-index: 1000; /* Ensure navbar is above other elements */
+        z-index: 1000;
       }
     }
 
     .menu {
       position: absolute;
       top: 0;
-      right: -100%; /* Adjust initial position to fully hide the menu */
-      background-color: black;
+      right: -100%;
+      background-color: rgba(0, 0, 0, 0.9);
       color: white;
       height: 100vh;
-      width: 60%; /* Keep the width as 60% */
-      transition: all 0.5s ease; /* Slightly faster transition */
+      width: 70%;
+      transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 22px;
-      overflow: hidden; /* Ensure no overflow is visible */
+      overflow: hidden;
+      border-top-left-radius: 25px;
+      border-bottom-left-radius: 25px;
 
       &.active {
-        right: 0; /* Slide the menu into view */
+        right: 0;
       }
 
       @include sm {
         a {
           display: initial;
+          padding: 15px 0;
+          margin: 10px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+          }
         }
       }
     }
