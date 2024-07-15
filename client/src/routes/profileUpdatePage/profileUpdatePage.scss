@@ -1,16 +1,30 @@
+@import "../../responsive.scss";
+
+// Custom colors and variables
+$primary-color: #ff3700; // Orangish-yellow color
+$background-color: #f5f5f5;
+$secondary-color: #ff6600; // Lighter shade for variation
+$box-shadow-color: rgba(0, 0, 0, 0.1);
+
 .profileUpdatePage {
   height: 100%;
   display: flex;
+  background-color:#f1e8e2;
 
   .formContainer {
-    flex:3;
+    flex: 3;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px $box-shadow-color;
+
     form {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      width: 100%; // Ensure form takes full width
 
       .item {
         display: flex;
@@ -18,28 +32,55 @@
         gap: 5px;
 
         label {
+          color: $primary-color;
+          font-weight: bold;
         }
 
         input {
-          padding: 20px;
+          padding: 15px;
           border-radius: 5px;
           border: 1px solid gray;
+          width: 100%; // Full width input
+        }
+
+        textarea {
+          padding: 15px;
+          border-radius: 5px;
+          border: 1px solid gray;
+          width: 100%; // Full width textarea
+          min-height: 150px; // Adjusted minimum height for smaller screens
+          resize: vertical; // Allow vertical resizing
+        }
+
+        .ql-editor {
+          min-height: 140px; // Adjusted minimum height for Quill editor on smaller screens
         }
       }
+
       button {
         padding: 20px;
         border-radius: 5px;
         border: none;
-        background-color: teal;
+        background-color: rgb(254, 154, 23);
         color: white;
         font-weight: bold;
         cursor: pointer;
+        width: 100%; // Full width button
+
+        @include sm {
+          padding:10px;
+          width:120px;
+          margin-left: 70px;
+        }
       }
     }
-  }
 
+    @include sm {
+      padding: 5px; // Adjust padding for smaller screens
+    }
+  }
   .sideContainer {
-    flex: 2;
+    flex: 3;
     background-color: #fcf5f3;
     display: flex;
     flex-direction: column;
@@ -47,9 +88,69 @@
     align-items: center;
     justify-content: center;
 
-    .avatar{
-      width: 50%;
+    .avatar {
+      width: 45%;
       object-fit: cover;
+      border-radius: 50%; // Make avatar slightly roundish
+    }
+
+    .uploadSection {
+      width: 100%;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      overflow-x: auto; // Ensure horizontal scroll capability
+      display: flex; // Ensure items are displayed as flex to manage flex properties
+      gap: 10px; // Adjust space between items
+      align-items: center; // Center items
+
+      .uploadWidget {
+        flex: 0 0 auto;
+        width: 150px; // Adjust width as necessary
+        max-width: 100%; // Ensure it takes full available width
+        margin-right: 10px; // Adjust spacing between widgets
+      }
+
+      @include sm {
+        flex-direction: row; // Adjust direction for smaller screens to ensure horizontal display
+        overflow-x: auto; // Enable horizontal scroll for smaller screens
+        gap: 7px; // Adjust space between items
+
+        .uploadWidget {
+          flex: 0 0 auto;
+          width: 150px; // Adjust width as necessary
+          max-width: 100%; // Ensure it takes full available width
+          margin-right: 10px; // Adjust spacing between widgets
+        }
+      }
+    }
+  }
+
+  @include md {
+    flex-direction: column;
+
+    .formContainer {
+      width: 100%;
+      max-width: none;
+    }
+
+    .sideContainer {
+      width: 100%;
+    }
+  }
+
+  @include sm {
+    flex-direction: column;
+
+    .formContainer {
+      width: 100%;
+      max-width: none;
+    }
+
+    .sideContainer {
+      width: 100%;
     }
   }
 }
