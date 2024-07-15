@@ -87,8 +87,13 @@ nav {
         height: 40px;
         border-radius: 50%;
         object-fit: cover;
-        margin-right: 20px;
+        margin-right:20px;
         border: 2px solid #ff893b;
+
+       @include sm {
+        margin-left: 5.5px;
+        margin-right: 5.5px;
+       } 
       }
 
       span {
@@ -123,9 +128,10 @@ nav {
     }
 
     .register {
-      background-color: #ff793b;
+      background-color: #ffd83b;
       &:hover {
-        background-color: #e74311;
+        background-color: #f16a41;
+        color: black;
       }
     }
 
