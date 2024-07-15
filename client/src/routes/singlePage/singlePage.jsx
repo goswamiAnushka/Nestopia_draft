@@ -3,7 +3,7 @@ import Slider from "../../components/slider/Slider";
 import Map from "../../components/map/Map";
 import { useNavigate, useLoaderData } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import apiRequest from "../../lib/apiRequest";
 
@@ -12,6 +12,22 @@ function SinglePage() {
   const [saved, setSaved] = useState(post.isSaved);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [chatExists, setChatExists] = useState(false);
+
+  useEffect(() => {
+    const checkChatExists = async () => {
+      try {
+        const res = await apiRequest.get(`/chats/${post.user.id}`);
+        setChatExists(!!res.data); // Update state based on whether chat exists
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (currentUser) {
+      checkChatExists();
+    }
+  }, [currentUser, post.user.id]);
 
   const handleSave = async () => {
     if (!currentUser) {
@@ -32,14 +48,18 @@ function SinglePage() {
       navigate("/login");
       return;
     }
+  
     try {
-      const res = await apiRequest.post("/chats", { receiverId: post.user.id });
-      navigate('/profile');
-    } catch (err) {
+    
+        // If no chat exists, initiate a new chat
+        const newChat = await apiRequest.post("/chats", { receiverId: post.user.id });
+        navigate('/profile');
+      }
+    catch (err) {
       console.log(err);
     }
   };
-
+  
   return (
     <div className="singlePage">
       <div className="details">
