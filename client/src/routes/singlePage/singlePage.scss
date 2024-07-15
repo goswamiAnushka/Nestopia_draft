@@ -3,16 +3,20 @@
 .singlePage {
   display: flex;
   height: 100%;
+  background-color: #f8f9fa;
+  font-family: 'Roboto', sans-serif;
 
   @include md {
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: auto;
   }
 
   .details {
     flex: 3;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+    background: linear-gradient(135deg, #f6f6f6, #eaeaea);
+    padding: 20px;
 
     @include md {
       flex: none;
@@ -32,6 +36,7 @@
 
       .info {
         margin-top: 50px;
+
         .top {
           display: flex;
           justify-content: space-between;
@@ -39,20 +44,26 @@
           @include sm {
             flex-direction: column;
             gap: 20px;
+            padding: 0 10px;
           }
 
           .post {
             display: flex;
             flex-direction: column;
             gap: 20px;
+
             h1 {
-              font-weight: 400;
+              font-weight: 700;
+              font-size: 2rem;
+              color: #333;
+              word-wrap: break-word;
             }
+
             .address {
               display: flex;
               gap: 5px;
               align-items: center;
-              color: #888;
+              color: #555;
               font-size: 14px;
 
               img {
@@ -60,28 +71,33 @@
                 height: 16px;
               }
             }
+
             .price {
-              padding: 5px;
-              background-color: rgba(254, 205, 81, 0.438);
+              padding: 10px;
+              background-color: #fece51;
               border-radius: 5px;
               width: max-content;
-              font-size: 20px;
-              font-weight: 300;
+              font-size: 1.2rem;
+              font-weight: 500;
+              color: #fff;
+              box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
           }
+
           .user {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 20px;
-            padding: 0px 50px;
+            padding: 20px 50px;
             border-radius: 10px;
             background-color: rgba(254, 205, 81, 0.209);
             font-weight: 600;
+            text-align: center;
 
             @include sm {
-              padding: 20px 50px;
+              padding: 20px;
             }
 
             img {
@@ -89,22 +105,31 @@
               height: 50px;
               border-radius: 50%;
               object-fit: cover;
+              transition: transform 0.3s;
+            }
+
+            img:hover {
+              transform: scale(1.1);
             }
           }
         }
+
         .bottom {
           margin-top: 50px;
           color: #555;
-          line-height: 20px;
+          line-height: 1.6;
+          font-size: 0.95rem;
         }
       }
     }
   }
+
   .features {
     flex: 2;
     background-color: #fcf5f3;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+    padding: 20px;
 
     @include md {
       flex: none;
@@ -125,12 +150,18 @@
       img {
         width: 24px;
         height: 24px;
+        transition: transform 0.3s;
+      }
+
+      img:hover {
+        transform: rotate(10deg) scale(1.1);
       }
 
       .title {
         font-weight: bold;
-        font-size: 18px;
+        font-size: 1.2rem;
         margin-bottom: 10px;
+        color: #444;
       }
 
       .feature {
@@ -145,9 +176,11 @@
         .featureText {
           span {
             font-weight: bold;
+            color: #333;
           }
           p {
-            font-size: 14px;
+            font-size: 0.9rem;
+            color: #666;
           }
         }
       }
@@ -159,13 +192,16 @@
         padding: 20px 10px;
         background-color: white;
         border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
+
       .listHorizontal {
         display: flex;
         justify-content: space-between;
         padding: 20px 10px;
         background-color: white;
         border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       .sizes {
@@ -183,12 +219,16 @@
           background-color: white;
           padding: 10px;
           border-radius: 5px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
       }
 
       .mapContainer {
         width: 100%;
-        height: 200px;
+        height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       .buttons {
@@ -196,18 +236,24 @@
         justify-content: space-between;
 
         button {
-          padding: 20px;
+          padding: 15px;
           display: flex;
           align-items: center;
-          gap: 5px;
+          gap: 10px;
           background-color: white;
-          border: 1px solid #fece51;
+          border: 2px solid #fece51;
           border-radius: 5px;
           cursor: pointer;
+          transition: background-color 0.3s, transform 0.3s;
 
           img {
             width: 16px;
             height: 16px;
+          }
+
+          &:hover {
+            background-color: #fece51;
+            transform: scale(1.05);
           }
         }
       }

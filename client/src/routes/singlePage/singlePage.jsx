@@ -73,7 +73,7 @@ function SinglePage() {
                   <img src="/pin.png" alt="" />
                   <span>{post.address}</span>
                 </div>
-                <div className="price">$ {post.price}</div>
+                <div className="price">₹ {post.price}</div>
               </div>
               <div className="user">
                 <img src={post.user.avatar} alt="" />
@@ -174,7 +174,7 @@ function SinglePage() {
           <div className="buttons">
             <button onClick={initiateChat}>
               <img src="/chat.png" alt="" />
-              contact
+              Contact Seller
             </button>
             <button
               onClick={handleSave}
