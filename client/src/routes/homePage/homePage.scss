@@ -93,56 +93,34 @@
           }
         }
       }
-
-      .searchBar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 20px;
-
-        @include lg {
-          flex-direction: row; // Ensure search bar and buttons are in a row for larger screens
-          gap: 20px; // Add space between elements
+      .searchBar button {
+        display: inline;
+        padding: 12px 18px;
+        font-size: 20px;
+        background: linear-gradient(90deg, #ff6f61, #ff9461);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      
+        &:hover {
+          background: linear-gradient(90deg, #501a01, #ff6f61);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+          transform: scale(1.05);
         }
-
-        @include md {
-          flex-direction: row; // Ensure search bar and buttons are in a row for medium screens
-          gap: 20px; // Add space between elements
-        }
-
+      
         @include sm {
-          flex-direction: column; // Stack search bar and buttons vertically on small screens
-          gap: 4px; // Add gap between stacked elements
+          width: 100%;
+          font-size: 12px;
         }
-
-        input {
-          flex: 1;
-          padding: 7px;
-          font-size: 16px;
-
-          @include sm {
-            width: 100%; // Make input full width on small screens
-          }
-        }
-
-        button {
-          display: inline;
-          padding: 12px 18px;
-          font-size: 20px;
-
-          @include sm {
-            width: 100%;
-            font-size: 12px;
-          }
-
-          @include lg {
-            width: auto; // Ensure buttons are inline with the search bar for larger and medium screens
-          }
+      
+        @include lg {
+          width: auto; // Ensure buttons are inline with the search bar for larger and medium screens
         }
       }
     }
   }
-
   .imgContainer {
     flex: 1.95;
     position: relative;
