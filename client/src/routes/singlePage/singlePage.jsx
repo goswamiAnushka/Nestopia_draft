@@ -14,20 +14,6 @@ function SinglePage() {
   const navigate = useNavigate();
   const [chatExists, setChatExists] = useState(false);
 
-  useEffect(() => {
-    const checkChatExists = async () => {
-      try {
-        const res = await apiRequest.get(`/chats/${post.user.id}`);
-        setChatExists(!!res.data); // Update state based on whether chat exists
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    if (currentUser) {
-      checkChatExists();
-    }
-  }, [currentUser, post.user.id]);
 
   const handleSave = async () => {
     if (!currentUser) {
