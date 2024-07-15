@@ -35,6 +35,7 @@ export const getPost = async (req, res) => {
         postDetail: true,
         user: {
           select: {
+            id: true,  // Include the userId
             username: true,
             avatar: true,
           },
@@ -73,7 +74,6 @@ export const getPost = async (req, res) => {
     res.status(500).json({ message: "Failed to get post" });
   }
 };
-
 export const addPost = async (req, res) => {
   const { postData, postDetail } = req.body;
   const tokenUserId = req.userId;
