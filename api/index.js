@@ -9,6 +9,7 @@ import testRoute from "./routes/test.route.js";
 import userRoute from "./routes/user.route.js";
 import chatRoute from "./routes/chat.route.js";
 import messageRoute from "./routes/message.route.js";
+import prisma from "./lib/prisma.js";  // Import Prisma client
 
 const app = express();
 const port = process.env.PORT || 8800;
@@ -35,6 +36,57 @@ app.use("/api/messages", messageRoute);
 // Health check route
 app.get("/api/health", (req, res) => {
   res.status(200).send("Server is healthy!");
+});
+
+// Dialogflow webhook route
+app.post('/api/webhook', async (req, res) => {
+  const intentName = req.body.queryResult.intent.displayName;
+  const propertyId = req.body.queryResult.parameters.propertyId;
+
+  if (intentName === 'GetPropertyDetails') {
+    try {
+      const property = await prisma.post.findUnique({
+        where: { id: propertyId },
+        include: { postDetail: true }
+      });
+
+      if (property) {
+        const { title, price, address, city, bedroom, bathroom, property: propertyType, postDetail } = property;
+        const { desc, utilities, pet, income, size, school, bus, restaurant } = postDetail || {};
+
+        res.json({
+          fulfillmentText: `Property details:
+          Title: ${title}
+          Price: ${price}
+          Address: ${address}, ${city}
+          Bedrooms: ${bedroom}
+          Bathrooms: ${bathroom}
+          Type: ${propertyType}
+          Description: ${desc}
+          Utilities: ${utilities}
+          Pet Friendly: ${pet}
+          Income Requirement: ${income}
+          Size: ${size} sqft
+          Nearby Schools: ${school}
+          Nearby Bus Stops: ${bus}
+          Nearby Restaurants: ${restaurant}`
+        });
+      } else {
+        res.json({
+          fulfillmentText: `No property found with ID: ${propertyId}`
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching property details:', error);
+      res.json({
+        fulfillmentText: 'Error fetching property details'
+      });
+    }
+  } else {
+    res.json({
+      fulfillmentText: `Unhandled intent: ${intentName}`
+    });
+  }
 });
 
 // Socket.IO setup
