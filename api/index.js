@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import prisma  from './lib/prisma.js';
 import { createServer } from "http";
 import { Server } from "socket.io";
 import authRoute from "./routes/auth.route.js";
@@ -9,7 +10,11 @@ import testRoute from "./routes/test.route.js";
 import userRoute from "./routes/user.route.js";
 import chatRoute from "./routes/chat.route.js";
 import messageRoute from "./routes/message.route.js";
-import prisma from "./lib/prisma.js";  // Import Prisma client
+import { PrismaClient } from "@prisma/client";
+
+
+
+
 
 const app = express();
 const port = process.env.PORT || 8800;
@@ -38,20 +43,33 @@ app.get("/api/health", (req, res) => {
   res.status(200).send("Server is healthy!");
 });
 
-// Dialogflow webhook route
 app.post('/api/webhook', async (req, res) => {
+  console.log('Request body:', JSON.stringify(req.body, null, 2)); // Log entire request for debugging
+  
   const intentName = req.body.queryResult.intent.displayName;
-  const propertyId = req.body.queryResult.parameters.propertyId;
+  let propertyId = req.body.queryResult.parameters.propertyId; // Extract propertyId from parameters
+
+  console.log('Received intent:', intentName);
+  console.log('Received propertyId:', propertyId);
+
+  // Extract the actual postId from the propertyId if needed
+  if (propertyId.startsWith('Tell me about property ')) {
+    propertyId = propertyId.replace('Tell me about property ', ''); // Extract postId from the string
+  }
+
+  console.log('Processed propertyId:', propertyId); // Log the processed propertyId
 
   if (intentName === 'GetPropertyDetails') {
     try {
-      const property = await prisma.post.findUnique({
-        where: { id: propertyId },
-        include: { postDetail: true }
+      const post = await prisma.post.findUnique({
+        where: { postId: propertyId },
+        include: { postDetail: true, user: true },
       });
 
-      if (property) {
-        const { title, price, address, city, bedroom, bathroom, property: propertyType, postDetail } = property;
+      console.log('Post fetched:', post);
+
+      if (post) {
+        const { title, price, address, city, bedroom, bathroom, property, postDetail } = post;
         const { desc, utilities, pet, income, size, school, bus, restaurant } = postDetail || {};
 
         res.json({
@@ -61,7 +79,7 @@ app.post('/api/webhook', async (req, res) => {
           Address: ${address}, ${city}
           Bedrooms: ${bedroom}
           Bathrooms: ${bathroom}
-          Type: ${propertyType}
+          Type: ${property}
           Description: ${desc}
           Utilities: ${utilities}
           Pet Friendly: ${pet}
@@ -89,7 +107,8 @@ app.post('/api/webhook', async (req, res) => {
   }
 });
 
-// Socket.IO setup
+
+// Socket.IO setup for real-time messaging
 io.on("connection", (socket) => {
   console.log("A user connected");
 
@@ -106,6 +125,7 @@ io.on("connection", (socket) => {
   });
 });
 
+// Start the server
 server.listen(port, () => {
   console.log(`Server is running on port ${port}!`);
 });
