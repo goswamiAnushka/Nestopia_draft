@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import prisma  from './lib/prisma.js';
+import { PrismaClient } from '@prisma/client';
 import { createServer } from "http";
 import { Server } from "socket.io";
 import authRoute from "./routes/auth.route.js";
@@ -10,11 +10,9 @@ import testRoute from "./routes/test.route.js";
 import userRoute from "./routes/user.route.js";
 import chatRoute from "./routes/chat.route.js";
 import messageRoute from "./routes/message.route.js";
-import { PrismaClient } from "@prisma/client";
+import dotenv from "dotenv";
 
-
-
-
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8800;
@@ -27,10 +25,15 @@ const io = new Server(server, {
   },
 });
 
+// Initialize Prisma Client
+const prisma = new PrismaClient();
+
+// Middleware
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
+// Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
@@ -43,72 +46,94 @@ app.get("/api/health", (req, res) => {
   res.status(200).send("Server is healthy!");
 });
 
-app.post('/api/webhook', async (req, res) => {
-  console.log('Request body:', JSON.stringify(req.body, null, 2)); // Log entire request for debugging
-  
+// Dialogflow webhook route
+app.post('/webhook', async (req, res) => {
   const intentName = req.body.queryResult.intent.displayName;
-  let propertyId = req.body.queryResult.parameters.propertyId; // Extract propertyId from parameters
 
-  console.log('Received intent:', intentName);
-  console.log('Received propertyId:', propertyId);
-
-  // Extract the actual postId from the propertyId if needed
-  if (propertyId.startsWith('Tell me about property ')) {
-    propertyId = propertyId.replace('Tell me about property ', ''); // Extract postId from the string
-  }
-
-  console.log('Processed propertyId:', propertyId); // Log the processed propertyId
-
-  if (intentName === 'GetPropertyDetails') {
-    try {
-      const post = await prisma.post.findUnique({
-        where: { postId: propertyId },
-        include: { postDetail: true, user: true },
-      });
-
-      console.log('Post fetched:', post);
-
-      if (post) {
-        const { title, price, address, city, bedroom, bathroom, property, postDetail } = post;
-        const { desc, utilities, pet, income, size, school, bus, restaurant } = postDetail || {};
-
-        res.json({
-          fulfillmentText: `Property details:
-          Title: ${title}
-          Price: ${price}
-          Address: ${address}, ${city}
-          Bedrooms: ${bedroom}
-          Bathrooms: ${bathroom}
-          Type: ${property}
-          Description: ${desc}
-          Utilities: ${utilities}
-          Pet Friendly: ${pet}
-          Income Requirement: ${income}
-          Size: ${size} sqft
-          Nearby Schools: ${school}
-          Nearby Bus Stops: ${bus}
-          Nearby Restaurants: ${restaurant}`
-        });
-      } else {
-        res.json({
-          fulfillmentText: `No property found with ID: ${propertyId}`
-        });
-      }
-    } catch (error) {
-      console.error('Error fetching property details:', error);
+  switch (intentName) {
+    case 'GetPropertyDetails':
+      await handleGetPropertyDetails(req, res);
+      break;
+    case 'GetPropertyPrice':
+      await handleGetPropertyPrice(req, res);
+      break;
+    // Add more cases here for other intents
+    default:
       res.json({
-        fulfillmentText: 'Error fetching property details'
+        fulfillmentText: `No handler for intent: ${intentName}`,
       });
-    }
-  } else {
-    res.json({
-      fulfillmentText: `Unhandled intent: ${intentName}`
-    });
   }
 });
 
+const handleGetPropertyDetails = async (req, res) => {
+  const postId = req.body.queryResult.parameters.postId;
 
-// Socket.IO setup for real-time messaging
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+      include: { postDetail: true }
+    });
+
+    if (post) {
+      const details = post.postDetail;
+      res.json({
+        fulfillmentText: `Property Details:
+        Title: ${post.title}
+        Price: $${post.price}
+        Address: ${post.address}, ${post.city}
+        Bedrooms: ${post.bedroom}
+        Bathrooms: ${post.bathroom}
+        Latitude: ${post.latitude}
+        Longitude: ${post.longitude}
+        Type: ${post.type}
+        Property Type: ${post.property}
+        Description: ${details ? details.desc : 'N/A'}
+        Utilities: ${details ? details.utilities : 'N/A'}
+        Pet: ${details ? details.pet : 'N/A'}
+        Income: ${details ? details.income : 'N/A'}
+        Size: ${details ? details.size : 'N/A'} sq ft
+        Nearby Schools: ${details ? details.school : 'N/A'}
+        Nearby Bus Stops: ${details ? details.bus : 'N/A'}
+        Nearby Restaurants: ${details ? details.restaurant : 'N/A'}
+        `,
+      });
+    } else {
+      res.json({
+        fulfillmentText: `No property found with ID: ${postId}`,
+      });
+    }
+  } catch (error) {
+    res.json({
+      fulfillmentText: `Error fetching property details: ${error.message}`,
+    });
+  }
+};
+
+const handleGetPropertyPrice = async (req, res) => {
+  const postId = req.body.queryResult.parameters.postId;
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: { id: postId },
+    });
+
+    if (post) {
+      res.json({
+        fulfillmentText: `The price of the property is: $${post.price}`,
+      });
+    } else {
+      res.json({
+        fulfillmentText: `No property found with ID: ${postId}`,
+      });
+    }
+  } catch (error) {
+    res.json({
+      fulfillmentText: `Error fetching property price: ${error.message}`,
+    });
+  }
+};
+
+// Socket.IO setup
 io.on("connection", (socket) => {
   console.log("A user connected");
 
@@ -125,7 +150,6 @@ io.on("connection", (socket) => {
   });
 });
 
-// Start the server
 server.listen(port, () => {
   console.log(`Server is running on port ${port}!`);
 });
