@@ -116,3 +116,4 @@ model SavedPost {
 
   @@unique([userId, postId])
 }
+
