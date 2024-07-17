@@ -1,18 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nestopia Stays</title>
-    <meta name="description" content="Buy, Sell and Rent Properties" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nestopia Stays</title>
+  <meta name="description" content="Buy, Sell and Rent Properties" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
+  <style>
+    /* Custom styles for Dialogflow chatbot */
+    .chatbot-icon {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 90px; /* Increased size */
+      height: 90px; /* Increased size */
+      background: url('C:/Users/anush/OneDrive/Desktop/NESTOPIA/Nestopia_draft/client/public/chatbot.png') no-repeat center center;
+      background-size: contain;
+      cursor: pointer;
+      z-index: 1000;
+      
+    }
+    
+    .dialogflow-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background-color: #3498db;
+      color: #ffffff;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      font-family: 'Lato', sans-serif;
+      display: none; /* Hidden by default */
+    }
+    
+    .dialogflow-container iframe {
+      width: 300px;
+      height: 400px;
+      border: none;
+    }
+    
+    /* Reduced font size for chatbot text */
+    .dialogflow-container {
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <!-- Chatbot Icon -->
+  <div class="chatbot-icon" onclick="toggleChatbot()"></div>
+  
+  <!-- Dialogflow Chatbot -->
+  <div class="dialogflow-container" id="dialogflow-container">
+    <iframe allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/02b44fe2-f4a1-4e0b-a59b-88658651553a"></iframe>
+  </div>
+
+  <script type="module" src="/src/main.jsx"></script>
+  
+  <script>
+    function toggleChatbot() {
+      const container = document.getElementById('dialogflow-container');
+      if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'block';
+      } else {
+        container.style.display = 'none';
+      }
+    }
+  </script>
+</body>
 </html>
