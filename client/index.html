@@ -8,28 +8,15 @@
   <meta name="description" content="Buy, Sell and Rent Properties" />
   <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />
   <style>
-    /* Custom styles for Dialogflow chatbot */
-    .chatbot-icon {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      width: 90px; /* Increased size */
-      height: 90px; /* Increased size */
-      background: url('C:/Users/anush/OneDrive/Desktop/NESTOPIA/Nestopia_draft/client/public/chatbot.png') no-repeat center center;
-      background-size: contain;
-      cursor: pointer;
-      z-index: 1000;
-      
-    }
     
     .dialogflow-container {
       position: fixed;
-      bottom: 80px;
-      right: 20px;
-      background-color: #3498db;
+      bottom: 90px;
+      right: 10px;
+      background-color: #01121d;
       color: #ffffff;
-      padding: 10px;
-      border-radius: 8px;
+      padding: 5px;
+      border-radius:2px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       z-index: 1000;
       font-family: 'Lato', sans-serif;
@@ -37,14 +24,14 @@
     }
     
     .dialogflow-container iframe {
-      width: 300px;
-      height: 400px;
+      width: 280px;
+      height: 450px;
       border: none;
     }
     
     /* Reduced font size for chatbot text */
     .dialogflow-container {
-      font-size: 14px;
+      font-size: 10px;
     }
   </style>
 </head>
@@ -61,15 +48,12 @@
 
   <script type="module" src="/src/main.jsx"></script>
   
-  <script>
-    function toggleChatbot() {
-      const container = document.getElementById('dialogflow-container');
-      if (container.style.display === 'none' || container.style.display === '') {
-        container.style.display = 'block';
-      } else {
-        container.style.display = 'none';
-      }
-    }
-  </script>
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger
+    intent="WELCOME"
+    chat-title="Nestopia-support"
+    agent-id="02b44fe2-f4a1-4e0b-a59b-88658651553a"
+    language-code="en"
+  ></df-messenger>
 </body>
 </html>
