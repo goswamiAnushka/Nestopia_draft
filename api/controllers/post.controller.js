@@ -30,12 +30,12 @@ export const getPost = async (req, res) => {
 
   try {
     const post = await prisma.post.findUnique({
-      where: { id },
+      where: { id }, // Pass `id` as a string to match MongoDB's ObjectId
       include: {
         postDetail: true,
         user: {
           select: {
-            id: true,  // Include the userId
+            id: true,
             username: true,
             avatar: true,
           },
@@ -47,6 +47,7 @@ export const getPost = async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
+    // Check for JWT token and determine if post is saved by the user
     const token = req.cookies?.token;
 
     if (token) {
