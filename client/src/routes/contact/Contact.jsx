@@ -1,40 +1,68 @@
-import React from 'react';
-import { FiUser, FiMail } from 'react-icons/fi'; // Import icons from react-icons
-import './contact.scss';
+import React, { useContext, useState } from "react";
+import "./contact.scss";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 const Contact = () => {
+  const { currentUser } = useContext(AuthContext);
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [feedback, setFeedback] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8800/api/tickets", {
+        userId: currentUser.id,
+        category,
+        description,
+        feedback,
+      });
+      alert(`Ticket submitted successfully! Ticket ID: ${response.data.ticketNumber}`);
+    } catch (error) {
+      console.error("Error submitting ticket", error);
+      alert("Failed to submit the ticket. Please try again later.");
+    }
+  };
+  
+  
   return (
-    <div className="container2">
-      <form>
-        <h1 className="title">Talk to Us</h1>
-
-        {/* Name */}
-        <div className="form-group">
-          <label htmlFor="formName">
-            <FiUser className="icon" />
-          </label>
-          <input type="text" id="formName" className="form-control form-control-lg thick" placeholder="Name" />
+    <div className="contact">
+      <h1>Contact Us</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Issue Category
+          <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+            <option value="">Select a category</option>
+            <option value="website">Website</option>
+            <option value="buyer-related">Buyer Related</option>
+            <option value="seller-related">Seller Related</option>
+            <option value="others">Others</option>
+          </select>
+        </label>
+        <label>
+          Description
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          ></textarea>
+        </label>
+        <div className="feedback">
+          <label>Feedback</label>
+          <div className="emojis">
+            <span className={feedback === "satisfied" ? "selected" : ""} onClick={() => setFeedback("satisfied")}>
+              😊
+            </span>
+            <span className={feedback === "neutral" ? "selected" : ""} onClick={() => setFeedback("neutral")}>
+              😐
+            </span>
+            <span className={feedback === "angry" ? "selected" : ""} onClick={() => setFeedback("angry")}>
+              😡
+            </span>
+          </div>
         </div>
-
-        {/* E-mail */}
-        <div className="form-group">
-          <label htmlFor="formEmail">
-            <FiMail className="icon" />
-          </label>
-          <input type="email" id="formEmail" className="form-control form-control-lg thick" placeholder="E-mail" />
-        </div>
-
-        {/* Message */}
-        <div className="form-group message">
-          <textarea id="formMessage" className="form-control form-control-lg" rows="7" placeholder="Message"></textarea>
-        </div>
-
-        {/* Submit btn */}
-        <div className="text-center">
-          <button type="submit" className="btn btn-primary">
-            Send message
-          </button>
-        </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

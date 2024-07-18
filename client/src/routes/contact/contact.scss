@@ -1,112 +1,60 @@
-@import '../../responsive.scss';
-
-$primary-color: #3f51b5;
-$secondary-color: #ffffff;
-$background-color: #f1f1f1;
-$font-family: 'Roboto', sans-serif;
-$icon-size: 1.5rem;
-$input-padding: 15px;
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: $font-family;
-  background-color: $background-color;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.container2 {
-  width: 100%;
+.contact {
   max-width: 600px;
-  margin:5px;
-  margin-top: 12px;
-  margin-left: 50px; // Add top margin to account for fixed navbar
-  padding: 30px;
-  background: $secondary-color;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-  @include sm {
-    margin:1px; // Adjust margins for small screens
-    padding: 20px;
-
-  }
-}
-
-.title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: $primary-color;
-  text-align: center;
-  margin-bottom: 30px;
-
-  @include sm {
-    font-size: 1.8rem;
-  }
-}
-
-.form-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  position: relative;
-
-  .icon {
-    position: absolute;
-    left: 10px;
-    font-size: $icon-size;
-    color: $primary-color;
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
   }
 
-  .form-control {
-    width: 100%;
-    padding: $input-padding;
-    padding-left: 45px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: border-color 0.3s ease;
+  form {
+    display: flex;
+    flex-direction: column;
 
-    &:focus {
-      border-color: $primary-color;
-      outline: none;
+    label {
+      margin-bottom: 10px;
+
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
     }
 
-    @include sm {
-      font-size: 0.9rem;
-    }
-  }
+    .feedback {
+      margin-bottom: 20px;
 
-  &.message .form-control {
-    padding-left: 15px;
-  }
-}
+      .emojis {
+        display: flex;
+        justify-content: space-around;
 
-.text-center {
-  text-align: center;
+        span {
+          font-size: 2em;
+          cursor: pointer;
 
-  .btn {
-    padding: 12px 30px;
-    font-size: 1rem;
-    background-color: $primary-color;
-    color: $secondary-color;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: darken($primary-color, 10%);
+          &.selected {
+            border: 2px solid #000;
+            border-radius: 50%;
+            padding: 5px;
+          }
+        }
+      }
     }
 
-    @include sm {
-      padding: 10px 25px;
-      font-size: 0.9rem;
+    button {
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
     }
   }
 }
