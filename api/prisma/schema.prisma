@@ -17,7 +17,7 @@ model User {
   posts      Post[]
   savedPosts SavedPost[]
   chats      UserChat[]
-  reactions  Reaction[]
+  ticket     Ticket[]
 }
 
 model Chat {
@@ -48,18 +48,8 @@ model Message {
   chatId    String      @db.ObjectId
   createdAt DateTime    @default(now())
   media     String?
-  reactions Reaction[]
 }
 
-model Reaction {
-  id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  type       String     // Reaction type, e.g., 'like', 'love', 'thumbs-up'
-  messageId  String     @db.ObjectId
-  userId     String     @db.ObjectId
-  createdAt  DateTime   @default(now())
-  message    Message    @relation(fields: [messageId], references: [id])
-  user       User       @relation(fields: [userId], references: [id])
-}
 
 model Post {
   id         String      @id @default(auto()) @map("_id") @db.ObjectId
@@ -115,4 +105,15 @@ model SavedPost {
   postId    String   @db.ObjectId
 
   @@unique([userId, postId])
+}
+model Ticket {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+  category    String
+  description String
+  feedback    String
+  status      String   @default("open")
+  createdAt   DateTime @default(now())
+  ticketNumber String  @unique
 }
