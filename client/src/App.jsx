@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-//import { disableReactDevTools } from '@fvilers/disable-react-devtools';
 import HomePage from './routes/homePage/homePage';
 import ListPage from './routes/listPage/listPage';
 import SinglePage from './routes/singlePage/singlePage';
@@ -12,10 +11,10 @@ import NewPostPage from './routes/newPostPage/newPostPage';
 import About from './routes/about/About';
 import Contact from './routes/contact/Contact';
 import Agents from './routes/agents/Agents';
+import ForgotPassword from "./routes/forgotPassword/ForgotPassword";
+import ResetPassword from "./routes/resetPaasword/ResetPassword";
 import { Layout, RequireAuth } from './routes/layout/layout';
 import { listPageLoader, profilePageLoader, singlePageLoader } from './lib/loaders';
-
-//if (process.env.NODE_ENV === 'production') disableReactDevTools();
 
 function App() {
   const router = createBrowserRouter([
@@ -56,6 +55,14 @@ function App() {
         {
           path: '/agents',
           element: <Agents />,
+        },
+        {
+          path: '/forgot-password',
+          element: <ForgotPassword />,
+        },
+        {
+          path: '/reset-password',
+          element: <ResetPassword />,
         },
       ],
     },

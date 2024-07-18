@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import "./login.scss";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../../lib/apiRequest";
@@ -29,6 +29,7 @@ function Login() {
       });
 
       updateUser(res.data);
+      console.log('Login Response:', res.data); // Add this line to log the response
 
       navigate("/");
     } catch (err) {
@@ -72,6 +73,7 @@ function Login() {
           <button disabled={isLoading}>Login</button>
           {error && <span className="error">{error}</span>}
           <Link to="/register">{"Don't"} you have an account?</Link>
+          <Link to="/forgot-password">Forgot Password?</Link>
         </form>
       </div>
       <div className="imgContainer">
