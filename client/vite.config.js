@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: 'https://nestopia-draft-api2.vercel.app',  // Note: The correct property name is 'base', not 'baseURL'
+  baseURL: 'https://nestopia-draft-api2.vercel.app',  // Note: The correct property name is 'base', not 'baseURL'
   build: {
     rollupOptions: {
       external: [
