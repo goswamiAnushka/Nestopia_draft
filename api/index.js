@@ -34,6 +34,8 @@ app.use(cors({ origin:["https://deploy-mern-1whq.vercel.app"]
   credentials:true
  }));
 app.use(express.json());
+app.get("/",(req,res)=>{
+  res.json("hello");});
 app.use(cookieParser());
 
 // Routes
