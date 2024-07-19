@@ -190,4 +190,23 @@ nav {
         }
       }
     }
-  }}
+  }
+    .notification {
+      position: absolute;
+      top: -8px; /* Adjusted to be closer to the avatar */
+      right: -8px; /* Adjusted to align with the edge of the avatar */
+      background-color: rgb(187, 11, 11); /* Bright red background */
+      color: white; /* White text color for contrast */
+      border-radius: 50%; /* Make it circular */
+      width: 24px; /* Adjusted size */
+      height: 24px; /* Matching width for a perfect circle */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px; /* Adjusted font size */
+      font-weight: bold; /* Make the text bold */
+      border: 2px solid #fff; /* White border for better contrast */
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for prominence */
+    }
+  }
+  
