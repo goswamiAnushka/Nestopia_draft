@@ -19,7 +19,7 @@ const port = process.env.PORT || 8800;
 
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
-  cors: ({ origin:[""]
+  cors: ({ origin:["/"]
     ,methods:["POST","GET"],
     credentials:true
    }
@@ -29,7 +29,7 @@ const io = new Server(server, {
 const prisma = new PrismaClient();
 
 // Middleware
-app.use(cors({ origin:[""]
+app.use(cors({ origin:["/"]
   ,methods:["POST","GET"],
   credentials:true
  }));
