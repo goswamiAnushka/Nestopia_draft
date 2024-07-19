@@ -17,7 +17,7 @@ model User {
   posts      Post[]
   savedPosts SavedPost[]
   chats      UserChat[]
-  ticket     Ticket[]
+  
 }
 
 model Chat {
@@ -105,15 +105,4 @@ model SavedPost {
   postId    String   @db.ObjectId
 
   @@unique([userId, postId])
-}
-model Ticket {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId       String   @db.ObjectId
-  user         User     @relation(fields: [userId], references: [id])
-  category     String
-  description  String
-  feedback     String
-  status       String   @default("open")
-  createdAt    DateTime @default(now())
-  ticketNumber String   @unique
 }
