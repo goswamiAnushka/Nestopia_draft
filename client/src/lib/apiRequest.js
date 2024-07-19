@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiRequest = axios.create({
-  baseURL: "http://localhost:8800/api", // Adjust as per your server setup
+  baseURL: "https://nestopia-draft-api.vercel.app/", // Adjust as per your server setup
   withCredentials: true,
 });
 
