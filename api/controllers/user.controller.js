@@ -138,8 +138,8 @@ export const getNotificationNumber = async (req, res) => {
   try {
     const number = await prisma.chat.count({
       where: {
-        userIDs: {
-          hasSome: [tokenUserId],
+        users: {
+          some: [tokenUserId],
         },
         NOT: {
           seenBy: {

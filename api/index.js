@@ -19,23 +19,18 @@ const port = process.env.PORT || 8800;
 
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
-  cors: ({ origin:["/"]
-    ,methods:["POST","GET"],
-    credentials:true
-   }
-)});
+  cors: {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  },
+});
 
 // Initialize Prisma Client
 const prisma = new PrismaClient();
 
 // Middleware
-app.use(cors({ origin:["/"]
-  ,methods:["POST","GET"],
-  credentials:true
- }));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
-app.get("/",(req,res)=>{
-  res.json("hello");});
 app.use(cookieParser());
 
 // Routes
