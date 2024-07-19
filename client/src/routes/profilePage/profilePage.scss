@@ -3,11 +3,11 @@
 .profilePage {
   display: flex;
   flex-direction: row;
-  height: 100vh;
-  padding: 20px;
-  background: linear-gradient(135deg, #e2e8f0, #f7fafc);
+  height: 90vh;
+  padding: 17px;
+  background: linear-gradient(135deg, #fdfcfb, #e2d1c3);
   box-sizing: border-box;
-  gap: 20px;
+  gap: 15px;
   overflow: hidden;
 
   @include md {
@@ -18,46 +18,46 @@
 
   @include sm {
     flex-direction: column;
-    padding: 5px;
-    height: auto;
-    overflow-y: auto;
-    margin-left: 20px;
+    padding: 2px;
+    height: 95vh;
+    margin-left: 0;
+    overflow: hidden;
+    gap: 6px;
   }
 
-  .details {
-    height: 90%;
-    flex: 3;
-    padding: 15px;
-    background: linear-gradient(135deg, #ffffff, #f0f4f8);
-    border-radius: 15px;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  .details,
+  .chatContainer {
+    flex: 1;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    border: 1px solid #f5c542;
     transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
+    max-height: 90vh;
 
     &:hover {
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
       transform: translateY(-5px);
     }
 
     @include md {
-      flex: none;
       padding: 15px;
     }
 
     @include sm {
-      flex: none;
-      padding: 5px;
-      width: 92%;
-      margin-bottom: 10px;
+      width: 100%;
+      padding: 8px;
       height: 50vh;
+      margin-bottom: 6px;
       overflow-y: auto;
     }
 
     .wrapper {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 17px;
 
       .title {
         display: flex;
@@ -66,9 +66,10 @@
 
         h1 {
           font-weight: 600;
-          color: #2d3748;
-          font-size: 2.2rem;
+          color: #f5c542;
+          font-size: 2.4rem;
           margin: 0;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
           @include sm {
             font-size: 1.4rem;
@@ -76,22 +77,23 @@
         }
 
         button {
-          padding: 12px 15px;
-          background-color: #3182ce;
+          padding: 12px 20px;
+          background-color: #f5c542;
           border: none;
           border-radius: 10px;
           color: #fff;
           font-weight: bold;
           cursor: pointer;
           transition: background-color 0.3s ease, transform 0.2s;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
           &:hover {
-            background-color: #2b6cb0;
-            transform: scale(1.1);
+            background-color: #e2b13c;
+            transform: scale(1.05);
           }
 
           @include sm {
-            padding: 5px 10px;
+            padding: 8px 15px;
             font-size: 0.8rem;
           }
         }
@@ -101,7 +103,7 @@
         display: flex;
         flex-direction: column;
         gap: 15px;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         color: #4a5568;
 
         span {
@@ -131,10 +133,11 @@
           cursor: pointer;
           font-weight: bold;
           transition: background-color 0.3s ease, transform 0.2s;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
           &:hover {
             background-color: #c53030;
-            transform: scale(1.1);
+            transform: scale(1.05);
           }
 
           @include sm {
@@ -146,21 +149,22 @@
         }
 
         img {
-          width: 70px;
-          height: 70px;
+          width: 80px;
+          height: 80px;
           border-radius: 50%;
           object-fit: cover;
-          border: 2px solid #3182ce;
+          border: 3px solid #f5c542;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
           &:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 10px rgba(49, 130, 206, 0.5);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
           }
 
           @include sm {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
           }
         }
       }
@@ -168,39 +172,11 @@
   }
 
   .chatContainer {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    padding: 25px;
-    background: linear-gradient(135deg, #ffffff, #f0f4f8);
-    border-radius: 20px;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e2e8f0;
-    overflow-y: auto;
-    transition: all 0.3s ease;
-
-    &:hover {
-      box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
-      transform: translateY(-5px);
-    }
-
-    @include md {
-      padding: 20px;
-    }
-
-    @include sm {
-      flex: none;
-      padding: 5px;
-      width: 100%;
-      height: 50vh;
-      overflow-y: auto;
-    }
-
     .wrapper {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 15px;
+      gap: 5px;
     }
 
     .chatHeader {
@@ -210,28 +186,29 @@
 
       h2 {
         font-weight: 400;
-        color: #2d3748;
-        font-size: 1.8rem;
+        color: #f5c542;
+        font-size: 1.5rem;
         margin: 0;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 
         @include sm {
-          font-size: 1.2rem;
+          font-size: 1rem;
         }
       }
     }
 
     .chatBody {
       flex: 1;
-      overflow-y: scroll;
-      padding: 10px;
-      border-top: 1px solid #e2e8f0;
-      border-bottom: 1px solid #e2e8f0;
+      overflow-y: auto;
+      padding:4px;
+      border-top: 1px solid #f5c542;
+      border-bottom: 1px solid #f5c542;
 
       .message {
         display: flex;
         align-items: flex-start;
-        gap: 8px;
-        margin-bottom: 10px;
+        gap: 5px;
+        margin-bottom: 8px;
         transition: transform 0.2s ease;
 
         &:hover {
@@ -243,7 +220,7 @@
           height: 40px;
           border-radius: 50%;
           object-fit: cover;
-          border: 2px solid #3182ce;
+          border: 2px solid #f5c542;
 
           @include sm {
             width: 30px;
@@ -252,15 +229,16 @@
         }
 
         .content {
-          background: #edf2f7;
-          border-radius: 10px;
-          padding: 10px;
-          max-width: 60%;
+          background: #fff7e0;
+          border-radius: 9px;
+          padding: 8px;
+          max-width: 85%;
           position: relative;
           transition: background 0.3s ease, transform 0.2s ease;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
           &:hover {
-            background: #e2e8f0;
+            background: #f9f6f0;
             transform: scale(1.02);
           }
 
@@ -268,18 +246,18 @@
             content: "";
             position: absolute;
             top: 40%;
-            left: -10px;
+            left: -20px;
             width: 0;
             height: 0;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
-            border-right: 10px solid #edf2f7;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid #fff7e0;
             transform: translateY(-50%);
           }
 
           @include sm {
-            max-width: 100%;
-            padding: 5px;
+            max-width: 70%;
+            padding: 2px;
           }
         }
       }
@@ -287,47 +265,49 @@
 
     .chatFooter {
       display: flex;
-      gap: 10px;
+      gap:7px;
       align-items: center;
 
       input[type="text"] {
         flex: 1;
-        padding: 12px;
-        border: 1px solid #cbd5e0;
+        padding: 8px;
+        border: 1px solid #e2e8f0;
         border-radius: 10px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
         &:focus {
           outline: none;
-          border-color: #3182ce;
-          box-shadow: 0 0 5px rgba(49, 130, 206, 0.5);
+          border-color: #f5c542;
+          box-shadow: 0 0 5px rgba(245, 197, 66, 0.5);
         }
 
         @include sm {
-          padding: 5px;
-          font-size: 0.8rem;
+          padding:5px;
+          font-size: 0.9rem;
         }
       }
 
       button {
-        padding: 12px 25px;
-        background-color: #48bb78;
+        padding: 7px 15px;
+        background-color: #f5c542;
         border: none;
         border-radius: 10px;
         color: #fff;
         font-weight: bold;
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.2s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
         &:hover {
-          background-color: #38a169;
-          transform: scale(1.1);
+          background-color: #e2b13c;
+          transform: scale(1.05);
         }
 
         @include sm {
-          padding: 8px 15px;
-          font-size: 0.9rem;
+          padding: 4px 10px;
+          font-size: 0.7rem;
         }
       }
     }

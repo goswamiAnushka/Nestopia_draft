@@ -1,16 +1,19 @@
+import React, { useRef, useContext } from "react";
+import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Suspense } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import Chat from "../../components/chat/Chat";
 import List from "../../components/list/List";
-import "./profilePage.scss";
 import apiRequest from "../../lib/apiRequest";
-import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
-import { Suspense, useContext } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import "./profilePage.scss";
 
 function ProfilePage() {
-  const data = useLoaderData();
-  const { updateUser, currentUser } = useContext(AuthContext);
+  const data = useLoaderData(); // Load user data
+  const { updateUser, currentUser } = useContext(AuthContext); // Auth context for current user data and update function
   const navigate = useNavigate();
+  const chatContainerRef = useRef(null); // Ref to chat container
 
+  // Handle user logout
   const handleLogout = async () => {
     try {
       await apiRequest.post("/auth/logout");
@@ -21,10 +24,16 @@ function ProfilePage() {
     }
   };
 
+  // Smooth scrolling to chat container
+  const scrollToChat = () => {
+    chatContainerRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="profilePage">
       <div className="details">
         <div className="wrapper">
+          {/* User Information Section */}
           <div className="title">
             <h1>User Information</h1>
             <Link to="/profile/update">
@@ -33,8 +42,8 @@ function ProfilePage() {
           </div>
           <div className="info">
             <span>
-              Avatar:
-              <img src={currentUser.avatar || "noavatar.jpg"} alt="" />
+              Avatar: 
+              <img src={currentUser.avatar || "noavatar.jpg"} alt="User Avatar" />
             </span>
             <span>
               Username: <b>{currentUser.username}</b>
@@ -44,6 +53,8 @@ function ProfilePage() {
             </span>
             <button onClick={handleLogout}>Logout</button>
           </div>
+
+          {/* User Posts Section */}
           <div className="title">
             <h1>My List</h1>
             <Link to="/add">
@@ -58,6 +69,8 @@ function ProfilePage() {
               {(postResponse) => <List posts={postResponse.data.userPosts} />}
             </Await>
           </Suspense>
+
+          {/* Saved Posts Section */}
           <div className="title">
             <h1>Saved List</h1>
           </div>
@@ -69,9 +82,16 @@ function ProfilePage() {
               {(postResponse) => <List posts={postResponse.data.savedPosts} />}
             </Await>
           </Suspense>
+
+          {/* Scroll to Chat Button */}
+          <div className="title">
+            <button onClick={scrollToChat}>Go to Chat</button>
+          </div>
         </div>
       </div>
-      <div className="chatContainer">
+
+      {/* Chat Section */}
+      <div className="chatContainer" ref={chatContainerRef}>
         <div className="wrapper">
           <Suspense fallback={<p>Loading...</p>}>
             <Await

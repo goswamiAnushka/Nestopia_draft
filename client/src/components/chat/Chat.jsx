@@ -5,7 +5,7 @@ import apiRequest from "../../lib/apiRequest";
 import { format } from "timeago.js";
 import { SocketContext } from "../../context/SocketContext";
 import { useNotificationStore } from "../../lib/notificationStore";
-import { FaUpload } from "react-icons/fa"; // Importing the upload icon
+import { FaUpload } from "react-icons/fa"; // Removed the emoji import
 
 function Chat({ chats }) {
   const [chat, setChat] = useState(null);
