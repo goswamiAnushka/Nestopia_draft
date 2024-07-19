@@ -19,17 +19,20 @@ const port = process.env.PORT || 8800;
 
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
-  cors: {
-    origin: process.env.CLIENT_URL,
-    credentials: true,
-  },
-});
+  cors: ({ origin:["https://deploy-mern-1whq.vercel.app"]
+    ,methods:["POST","GET"],
+    credentials:true
+   }
+)});
 
 // Initialize Prisma Client
 const prisma = new PrismaClient();
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({ origin:["https://deploy-mern-1whq.vercel.app"]
+  ,methods:["POST","GET"],
+  credentials:true
+ }));
 app.use(express.json());
 app.use(cookieParser());
 
