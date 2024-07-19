@@ -7,9 +7,8 @@
           "distDir": "dist"
         }
       }
-    ],
-    "scripts": {
-      "build": "vite build"
+    ]
+    
     }
-  }
+  
   
