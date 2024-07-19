@@ -34,7 +34,6 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     border: 1px solid #f5c542;
-    transition: all 0.3s ease;
     max-height: 90vh;
 
     &:hover {
@@ -211,9 +210,7 @@
         margin-bottom: 8px;
         transition: transform 0.2s ease;
 
-        &:hover {
-          transform: scale(1.02);
-        }
+        
 
         .avatar {
           width: 40px;
