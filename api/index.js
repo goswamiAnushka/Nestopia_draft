@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 const prisma = new PrismaClient();
 
 
-app.use(cors({ origin: ['http://localhost:3000', 'https://nestopia-draft.vercel.app'], methods:["POST","GET","PUT","DELETE"], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://nestopia-draft.vercel.app'], methods:["POST","GET","PUT","DELETE"],   allowedHeaders: ['Content-Type', 'Authorization'],credentials: true }));
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(cookieParser());
@@ -51,6 +51,11 @@ app.use("/api/messages", messageRoute);
 app.get("/api/health", (req, res) => {
   res.status(200).send("Server is healthy!");
 });
+app.use((req, res, next) => {
+  console.log(`Incoming request from ${req.headers.origin}`);
+  next();
+});
+
 
 // Dialogflow webhook route
 app.post('/webhook', async (req, res) => {
