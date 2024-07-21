@@ -1,6 +1,5 @@
 import prisma from "../lib/prisma.js";
 import bcrypt from "bcryptjs";
-
 export const getUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany();
@@ -11,6 +10,7 @@ export const getUsers = async (req, res) => {
   }
 };
 
+// Get a specific user
 export const getUser = async (req, res) => {
   const id = req.params.id;
   try {
@@ -24,6 +24,7 @@ export const getUser = async (req, res) => {
   }
 };
 
+// Update user details
 export const updateUser = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -57,6 +58,7 @@ export const updateUser = async (req, res) => {
   }
 };
 
+// Delete a user
 export const deleteUser = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -76,6 +78,7 @@ export const deleteUser = async (req, res) => {
   }
 };
 
+// Save or unsave a post
 export const savePost = async (req, res) => {
   const postId = req.body.postId;
   const tokenUserId = req.userId;
@@ -112,6 +115,7 @@ export const savePost = async (req, res) => {
   }
 };
 
+// Get profile posts
 export const profilePosts = async (req, res) => {
   const tokenUserId = req.userId;
   try {
@@ -132,14 +136,23 @@ export const profilePosts = async (req, res) => {
     res.status(500).json({ message: "Failed to get profile posts!" });
   }
 };
+<<<<<<< Updated upstream
 export const getNotificationNumber = async (req, res) => {
   const tokenUserId = req.userId;
   console.log(`Fetching notifications for user ID: ${tokenUserId}`);
 
+=======
+
+// Get notification count
+export const getNotificationNumber = async (req, res) => {
+>>>>>>> Stashed changes
   try {
-    const number = await prisma.chat.count({
+    const userId = req.user.id;
+
+    const count = await prisma.chat.count({
       where: {
         users: {
+<<<<<<< Updated upstream
           some: {
             userId: tokenUserId,
           },
@@ -147,12 +160,29 @@ export const getNotificationNumber = async (req, res) => {
         NOT: {
           seenBy: {
             has: tokenUserId,
+=======
+          hasSome: userId,
+        },
+        NOT: {
+          seenBy: {
+            has: userId,
+          },
+        },
+      },
+      select: {
+        _count: {
+          select: {
+            _all: true,
+>>>>>>> Stashed changes
           },
         },
       },
     });
 
+<<<<<<< Updated upstream
     console.log(`Notification count for user ID ${tokenUserId}: ${number}`);
+=======
+>>>>>>> Stashed changes
     res.status(200).json(number);
   } catch (err) {
     console.log(`Error fetching notifications: ${err.message}`);

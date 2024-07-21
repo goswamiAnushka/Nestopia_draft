@@ -14,7 +14,6 @@ function SinglePage() {
   const navigate = useNavigate();
   const [chatExists, setChatExists] = useState(false);
 
-
   const handleSave = async () => {
     if (!currentUser) {
       navigate("/login");
@@ -34,143 +33,82 @@ function SinglePage() {
       navigate("/login");
       return;
     }
-  
+
     try {
-    
-        // If no chat exists, initiate a new chat
-        const newChat = await apiRequest.post("/chats", { receiverId: post.user.id });
-        navigate('/profile');
-      }
-    catch (err) {
+      // If no chat exists, initiate a new chat
+      const newChat = await apiRequest.post("/chats", { receiverId: post.user.id });
+      navigate('/profile');
+    } catch (err) {
       console.log(err);
     }
   };
-  
+
+  useEffect(() => {
+    const checkExistingChat = async () => {
+      try {
+        const response = await apiRequest.get('/chats');
+        const chats = response.data;
+        const existingChat = chats.find(chat => chat.receiver.id === post.user.id);
+        setChatExists(!!existingChat);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    checkExistingChat();
+  }, [post.user.id]);
+
   return (
     <div className="singlePage">
-      <div className="details">
-        <div className="wrapper">
-          <Slider images={post.images} />
-          <div className="info">
-            <div className="top">
-              <div className="post">
-                <h1>{post.title}</h1>
-                <div className="address">
-                  <img src="/pin.png" alt="" />
-                  <span>{post.address}</span>
-                </div>
-                <div className="price">₹ {post.price}</div>
-              </div>
-              <div className="user">
-                <img src={post.user.avatar} alt="" />
-                <span>{post.user.username}</span>
-              </div>
-            </div>
+      <div className="content">
+        <Slider images={post.images} />
+        <div className="item">
+          <div className="left">
+            <span className="cat">{post.category}</span>
+            <h1>{post.title}</h1>
+            <span className="price">{post.price}</span>
             <div
-              className="bottom"
+              className="desc"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(post.postDetail.desc),
+                __html: DOMPurify.sanitize(post.description),
               }}
-            ></div>
+            />
+            <div className="location">
+              <h2>Location</h2>
+              <Map location={post.location} />
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="features">
-        <div className="wrapper">
-          <p className="title">General</p>
-          <div className="listVertical">
-            <div className="feature">
-              <img src="/utility.png" alt="" />
-              <div className="featureText">
-                <span>Utilities</span>
-                {post.postDetail.utilities === "owner" ? (
-                  <p>Owner is responsible</p>
+          <div className="right">
+            <div className="user">
+              <img
+                src={post.user.avatar || "/img/noavatar.jpg"}
+                alt=""
+                className="avatar"
+              />
+              <div className="info">
+                <span>{post.user.username}</span>
+                <div className="stars">
+                  {Array(post.user.rating)
+                    .fill()
+                    .map((_, i) => (
+                      <img src="/img/star.png" alt="" key={i} />
+                    ))}
+                  <span>{post.user.rating}</span>
+                </div>
+                {!chatExists ? (
+                  <button onClick={initiateChat}>Contact Seller</button>
                 ) : (
-                  <p>Tenant is responsible</p>
+                  <button disabled>Chat Already Exists</button>
                 )}
               </div>
             </div>
-            <div className="feature">
-              <img src="/pet.png" alt="" />
-              <div className="featureText">
-                <span>Pet Policy</span>
-                {post.postDetail.pet === "allowed" ? (
-                  <p>Pets Allowed</p>
-                ) : (
-                  <p>Pets not Allowed</p>
-                )}
-              </div>
+            <div className="itemActions">
+              <img
+                src={saved ? "/img/saved.png" : "/img/save.png"}
+                alt=""
+                onClick={handleSave}
+              />
             </div>
-            <div className="feature">
-              <img src="/fee.png" alt="" />
-              <div className="featureText">
-                <span>Income Policy</span>
-                <p>{post.postDetail.income}</p>
-              </div>
-            </div>
-          </div>
-          <p className="title">Sizes</p>
-          <div className="sizes">
-            <div className="size">
-              <img src="/size.png" alt="" />
-              <span>{post.postDetail.size} sqft</span>
-            </div>
-            <div className="size">
-              <img src="/bed.png" alt="" />
-              <span>{post.bedroom} beds</span>
-            </div>
-            <div className="size">
-              <img src="/bath.png" alt="" />
-              <span>{post.bathroom} bathroom</span>
-            </div>
-          </div>
-          <p className="title">Nearby Places</p>
-          <div className="listHorizontal">
-            <div className="feature">
-              <img src="/school.png" alt="" />
-              <div className="featureText">
-                <span>School</span>
-                <p>
-                  {post.postDetail.school > 999
-                    ? post.postDetail.school / 1000 + "km"
-                    : post.postDetail.school + "m"}{" "}
-                  away
-                </p>
-              </div>
-            </div>
-            <div className="feature">
-              <img src="/pet.png" alt="" />
-              <div className="featureText">
-                <span>Bus Stop</span>
-                <p>{post.postDetail.bus}m away</p>
-              </div>
-            </div>
-            <div className="feature">
-              <img src="/fee.png" alt="" />
-              <div className="featureText">
-                <span>Restaurant</span>
-                <p>{post.postDetail.restaurant}m away</p>
-              </div>
-            </div>
-          </div>
-          <p className="title">Location</p>
-          <div className="mapContainer">
-            <Map items={[post]} />
-          </div>
-          <div className="buttons">
-            <button onClick={initiateChat}>
-              <img src="/chat.png" alt="" />
-              Contact Seller
-            </button>
-            <button
-              onClick={handleSave}
-              style={{
-                backgroundColor: saved ? "#fece51" : "white",
-              }}
-            >
-              <img src="/save.png" alt="" />
-              {saved ? "Place Saved" : "Save the Place"}
-            </button>
           </div>
         </div>
       </div>
