@@ -34,6 +34,7 @@ const prisma = new PrismaClient();
 
 
 app.use(cors({ origin: ['http://localhost:3000', 'https://nestopia-draft.vercel.app'], methods:["POST","GET","PUT","DELETE"], credentials: true }));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.json());
 app.use(cookieParser());
 
