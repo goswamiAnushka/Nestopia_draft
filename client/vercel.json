@@ -2,14 +2,18 @@
     "version": 2,
     "builds": [
       {
-        "src": "client/dist/**",
+        "src": "client/dist/**/*",
         "use": "@vercel/static"
       }
     ],
     "routes": [
       {
+        "src": "/assets/(.*)",
+        "dest": "/client/dist/assets/$1"
+      },
+      {
         "src": "/(.*)",
-        "dest": "client/dist/$1"
+        "dest": "/client/dist/$1"
       }
     ]
   }
