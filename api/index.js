@@ -20,7 +20,7 @@ const port = process.env.PORT || 8800;
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: 'https://nestopia-draft.vercel.app',
     methods:["POST","GET"],
     credentials: true,
   },
