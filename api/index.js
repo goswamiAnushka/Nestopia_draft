@@ -1,61 +1,60 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
-import { createServer } from "http";
-import { Server } from "socket.io";
-import authRoute from "./routes/auth.route.js";
-import postRoute from "./routes/post.route.js";
-import testRoute from "./routes/test.route.js";
-import userRoute from "./routes/user.route.js";
-import chatRoute from "./routes/chat.route.js";
-import messageRoute from "./routes/message.route.js";
-import dotenv from "dotenv";
+import { createServer } from 'http';
+import { Server } from 'socket.io';
+import authRoute from './routes/auth.route.js';
+import postRoute from './routes/post.route.js';
+import testRoute from './routes/test.route.js';
+import userRoute from './routes/user.route.js';
+import chatRoute from './routes/chat.route.js';
+import messageRoute from './routes/message.route.js';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8800;
 
-const server = createServer(app); 
+const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://nestopia-draft.vercel.app'], 
-    credentials:true
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
   },
 });
 
+// Serve static files from client/dist
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Example route
 app.get('/', (req, res) => {
-  res.send('Hello from Vercel!');
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
-
+// Initialize Prisma Client
 const prisma = new PrismaClient();
 
-
-app.use(cors({ origin: ['http://localhost:3000', 'https://nestopia-draft.vercel.app'], methods:["POST","GET","PUT","DELETE"],   allowedHeaders: ['Content-Type', 'Authorization'],credentials: true }));
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// Middleware
+app.use(cors({ origin: process.env.CLIENT_URL, methods: ["POST", "GET"], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-
+// Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/test", testRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
-// Ticket route
 
 // Health check route
 app.get("/api/health", (req, res) => {
   res.status(200).send("Server is healthy!");
 });
-app.use((req, res, next) => {
-  console.log(`Incoming request from ${req.headers.origin}`);
-  next();
-});
-
 
 // Dialogflow webhook route
 app.post('/webhook', async (req, res) => {
@@ -74,22 +73,19 @@ app.post('/webhook', async (req, res) => {
       });
   }
 });
+
 const handleGetPropertyDetails = async (req, res) => {
   try {
-    // Extract postId from Dialogflow's parameters
     const postId = req.body.queryResult.parameters.postId;
 
-    // Ensure postId is properly extracted and logged for debugging
     console.log("Received postId:", postId);
 
-    // Check if postId is present and valid
     if (!postId) {
       return res.json({
         fulfillmentText: "No postId provided",
       });
     }
 
-    // Attempt to fetch property details using Prisma
     const post = await prisma.post.findUnique({
       where: {
         id: postId,
@@ -99,7 +95,6 @@ const handleGetPropertyDetails = async (req, res) => {
       },
     });
 
-    // If post found, construct response
     if (post) {
       const details = post.postDetail;
       const responseText = `Property Details:
@@ -125,7 +120,6 @@ Nearby Restaurants: ${details ? details.restaurant : 'N/A'}
         fulfillmentText: responseText,
       });
     } else {
-      // If no post found with the given postId
       res.json({
         fulfillmentText: `No property found with ID: ${postId}`,
       });
