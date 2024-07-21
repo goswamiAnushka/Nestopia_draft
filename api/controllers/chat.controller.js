@@ -1,5 +1,7 @@
 import prisma from "../lib/prisma.js";
+import bcrypt from "bcryptjs";
 
+// Get all chats for a user
 export const getChats = async (req, res) => {
   const tokenUserId = req.userId;
 
@@ -8,7 +10,11 @@ export const getChats = async (req, res) => {
       where: {
         users: {
           some: {
+<<<<<<< Updated upstream
             userId: tokenUserId,
+=======
+            id: tokenUserId,
+>>>>>>> Stashed changes
           },
         },
       },
@@ -40,6 +46,7 @@ export const getChats = async (req, res) => {
   }
 };
 
+// Get a specific chat
 export const getChat = async (req, res) => {
   const tokenUserId = req.userId;
 
@@ -47,6 +54,14 @@ export const getChat = async (req, res) => {
     const chat = await prisma.chat.findUnique({
       where: {
         id: req.params.id,
+<<<<<<< Updated upstream
+=======
+        users: {
+          some: {
+            id: tokenUserId,
+          },
+        },
+>>>>>>> Stashed changes
       },
       include: {
         messages: {
@@ -79,12 +94,14 @@ export const getChat = async (req, res) => {
   }
 };
 
+// Add a new chat
 export const addChat = async (req, res) => {
   const tokenUserId = req.userId;
   try {
     const newChat = await prisma.chat.create({
       data: {
         users: {
+<<<<<<< Updated upstream
           create: [
             { userId: tokenUserId },
             { userId: req.body.receiverId },
@@ -93,6 +110,10 @@ export const addChat = async (req, res) => {
       },
       include: {
         users: true,
+=======
+          connect: [{ id: tokenUserId }, { id: req.body.receiverId }],
+        },
+>>>>>>> Stashed changes
       },
     });
     res.status(200).json(newChat);
@@ -102,6 +123,7 @@ export const addChat = async (req, res) => {
   }
 };
 
+// Mark chat as read
 export const readChat = async (req, res) => {
   const tokenUserId = req.userId;
 
@@ -109,6 +131,14 @@ export const readChat = async (req, res) => {
     const chat = await prisma.chat.update({
       where: {
         id: req.params.id,
+<<<<<<< Updated upstream
+=======
+        users: {
+          some: {
+            id: tokenUserId,
+          },
+        },
+>>>>>>> Stashed changes
       },
       data: {
         seenBy: {
