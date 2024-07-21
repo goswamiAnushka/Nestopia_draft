@@ -10,11 +10,7 @@ export const getChats = async (req, res) => {
       where: {
         users: {
           some: {
-<<<<<<< Updated upstream
             userId: tokenUserId,
-=======
-            id: tokenUserId,
->>>>>>> Stashed changes
           },
         },
       },
@@ -54,14 +50,6 @@ export const getChat = async (req, res) => {
     const chat = await prisma.chat.findUnique({
       where: {
         id: req.params.id,
-<<<<<<< Updated upstream
-=======
-        users: {
-          some: {
-            id: tokenUserId,
-          },
-        },
->>>>>>> Stashed changes
       },
       include: {
         messages: {
@@ -101,7 +89,6 @@ export const addChat = async (req, res) => {
     const newChat = await prisma.chat.create({
       data: {
         users: {
-<<<<<<< Updated upstream
           create: [
             { userId: tokenUserId },
             { userId: req.body.receiverId },
@@ -110,10 +97,6 @@ export const addChat = async (req, res) => {
       },
       include: {
         users: true,
-=======
-          connect: [{ id: tokenUserId }, { id: req.body.receiverId }],
-        },
->>>>>>> Stashed changes
       },
     });
     res.status(200).json(newChat);
@@ -131,14 +114,6 @@ export const readChat = async (req, res) => {
     const chat = await prisma.chat.update({
       where: {
         id: req.params.id,
-<<<<<<< Updated upstream
-=======
-        users: {
-          some: {
-            id: tokenUserId,
-          },
-        },
->>>>>>> Stashed changes
       },
       data: {
         seenBy: {
