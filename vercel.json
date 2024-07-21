@@ -1,0 +1,30 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "client/vite.config.js",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "client/dist"  
+        }
+      },
+      {
+        "src": "api/index.js",
+        "use": "@vercel/node",
+        "config": {
+          "maxLambdaSize": "50mb"  
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/api/$1"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "client/dist/$1"
+      }
+    ]
+  }
+  
