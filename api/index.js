@@ -1,5 +1,7 @@
 import express from 'express';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
@@ -17,6 +19,8 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8800;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
@@ -27,19 +31,19 @@ const io = new Server(server, {
   },
 });
 
-// Serve static files from client/dist
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// Example route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
 
 // Initialize Prisma Client
 const prisma = new PrismaClient();
 
 // Middleware
 app.use(cors({ origin: process.env.CLIENT_URL, methods: ["POST", "GET"], credentials: true }));
+app.use(express.static(join(__dirname, '../client/dist')));
+;
+
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, '../client/dist/index.html'));
+});
+
 app.use(express.json());
 app.use(cookieParser());
 

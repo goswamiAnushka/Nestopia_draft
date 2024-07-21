@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/goswamiAnushka/Nestopia_draft/issues"
   },
-  "homepage": "https://github.com/goswamiAnushka/Nestopia_draft#readme"
+  "homepage": "https://github.com/goswamiAnushka/Nestopia_draft#readme",
+  "dependencies": {
+    "url": "^0.11.3"
+  }
 }
