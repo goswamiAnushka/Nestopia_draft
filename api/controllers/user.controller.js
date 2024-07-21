@@ -136,23 +136,16 @@ export const profilePosts = async (req, res) => {
     res.status(500).json({ message: "Failed to get profile posts!" });
   }
 };
-<<<<<<< Updated upstream
 export const getNotificationNumber = async (req, res) => {
   const tokenUserId = req.userId;
   console.log(`Fetching notifications for user ID: ${tokenUserId}`);
 
-=======
-
-// Get notification count
-export const getNotificationNumber = async (req, res) => {
->>>>>>> Stashed changes
   try {
     const userId = req.user.id;
 
     const count = await prisma.chat.count({
       where: {
         users: {
-<<<<<<< Updated upstream
           some: {
             userId: tokenUserId,
           },
@@ -160,29 +153,12 @@ export const getNotificationNumber = async (req, res) => {
         NOT: {
           seenBy: {
             has: tokenUserId,
-=======
-          hasSome: userId,
-        },
-        NOT: {
-          seenBy: {
-            has: userId,
-          },
-        },
-      },
-      select: {
-        _count: {
-          select: {
-            _all: true,
->>>>>>> Stashed changes
           },
         },
       },
     });
 
-<<<<<<< Updated upstream
     console.log(`Notification count for user ID ${tokenUserId}: ${number}`);
-=======
->>>>>>> Stashed changes
     res.status(200).json(number);
   } catch (err) {
     console.log(`Error fetching notifications: ${err.message}`);
