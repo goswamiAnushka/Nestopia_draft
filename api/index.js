@@ -21,7 +21,7 @@ const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
     origin: 'https://nestopia-draft.vercel.app',
-    methods:["POST","GET"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
   },
 });
