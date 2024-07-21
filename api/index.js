@@ -21,15 +21,19 @@ const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL,
+    methods:["POST","GET"],
     credentials: true,
   },
+});
+app.get('/', (req, res) => {
+  res.send('Hello from Vercel!');
 });
 
 // Initialize Prisma Client
 const prisma = new PrismaClient();
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL, methods:["POST","GET"],credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
