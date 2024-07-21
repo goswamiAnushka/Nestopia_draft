@@ -1,0 +1,16 @@
+{
+    "builds": [
+      {
+        "src": "client/vite.config.js",
+        "use": "@vercel/node",
+        "config": { "maxLambdaSize": "50mb" }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/client/dist/$1"
+      }
+    ]
+  }
+  
