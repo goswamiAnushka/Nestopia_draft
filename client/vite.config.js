@@ -5,7 +5,7 @@ import path from 'path';
 // Define the configuration
 export default defineConfig({
   plugins: [react()],
-  base: 'https://nestopia-draft-backend.vercel.app/', // Adjust according to your deployment environment
+  base: 'https://nestopia-draft-backend.vercel.app', // Adjust according to your deployment environment
   build: {
     outDir: 'dist', // Output directory for the build files
     rollupOptions: {
