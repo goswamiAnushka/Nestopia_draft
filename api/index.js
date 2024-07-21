@@ -17,27 +17,27 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8800;
 
-const server = createServer(app); // Create an HTTP server
+const server = createServer(app); 
 const io = new Server(server, {
   cors: {
-    origin: 'https://nestopia-draft.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+    origin: ['http://localhost:3000', 'https://nestopia-draft.vercel.app'], 
+    credentials:true
   },
 });
+
 app.get('/', (req, res) => {
   res.send('Hello from Vercel!');
 });
 
-// Initialize Prisma Client
+
 const prisma = new PrismaClient();
 
-// Middleware
-app.use(cors({ origin: process.env.CLIENT_URL, methods:["POST","GET"],credentials: true }));
+
+app.use(cors({ origin: ['http://localhost:3000', 'https://nestopia-draft.vercel.app'], methods:["POST","GET","PUT","DELETE"], credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
-// Routes
+
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
