@@ -9,7 +9,7 @@ export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io("https://nestopia-api-backend.onrender.com"));
+    setSocket(io("https://nestopia-draft-8.onrender.com"));
   }, []);
 
   useEffect(() => {
