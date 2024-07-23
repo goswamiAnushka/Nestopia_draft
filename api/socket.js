@@ -5,7 +5,7 @@ let io;
 const init = (server) => {
   io = new Server(server, {
     cors: {
-      origin: 'nestopia-draft2.vercel.app'// Adjust as needed for your security policies
+      origin: 'https://nestopia2.netlify.app'// Adjust as needed for your security policies
     },
   });
 
