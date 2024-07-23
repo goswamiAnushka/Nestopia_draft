@@ -25,7 +25,7 @@ const __dirname = dirname(__filename);
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: process.env.CLIENT_URL,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   },
