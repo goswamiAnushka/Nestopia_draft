@@ -1,18 +1,29 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
 
-// Define the configuration
 export default defineConfig({
   plugins: [react()],
-  base: 'https://nestopia-api-backend.onrender.com', // Adjust according to your deployment environment
   build: {
-    outDir: 'dist', // Output directory for the build files
+    outDir: 'dist',
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'src/main.jsx'), // Path to the main entry file
-        index: path.resolve(__dirname, 'index.html'), // Path to the HTML file
+        main: 'index.html'
       },
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+          // Add more chunking logic as needed
+        }
+      }
     },
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000, // Adjust if needed
   },
+  server: {
+    port: 3000,
+    open: true
+  },
+  base: '/',
 });
