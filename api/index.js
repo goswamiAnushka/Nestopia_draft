@@ -30,7 +30,11 @@ const io = new Server(server, {
 const prisma = new PrismaClient();
 
 // Middleware
-app.use(cors({ origin: process.env.CLIENT_URL, methods: ["POST", "GET"], credentials: true }));
+app.use(cors({
+  origin: process.env.CLIENT_URL, // Ensure this matches your Netlify domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials
+}));
 
 app.get("/",(req,res)=>{
     res.send("Hello World");
