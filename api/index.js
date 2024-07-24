@@ -45,6 +45,11 @@ app.use(cookieParser());
 
 // Serve static files from the dist directory
 app.use(express.static(path.join(__dirname, '../client/dist')));
+// Serve frontend application
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
