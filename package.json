@@ -1,0 +1,16 @@
+{
+  "name": "nestopia_draft",
+  "version": "1.0.0",
+  "description": "**Nestopia** is a cutting-edge home rental website that facilitates direct interaction between buyers and sellers, eliminating the need for third-party intermediaries or broker charges. Built with the MERN stack, Nestopia leverages JWT for authentication, Socket.io for real-time chat functionality, and Dialogflow for an intelligent chatbot, creating a seamless and engaging user experience.",
+  "scripts": {
+    "start": "concurrently \"npm run start-api\" \"npm run start-client\"",
+    "start-api": "cd api && npm install && node index.js",
+    "start-client": "cd client && npm install && npm run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
