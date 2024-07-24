@@ -17,9 +17,6 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8800;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const path=require('path')
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
