@@ -1,8 +1,5 @@
 import express from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
