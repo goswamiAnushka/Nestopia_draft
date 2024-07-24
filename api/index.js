@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
@@ -21,12 +22,12 @@ const app = express();
 const port = process.env.PORT || 8800;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
+const path=require('path')
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST'],
     credentials: true,
   },
 });
@@ -37,12 +38,21 @@ const prisma = new PrismaClient();
 
 // Middleware
 app.use(cors({ origin: process.env.CLIENT_URL, methods: ["POST", "GET"], credentials: true }));
-app.use(express.static(join(__dirname, '../client/dist')));
-;
+const __dirname1=path.resolve();
+if(process.env.NODE_ENV==='production'){
+  app.use(express.static(path.join(__dirname1,'/client/dist')));
+  app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(__dirname1,"client","dist","index.html"))
+  })
+}else {
+  app.get("/",(req,res)=>{
+    res.send("Hello World");
+  });
+}
+ 
 
-app.get('/', (req, res) => {
-  res.sendFile(join(__dirname, '../client/dist/index.html'));
-});
+
+
 
 app.use(express.json());
 app.use(cookieParser());
