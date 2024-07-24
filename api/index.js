@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { PrismaClient } from '@prisma/client';
@@ -25,7 +26,6 @@ const io = new Server(server, {
   },
 });
 
-
 // Initialize Prisma Client
 const prisma = new PrismaClient();
 
@@ -33,19 +33,14 @@ const prisma = new PrismaClient();
 app.use(cors({
   origin: process.env.CLIENT_URL, // Ensure this matches your Netlify domain
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials
+  credentials: true,
 }));
-
-app.get("/",(req,res)=>{
-    res.send("Hello World");
-  });
- 
-
-
-
 
 app.use(express.json());
 app.use(cookieParser());
+
+// Serve static files from the 'client/dist' directory
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Routes
 app.use("/api/auth", authRoute);
