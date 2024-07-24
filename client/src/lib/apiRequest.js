@@ -1,7 +1,8 @@
+// apiRequest.js
 import axios from "axios";
 
 const apiRequest = axios.create({
-  baseURL: "https://nestopia-draft-8.onrender.com/api", // Adjusted to your deployed backend URL
+  baseURL: process.env.REACT_APP_API_URL, // Use environment variable
   withCredentials: true,
 });
 

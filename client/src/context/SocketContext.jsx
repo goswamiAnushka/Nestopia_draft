@@ -9,7 +9,8 @@ export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io("https://nestopia-draft-8.onrender.com"));
+    const socketUrl = process.env.REACT_APP_SOCKET_URL;
+    setSocket(io(socketUrl));
   }, []);
 
   useEffect(() => {
