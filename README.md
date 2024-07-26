@@ -42,7 +42,7 @@
     cd nestopia
     ```
 
-2. **Install Dependencies**
+2. **Install Dependencies for each api and client directory**
 
     ```bash
     npm install
