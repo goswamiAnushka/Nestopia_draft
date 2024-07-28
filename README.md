@@ -114,7 +114,7 @@
 - **Postman Collection**: Test APIs using the provided Postman collection.
 
 ## Screenshots
-Homepage:
+Homepage abd filtering:
 
 ![Untitled design (5)](https://github.com/user-attachments/assets/16665a39-065e-4eca-8f0f-e9e00d917723)
 
