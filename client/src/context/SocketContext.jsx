@@ -9,8 +9,7 @@ export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socketUrl = process.env.REACT_APP_SOCKET_URL;
-    setSocket(io(socketUrl));
+    setSocket(io("http://localhost:8800"));
   }, []);
 
   useEffect(() => {

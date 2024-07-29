@@ -1,26 +1,19 @@
 import prisma from "../lib/prisma.js";
-import bcrypt from "bcryptjs";
 
-// Get all chats for a user
 export const getChats = async (req, res) => {
   const tokenUserId = req.userId;
 
   try {
     const chats = await prisma.chat.findMany({
       where: {
-        users: {
-          some: {
-            userId: tokenUserId,
-          },
+        userIDs: {
+          hasSome: [tokenUserId],
         },
-      },
-      include: {
-        users: true,
       },
     });
 
     for (const chat of chats) {
-      const receiverId = chat.users.find((user) => user.userId !== tokenUserId).userId;
+      const receiverId = chat.userIDs.find((id) => id !== tokenUserId);
 
       const receiver = await prisma.user.findUnique({
         where: {
@@ -42,7 +35,6 @@ export const getChats = async (req, res) => {
   }
 };
 
-// Get a specific chat
 export const getChat = async (req, res) => {
   const tokenUserId = req.userId;
 
@@ -50,6 +42,9 @@ export const getChat = async (req, res) => {
     const chat = await prisma.chat.findUnique({
       where: {
         id: req.params.id,
+        userIDs: {
+          hasSome: [tokenUserId],
+        },
       },
       include: {
         messages: {
@@ -57,13 +52,8 @@ export const getChat = async (req, res) => {
             createdAt: "asc",
           },
         },
-        users: true,
       },
     });
-
-    if (!chat.users.some(user => user.userId === tokenUserId)) {
-      return res.status(403).json({ message: "Not authorized to view this chat!" });
-    }
 
     await prisma.chat.update({
       where: {
@@ -71,7 +61,7 @@ export const getChat = async (req, res) => {
       },
       data: {
         seenBy: {
-          push: tokenUserId,
+          push: [tokenUserId],
         },
       },
     });
@@ -82,21 +72,12 @@ export const getChat = async (req, res) => {
   }
 };
 
-// Add a new chat
 export const addChat = async (req, res) => {
   const tokenUserId = req.userId;
   try {
     const newChat = await prisma.chat.create({
       data: {
-        users: {
-          create: [
-            { userId: tokenUserId },
-            { userId: req.body.receiverId },
-          ],
-        },
-      },
-      include: {
-        users: true,
+        userIDs: [tokenUserId, req.body.receiverId],
       },
     });
     res.status(200).json(newChat);
@@ -106,29 +87,24 @@ export const addChat = async (req, res) => {
   }
 };
 
-// Mark chat as read
 export const readChat = async (req, res) => {
   const tokenUserId = req.userId;
 
+  
   try {
     const chat = await prisma.chat.update({
       where: {
         id: req.params.id,
+        userIDs: {
+          hasSome: [tokenUserId],
+        },
       },
       data: {
         seenBy: {
           set: [tokenUserId],
         },
       },
-      include: {
-        users: true,
-      },
     });
-
-    if (!chat.users.some(user => user.userId === tokenUserId)) {
-      return res.status(403).json({ message: "Not authorized to read this chat!" });
-    }
-
     res.status(200).json(chat);
   } catch (err) {
     console.log(err);

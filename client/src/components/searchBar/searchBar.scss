@@ -2,6 +2,8 @@
 
 .searchBar {
   .type {
+
+
     button {
       padding: 16px 36px;
       border: 1px solid #999;
@@ -39,8 +41,9 @@
       flex-direction: column;
       border: none;
     }
-    @include md {
+    @include md{
       margin-left: 2px;
+
     }
 
     input {
@@ -58,21 +61,20 @@
       }
       @include md {
         width: 200px;
-
         &:nth-child(2),
         &:nth-child(3) {
           width: 200px;
         }
       }
-      @include sm {
-        width: auto;
-        padding: 20px;
-        border: 1px solid #999; // Move this declaration above nested rules
 
+      @include sm{
+        width: auto;
         &:nth-child(2),
         &:nth-child(3) {
           width: auto;
         }
+        padding: 20px;
+        border: 1px solid #999;
       }
     }
 
@@ -82,7 +84,7 @@
       background-color: #fece51;
       flex: 1;
 
-      @include sm {
+      @include sm{
         padding: 10px;
       }
 

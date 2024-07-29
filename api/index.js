@@ -1,31 +1,26 @@
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import { PrismaClient } from '@prisma/client';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
-import authRoute from './routes/auth.route.js';
-import postRoute from './routes/post.route.js';
-import testRoute from './routes/test.route.js';
-import userRoute from './routes/user.route.js';
-import chatRoute from './routes/chat.route.js';
-import messageRoute from './routes/message.route.js';
-import dotenv from 'dotenv';
+import { createServer } from "http";
+import { Server } from "socket.io";
+import authRoute from "./routes/auth.route.js";
+import postRoute from "./routes/post.route.js";
+import testRoute from "./routes/test.route.js";
+import userRoute from "./routes/user.route.js";
+import chatRoute from "./routes/chat.route.js";
+import messageRoute from "./routes/message.route.js";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const app = express();
 const port = process.env.PORT || 8800;
+
 const server = createServer(app); // Create an HTTP server
 const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST'],
     credentials: true,
   },
 });
@@ -34,21 +29,9 @@ const io = new Server(server, {
 const prisma = new PrismaClient();
 
 // Middleware
-app.use(cors({
-  origin: process.env.CLIENT_URL, // Ensure this matches your Netlify domain
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}));
-
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-
-// Serve static files from the dist directory
-app.use(express.static(path.join(__dirname, '../client/dist')));
-// Serve frontend application
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-});
 
 // Routes
 app.use("/api/auth", authRoute);
@@ -57,6 +40,7 @@ app.use("/api/posts", postRoute);
 app.use("/api/test", testRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
+// Ticket route
 
 // Health check route
 app.get("/api/health", (req, res) => {
@@ -80,19 +64,22 @@ app.post('/webhook', async (req, res) => {
       });
   }
 });
-
 const handleGetPropertyDetails = async (req, res) => {
   try {
+    // Extract postId from Dialogflow's parameters
     const postId = req.body.queryResult.parameters.postId;
 
+    // Ensure postId is properly extracted and logged for debugging
     console.log("Received postId:", postId);
 
+    // Check if postId is present and valid
     if (!postId) {
       return res.json({
         fulfillmentText: "No postId provided",
       });
     }
 
+    // Attempt to fetch property details using Prisma
     const post = await prisma.post.findUnique({
       where: {
         id: postId,
@@ -102,6 +89,7 @@ const handleGetPropertyDetails = async (req, res) => {
       },
     });
 
+    // If post found, construct response
     if (post) {
       const details = post.postDetail;
       const responseText = `Property Details:
@@ -127,6 +115,7 @@ Nearby Restaurants: ${details ? details.restaurant : 'N/A'}
         fulfillmentText: responseText,
       });
     } else {
+      // If no post found with the given postId
       res.json({
         fulfillmentText: `No property found with ID: ${postId}`,
       });

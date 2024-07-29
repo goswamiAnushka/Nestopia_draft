@@ -1,5 +1,6 @@
 import prisma from "../lib/prisma.js";
 import bcrypt from "bcryptjs";
+
 export const getUsers = async (req, res) => {
   try {
     const users = await prisma.user.findMany();
@@ -10,7 +11,6 @@ export const getUsers = async (req, res) => {
   }
 };
 
-// Get a specific user
 export const getUser = async (req, res) => {
   const id = req.params.id;
   try {
@@ -24,7 +24,6 @@ export const getUser = async (req, res) => {
   }
 };
 
-// Update user details
 export const updateUser = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -58,7 +57,6 @@ export const updateUser = async (req, res) => {
   }
 };
 
-// Delete a user
 export const deleteUser = async (req, res) => {
   const id = req.params.id;
   const tokenUserId = req.userId;
@@ -78,7 +76,6 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-// Save or unsave a post
 export const savePost = async (req, res) => {
   const postId = req.body.postId;
   const tokenUserId = req.userId;
@@ -115,7 +112,6 @@ export const savePost = async (req, res) => {
   }
 };
 
-// Get profile posts
 export const profilePosts = async (req, res) => {
   const tokenUserId = req.userId;
   try {
@@ -136,32 +132,25 @@ export const profilePosts = async (req, res) => {
     res.status(500).json({ message: "Failed to get profile posts!" });
   }
 };
+
 export const getNotificationNumber = async (req, res) => {
   const tokenUserId = req.userId;
-  console.log(`Fetching notifications for user ID: ${tokenUserId}`);
-
   try {
-    const userId = req.user.id;
-
-    const count = await prisma.chat.count({
+    const number = await prisma.chat.count({
       where: {
-        users: {
-          some: {
-            userId: tokenUserId,
-          },
+        userIDs: {
+          hasSome: [tokenUserId],
         },
         NOT: {
           seenBy: {
-            has: tokenUserId,
+            hasSome: [tokenUserId],
           },
         },
       },
     });
-
-    console.log(`Notification count for user ID ${tokenUserId}: ${number}`);
     res.status(200).json(number);
   } catch (err) {
-    console.log(`Error fetching notifications: ${err.message}`);
-    res.status(500).json({ message: "Failed to get notifications!" });
+    console.log(err);
+    res.status(500).json({ message: "Failed to get profile posts!" });
   }
 };
