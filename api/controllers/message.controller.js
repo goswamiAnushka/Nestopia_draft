@@ -1,4 +1,3 @@
-// message.controller.js
 import prisma from "../lib/prisma.js";
 import cloudinary from "../cloudinaryConfig.js";
 
@@ -9,19 +8,21 @@ export const addMessage = async (req, res) => {
   const mediaUrl = req.file ? req.file.path : null; // Ensure the correct property for the Cloudinary URL
 
   try {
+    // Fetch the chat and verify if the user is part of the chat
     const chat = await prisma.chat.findUnique({
       where: {
         id: chatId,
       },
-      select: {
-        userIDs: true,
+      include: {
+        users: true, // Include users to check if the tokenUserId is part of the chat
       },
     });
 
-    if (!chat || !chat.userIDs.includes(tokenUserId)) {
-      return res.status(404).json({ message: "Chat not found!" });
+    if (!chat || !chat.users.some(user => user.userId === tokenUserId)) {
+      return res.status(404).json({ message: "Chat not found or user not authorized!" });
     }
 
+    // Create a new message
     const message = await prisma.message.create({
       data: {
         text,
@@ -31,13 +32,14 @@ export const addMessage = async (req, res) => {
       },
     });
 
+    // Update the chat with the latest message and mark it as seen by the user
     await prisma.chat.update({
       where: {
         id: chatId,
       },
       data: {
         seenBy: {
-          set: [tokenUserId],
+          push: tokenUserId,
         },
         lastMessage: text,
       },
